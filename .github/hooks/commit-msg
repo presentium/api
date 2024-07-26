@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd "$(git rev-parse --show-toplevel)/gradle/commitizen" || exit 1
+npm ci --prefer-offline --no-audit
+
+npm run hook:commit-msg -- --edit $1

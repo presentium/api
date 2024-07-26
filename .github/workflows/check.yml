@@ -1,0 +1,32 @@
+name: Continuous Integration > Unit Testing + Linting + Formatting
+
+on:
+  pull_request:
+  push: { branches: [ main, dev ] }
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  run-spotless:
+    name: Check linting + formatting with Spotless
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java env 🏗
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          check-latest: true
+          cache: gradle
+
+      - name: Setup Gradle 🪓
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Run check task 🧪
+        run: ./gradlew check

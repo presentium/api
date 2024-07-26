@@ -1,0 +1,20 @@
+name: Continuous Integration > Commit messages
+
+on: [pull_request]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    name: Check commit messages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run commitlint 🚦
+        uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: gradle/commitizen/commitlint.config.mjs
