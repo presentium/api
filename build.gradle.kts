@@ -1,3 +1,6 @@
+import com.diffplug.spotless.LineEnding
+import java.nio.charset.StandardCharsets
+
 plugins {
     java
     id("org.springframework.boot") version "3.3.2"
@@ -83,6 +86,9 @@ spotless {
         ratchetFrom(ref.trim())
     }
 
+    lineEndings = LineEnding.UNIX
+    encoding = StandardCharsets.UTF_8
+
     format("misc") {
         target("**/*.{md,gitignore,properties}")
         trimTrailingWhitespace()
@@ -93,6 +99,8 @@ spotless {
     java {
         target("**/*.java")
         targetExclude("build/generated/**/*")
+
+        toggleOffOn()
 
         // Import sorting and cleaning
         importOrder()
