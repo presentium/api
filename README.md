@@ -19,13 +19,34 @@ The project is built with [Gradle](https://gradle.org/).
 The API documentation is available at [api.presentium.ch/swagger-ui.html](https://api.presentium.ch/swagger-ui.html).
 It is built automatically using [Springdoc](https://springdoc.org/) and available on the local instance as well.
 
-## Development Server
+## Development
 
 Start the development server on `http://localhost:13000`:
 
 ```bash
 ./gradlew bootRun
 ```
+
+### Development Tips
+
+#### Database migrations
+
+When changing the database model, one should ensure that the changes are correctly defined in the Liquibase migrations.
+
+Liquibase migrations shall always be placed under the app version they are being introduced. They can be found in the
+`src/main/resources/db/changelog` directory.
+
+Migration files are named with a prefix that corresponds to the GitHub Issue number that the task is related to, followed
+by a short description of the task. For example, `GH-1_add-users-table.xml`.
+
+Each version directory contains a local `_changelog.yaml` file that should be referenced in the main `changelog.yaml` file.
+
+> [!NOTE]
+> We use `YAML` files for indexes as it is easier to follow when there is only simple references.
+> For actual changelog files, please use the `XML` format, as it makes sure the changes can be correctly validated.
+
+To help with creating changelog files, a unit test `DDLGeneratorTest` should be run once. It will generate the DDL in
+`sql/ddl/create.sql`, which can be used as a reference for the new changelog file (for example by using diffs).
 
 ## Continuous Delivery
 

@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: GH-1_example.xml
+      relativeToChangelogFile: true

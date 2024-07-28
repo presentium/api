@@ -67,17 +67,31 @@ spotless {
     }
 
     format("misc") {
-        target("**/*.{md,gitignore}")
+        target("**/*.{md,gitignore,properties}")
         trimTrailingWhitespace()
-        indentWithTabs()
+        indentWithSpaces()
         endWithNewline()
     }
 
     java {
+        target("**/*.java")
+        targetExclude("build/generated/**/*")
+
+        // Import sorting and cleaning
         importOrder()
         removeUnusedImports()
+
+        // generic refactorings
         cleanthat()
+
+        // Google prettier-like formatting
         googleJavaFormat("1.22.0").reorderImports(false)
+
+        // Reformat using 4 spaces
+        indentWithTabs(2)
+        indentWithSpaces(4)
+
+        // Reorganize type annotations
         formatAnnotations()
     }
 
