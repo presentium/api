@@ -1,1 +1,4 @@
 * @presentium/applicative
+gradle/commitizen @lutonite
+gradle/tasks @lutonite
+*.gradle.kts @lutonite
