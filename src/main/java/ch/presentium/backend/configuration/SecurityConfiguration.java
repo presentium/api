@@ -37,6 +37,21 @@ public class SecurityConfiguration {
   }
 
   @Bean
+  public JwtAuthenticationConverter jwtAuthenticationConverter() {
+    var scopeDelegate = new JwtGrantedAuthoritiesConverter();
+    var roleDelegate = new JwtGrantedAuthoritiesConverter();
+    roleDelegate.setAuthoritiesClaimName("roles");
+    roleDelegate.setAuthorityPrefix("ROLE_");
+
+    var jwtAuthenticationConverter = new JwtAuthenticationConverter();
+    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
+        jwt ->
+            Stream.concat(scopeDelegate.convert(jwt).stream(), roleDelegate.convert(jwt).stream())
+                .toList());
+    return jwtAuthenticationConverter;
+  }
+
+  @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpConfigurer) throws Exception {
     // spotless:off
     return httpConfigurer
@@ -51,20 +66,5 @@ public class SecurityConfiguration {
       .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
       .build();
     // spotless:on
-  }
-
-  @Bean
-  public JwtAuthenticationConverter jwtAuthenticationConverter() {
-    var scopeDelegate = new JwtGrantedAuthoritiesConverter();
-    var roleDelegate = new JwtGrantedAuthoritiesConverter();
-    roleDelegate.setAuthoritiesClaimName("roles");
-    roleDelegate.setAuthorityPrefix("ROLE_");
-
-    var jwtAuthenticationConverter = new JwtAuthenticationConverter();
-    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
-        jwt ->
-            Stream.concat(scopeDelegate.convert(jwt).stream(), roleDelegate.convert(jwt).stream())
-                .toList());
-    return jwtAuthenticationConverter;
   }
 }
