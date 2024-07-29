@@ -8,6 +8,7 @@ plugins {
   id("io.spring.dependency-management") version "1.1.6"
   id("org.hibernate.orm") version "6.5.2.Final"
   id("org.graalvm.buildtools.native") version "0.10.2"
+  id("io.freefair.lombok") version "8.6"
   id("com.diffplug.spotless") version "6.25.0"
 }
 
@@ -49,8 +50,6 @@ dependencies {
   runtimeOnly("org.postgresql:postgresql")
 
   // Utils
-  compileOnly("org.projectlombok:lombok")
-  annotationProcessor("org.projectlombok:lombok")
   implementation("org.mapstruct:mapstruct:1.5.5.Final")
   annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 

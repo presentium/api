@@ -1,13 +1,11 @@
 package ch.presentium.backend.security;
 
-import java.util.Arrays;
 import java.util.Set;
-import java.util.stream.Stream;
-import org.springframework.security.core.authority.AuthorityUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 
 /**
@@ -19,30 +17,26 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
  * @see WithMockTeacherUser
  * @see WithMockStudentUser
  */
+@RequiredArgsConstructor
 public class WithMockAuthenticatedUserSecurityContextFactory
     implements WithSecurityContextFactory<WithMockAuthenticatedUser> {
+
+  private final JwtAuthenticationConverter jwtAuthenticationConverter;
 
   @Override
   public SecurityContext createSecurityContext(WithMockAuthenticatedUser annotation) {
     SecurityContext context = SecurityContextHolder.createEmptyContext();
 
     var scope = Set.of("openid", "profile", "roles");
-    var auth =
-        new JwtAuthenticationToken(
-            Jwt.withTokenValue("token")
-                .header("alg", "none")
-                .claim("sub", annotation.username())
-                .claim("scope", scope)
-                .claim("roles", Set.of(annotation.roles()))
-                .build(),
-            AuthorityUtils.createAuthorityList(
-                Stream.concat(
-                        scope.stream().map(s -> "SCOPE_" + s),
-                        Arrays.stream(annotation.roles()).map(r -> "ROLE_" + r))
-                    .toArray(String[]::new)),
-            annotation.username());
+    var jwt =
+        Jwt.withTokenValue("token")
+            .header("alg", "none")
+            .claim("sub", annotation.username())
+            .claim("scope", scope)
+            .claim("roles", Set.of(annotation.roles()))
+            .build();
 
-    context.setAuthentication(auth);
+    context.setAuthentication(jwtAuthenticationConverter.convert(jwt));
     return context;
   }
 }
