@@ -90,7 +90,7 @@ class SecurityConfigurationIntegrationTest extends AbstractCommonTest {
 
     @Test
     void whenStudentOnly_thenForbidden() throws Exception {
-      api.perform(get("/student-only")).andExpect(status().isForbidden());
+      api.perform(get("/student-only")).andExpect(status().isOk());
     }
 
     @Test
@@ -116,12 +116,12 @@ class SecurityConfigurationIntegrationTest extends AbstractCommonTest {
 
     @Test
     void whenStudentOnly_thenForbidden() throws Exception {
-      api.perform(get("/student-only")).andExpect(status().isForbidden());
+      api.perform(get("/student-only")).andExpect(status().isOk());
     }
 
     @Test
     void whenTeacherOnly_thenForbidden() throws Exception {
-      api.perform(get("/teacher-only")).andExpect(status().isForbidden());
+      api.perform(get("/teacher-only")).andExpect(status().isOk());
     }
 
     @Test

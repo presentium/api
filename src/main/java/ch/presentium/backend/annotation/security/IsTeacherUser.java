@@ -13,5 +13,5 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@PreAuthorize("hasRole('teacher')")
+@PreAuthorize("hasAnyRole('teacher', 'admin')")
 public @interface IsTeacherUser {}
