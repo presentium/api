@@ -43,7 +43,8 @@ connection details to the application context.
 > When testing, either manually or in integration / end-to-end tests, you can use the `TestcontainersConfiguration` which
 > provides the same environment as the local development setup, but it is volatile and is reset between each runs.
 > 
-> A Spring runner is also configured to use the Testcontainers configuration in `TestPresentiumApiApplication`.
+> A Spring runner is also configured to use the Testcontainers configuration in `TestPresentiumApiApplication`. Which
+> can be started using the `./gradlew bootTestRun` command.
 
 #### Database migrations
 
@@ -64,6 +65,13 @@ file.
 
 To help with creating changelog files, a unit test `DDLGeneratorTest` should be run once. It will generate the DDL in
 `sql/ddl/create.sql`, which can be used as a reference for the new changelog file (for example by using diffs).
+
+#### Testing secured endpoints
+
+In theory, all endpoints should require authentication, but the access level can be changed depending
+on if it is reserved for teachers or teacher and students. To test these endpoints, you can use the
+`@WithMockAuthenticatedUser` annotation and sub-annotations, like `@WithMockTeacherUser`, 
+`@WithMockStudentUser`, or `@WithMockAdminUser`.
 
 ## Continuous Delivery
 

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Presentium Testing :: User Select</title>
+
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="container">
+  <div class="row mt-5 justify-content-md-center">
+    <div class="col-md-5">
+      <form method="post">
+        <h4>Presentium - Mock OIDC :: User Select</h4>
+        <hr class="divisor">
+
+        <div class="form-group">
+          <label for="user-select">Choose a user</label>
+          <select class="form-control" id="user-select" autofocus>
+            <option
+              value="student"
+              data-username="student"
+              data-claims="{&quot;roles&quot;:[&quot;student&quot;]}"
+            >
+              Student
+            </option>
+            <option
+              value="teacher"
+              data-username="teacher"
+              data-claims="{&quot;roles&quot;:[&quot;teacher&quot;]}"
+            >
+              Teacher
+            </option>
+            <option
+              value="admin"
+              data-username="admin"
+              data-claims="{&quot;roles&quot;:[&quot;admin&quot;]}"
+            >
+              Administrator
+            </option>
+          </select>
+        </div>
+
+        <input type="hidden" name="username">
+        <input type="hidden" name="claims">
+
+        <button type="submit" class="btn btn-primary topBtn">Sign-in</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $('#user-select').change(function () {
+      const selectedOption = $(this).find('option:selected');
+      $('input[name="username"]').val(selectedOption.data('username'));
+      $('input[name="claims"]').val(JSON.stringify(selectedOption.data('claims')));
+    });
+  });
+</script>
+</body>
+</html>
