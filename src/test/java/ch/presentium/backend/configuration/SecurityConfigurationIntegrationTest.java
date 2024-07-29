@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Import({MockDatabaseConfiguration.class, SecurityConfiguration.class, FixtureController.class})
+@Import({MockDatabaseConfiguration.class, FixtureController.class})
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 class SecurityConfigurationIntegrationTest extends AbstractCommonTest {

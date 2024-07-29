@@ -3,20 +3,23 @@ package ch.presentium.backend.configuration;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.util.List;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
+import java.util.stream.Stream;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-@AutoConfiguration
+@Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration {
@@ -46,13 +49,24 @@ public class SecurityConfiguration {
           .requestMatchers("/v1/auth/**", "/oauth2/authorization/**").permitAll()
           .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/api-docs", "/api-docs/**").permitAll()
           .anyRequest().authenticated())
-      .sessionManagement(
-        session -> session
-          .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-      .oauth2ResourceServer(
-        oauth2 -> oauth2
-          .jwt(withDefaults()))
+      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+      .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
       .build();
     // spotless:on
+  }
+
+  @Bean
+  public JwtAuthenticationConverter jwtAuthenticationConverter() {
+    var scopeDelegate = new JwtGrantedAuthoritiesConverter();
+    var roleDelegate = new JwtGrantedAuthoritiesConverter();
+    roleDelegate.setAuthoritiesClaimName("roles");
+    roleDelegate.setAuthorityPrefix("ROLE_");
+
+    var jwtAuthenticationConverter = new JwtAuthenticationConverter();
+    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
+        jwt ->
+            Stream.concat(scopeDelegate.convert(jwt).stream(), roleDelegate.convert(jwt).stream())
+                .toList());
+    return jwtAuthenticationConverter;
   }
 }
