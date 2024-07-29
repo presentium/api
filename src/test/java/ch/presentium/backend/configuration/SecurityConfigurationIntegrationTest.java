@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import ch.presentium.backend.AbstractCommonTest;
 import ch.presentium.backend.MockDatabaseConfiguration;
+import ch.presentium.backend.annotation.security.IsAdminUser;
+import ch.presentium.backend.annotation.security.IsStudentUser;
+import ch.presentium.backend.annotation.security.IsTeacherUser;
 import ch.presentium.backend.configuration.SecurityConfigurationIntegrationTest.FixtureController;
 import ch.presentium.backend.security.WithMockAdminUser;
 import ch.presentium.backend.security.WithMockStudentUser;
@@ -19,7 +22,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -132,15 +134,15 @@ class SecurityConfigurationIntegrationTest extends AbstractCommonTest {
   static class FixtureController {
 
     @GetMapping("/student-only")
-    @PreAuthorize("hasRole('student')")
+    @IsStudentUser
     public void studentOnly() {}
 
     @GetMapping("/teacher-only")
-    @PreAuthorize("hasRole('teacher')")
+    @IsTeacherUser
     public void teacherOnly() {}
 
     @GetMapping("/admin-only")
-    @PreAuthorize("hasRole('admin')")
+    @IsAdminUser
     public void adminOnly() {}
   }
 }
