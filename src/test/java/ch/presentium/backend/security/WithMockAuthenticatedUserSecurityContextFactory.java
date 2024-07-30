@@ -1,6 +1,8 @@
 package ch.presentium.backend.security;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,9 +32,13 @@ public class WithMockAuthenticatedUserSecurityContextFactory
         var scope = Set.of("openid", "profile", "roles");
         var jwt = Jwt.withTokenValue("token")
             .header("alg", "none")
-            .claim("sub", annotation.username())
+            .claim("sub", UUID.nameUUIDFromBytes(annotation.username().getBytes(StandardCharsets.UTF_8)).toString())
             .claim("scope", scope)
             .claim("roles", Set.of(annotation.roles()))
+            .claim("username", annotation.username())
+            .claim("email", "%s@test.presentium.ch".formatted(annotation.username()))
+            .claim("given_name", "John")
+            .claim("family_name", "Doe")
             .build();
 
         context.setAuthentication(jwtAuthenticationConverter.convert(jwt));

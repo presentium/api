@@ -23,12 +23,12 @@ public @interface WithMockAuthenticatedUser {
      *
      * @return the username.
      */
-    String username();
+    String username() default "user";
 
     /**
      * The roles that the user has. Presentium supports 'student', 'teacher', and 'admin'.
      *
      * @return the roles.
      */
-    String[] roles();
+    String[] roles() default {};
 }

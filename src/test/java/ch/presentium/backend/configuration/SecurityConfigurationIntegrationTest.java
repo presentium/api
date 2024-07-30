@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import ch.presentium.backend.AbstractCommonTest;
-import ch.presentium.backend.MockDatabaseConfiguration;
 import ch.presentium.backend.annotation.security.IsAdminUser;
 import ch.presentium.backend.annotation.security.IsStudentUser;
 import ch.presentium.backend.annotation.security.IsTeacherUser;
@@ -26,7 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Import({ MockDatabaseConfiguration.class, FixtureController.class })
+@Import({ FixtureController.class })
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 class SecurityConfigurationIntegrationTest extends AbstractCommonTest {

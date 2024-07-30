@@ -66,6 +66,31 @@ file.
 To help with creating changelog files, a unit test `DDLGeneratorTest` should be run once. It will generate the DDL in
 `sql/ddl/create.sql`, which can be used as a reference for the new changelog file (for example by using diffs).
 
+#### API / Business separation
+
+This application is split into standard layers. The business layer shall be responsible of handling
+the business model and its logic (using entities, repositories, services, etc.), while the API layer
+shall be responsible for handling API calls and responses. 
+
+Therefore, the application should mainly work using business entities at all times, and the API layer
+will use mappers to convert said business entities to view models that represent exposed information.
+The API also defines request bodies for request requiring it, using mappers to convert them to business
+entities straight away.
+
+Controllers are responsible for opening transactions, calling services, and returning the response. 
+They are responsible for ensuring that the user making the call is authorized to do so, validating
+that the sent data is correct, then calling the business service to perform the operation. If the
+business service sends a response, the controller should convert it to a view model and return it,
+handling any exceptions should one arise.
+
+##### File structure
+
+- `api` package contains the API layer, with controllers, mappers, and view models.
+- `business` package contains the business layer, with entities, repositories, services, and mappers.
+
+Inside packages, we try to separate concerns by their business domain. For example, the `user` domain
+is held in `api.user` for the API layer, and `business.model.user` for the data domain.
+
 #### Testing secured endpoints
 
 In theory, all endpoints should require authentication, but the access level can be changed depending
