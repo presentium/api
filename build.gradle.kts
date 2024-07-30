@@ -116,9 +116,19 @@ spotless {
     cleanthat()
 
     // Google prettier-like formatting
-    googleJavaFormat("1.22.0")
-      .reorderImports(false)
-      .reflowLongStrings()
+    prettier(
+      mapOf(
+        "prettier" to "3.3.3",
+        "prettier-plugin-java" to "2.6.4",
+      ),
+    ).config(
+      mapOf(
+        "parser" to "java",
+        "tabWidth" to 4,
+        "printWidth" to 120,
+        "plugins" to listOf("prettier-plugin-java"),
+      ),
+    )
 
     // Reorganize type annotations
     formatAnnotations()

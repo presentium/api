@@ -9,16 +9,13 @@ import org.springframework.core.annotation.AliasFor;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@WithMockAuthenticatedUser(
-    username = "student",
-    roles = {"student"})
+@WithMockAuthenticatedUser(username = "student", roles = { "student" })
 public @interface WithMockStudentUser {
+    /** Alias for {@link WithMockAuthenticatedUser#username()}. */
+    @AliasFor(annotation = WithMockAuthenticatedUser.class)
+    String username() default "student";
 
-  /** Alias for {@link WithMockAuthenticatedUser#username()}. */
-  @AliasFor(annotation = WithMockAuthenticatedUser.class)
-  String username() default "student";
-
-  /** Alias for {@link WithMockAuthenticatedUser#roles()}. */
-  @AliasFor(annotation = WithMockAuthenticatedUser.class)
-  String[] roles() default {"student"};
+    /** Alias for {@link WithMockAuthenticatedUser#roles()}. */
+    @AliasFor(annotation = WithMockAuthenticatedUser.class)
+    String[] roles() default { "student" };
 }

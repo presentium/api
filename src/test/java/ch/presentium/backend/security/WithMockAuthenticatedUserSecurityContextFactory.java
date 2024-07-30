@@ -21,22 +21,21 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 public class WithMockAuthenticatedUserSecurityContextFactory
     implements WithSecurityContextFactory<WithMockAuthenticatedUser> {
 
-  private final JwtAuthenticationConverter jwtAuthenticationConverter;
+    private final JwtAuthenticationConverter jwtAuthenticationConverter;
 
-  @Override
-  public SecurityContext createSecurityContext(WithMockAuthenticatedUser annotation) {
-    SecurityContext context = SecurityContextHolder.createEmptyContext();
+    @Override
+    public SecurityContext createSecurityContext(WithMockAuthenticatedUser annotation) {
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
 
-    var scope = Set.of("openid", "profile", "roles");
-    var jwt =
-        Jwt.withTokenValue("token")
+        var scope = Set.of("openid", "profile", "roles");
+        var jwt = Jwt.withTokenValue("token")
             .header("alg", "none")
             .claim("sub", annotation.username())
             .claim("scope", scope)
             .claim("roles", Set.of(annotation.roles()))
             .build();
 
-    context.setAuthentication(jwtAuthenticationConverter.convert(jwt));
-    return context;
-  }
+        context.setAuthentication(jwtAuthenticationConverter.convert(jwt));
+        return context;
+    }
 }

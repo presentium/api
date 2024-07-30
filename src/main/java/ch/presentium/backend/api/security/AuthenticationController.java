@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/v1/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
-  @GetMapping("/@me")
-  public ResponseEntity<String> getAuthenticatedUser() {
-    // TODO [lh] create real User metadata
-    return ResponseEntity.ok(SecurityContextHolder.getContext().toString());
-  }
+    @GetMapping("/@me")
+    public ResponseEntity<String> getAuthenticatedUser() {
+        // TODO [lh] create real User metadata
+        return ResponseEntity.ok(SecurityContextHolder.getContext().toString());
+    }
 }
