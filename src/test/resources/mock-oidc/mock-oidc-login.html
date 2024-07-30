@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Presentium Testing :: User Select</title>
+
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="container">
+  <div class="row mt-5 justify-content-md-center">
+    <div class="col-md-5">
+      <form method="post">
+        <h4>Presentium - Mock OIDC :: User Select</h4>
+        <hr class="divisor">
+
+        <div class="form-group">
+          <label for="user-select">Choose a user</label>
+          <select class="form-control" id="user-select" autofocus>
+            <option
+              value="student"
+              data-username="1c6ea12b-70b7-4fef-8c04-b22137b1cf1e"
+              data-claims="{&quot;roles&quot;:[&quot;student&quot;],&quot;username&quot;:&quot;student&quot;,&quot;email&quot;:&quot;student@test.presentium.ch&quot;,&quot;given_name&quot;:&quot;Alice&quot;,&quot;family_name&quot;:&quot;Student&quot;}"
+            >
+              Student
+            </option>
+            <option
+              value="teacher"
+              data-username="ce5f7802-930c-4311-81ce-30b0ba3d2fa6"
+              data-claims="{&quot;roles&quot;:[&quot;teacher&quot;],&quot;username&quot;:&quot;teacher&quot;,&quot;email&quot;:&quot;teacher@test.presentium.ch&quot;,&quot;given_name&quot;:&quot;Bob&quot;,&quot;family_name&quot;:&quot;Teacher&quot;}"
+            >
+              Teacher
+            </option>
+            <option
+              value="admin"
+              data-username="a8432620-7d67-4572-a7b5-66b8be682b09"
+              data-claims="{&quot;roles&quot;:[&quot;admin&quot;],&quot;username&quot;:&quot;admin&quot;,&quot;email&quot;:&quot;admin@test.presentium.ch&quot;,&quot;given_name&quot;:&quot;Charlie&quot;,&quot;family_name&quot;:&quot;Administrator&quot;}"
+            >
+              Administrator
+            </option>
+          </select>
+        </div>
+
+        <input type="hidden" name="username">
+        <input type="hidden" name="claims">
+
+        <button type="submit" class="btn btn-primary topBtn">Sign-in</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $('#user-select').change(function () {
+      const selectedOption = $(this).find('option:selected');
+      $('input[name="username"]').val(selectedOption.data('username'));
+      $('input[name="claims"]').val(JSON.stringify(selectedOption.data('claims')));
+    });
+  });
+</script>
+</body>
+</html>

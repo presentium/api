@@ -1,4 +1,4 @@
 databaseChangeLog:
   - include:
-      file: GH-1_example.xml
+      file: GH-2_add-user-table.xml
       relativeToChangelogFile: true

@@ -1,9 +1,13 @@
+import com.diffplug.spotless.LineEnding
+import org.springframework.boot.gradle.tasks.run.BootRun
+import java.nio.charset.StandardCharsets
+
 plugins {
     java
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
     id("org.hibernate.orm") version "6.5.2.Final"
-    id("org.graalvm.buildtools.native") version "0.10.2"
+    id("io.freefair.lombok") version "8.6"
     id("com.diffplug.spotless") version "6.25.0"
 }
 
@@ -16,38 +20,60 @@ java {
     }
 }
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
+    // Spring starters
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+
+    // Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+
+    // Monitoring
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+    // Database
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.liquibase:liquibase-core")
-    implementation("org.springframework.session:spring-session-data-redis")
-    compileOnly("org.projectlombok:lombok")
+    runtimeOnly("org.postgresql:postgresql")
+
+    // Utils
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+
+    // Devtools
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-    runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    annotationProcessor("org.projectlombok:lombok")
+
+    // Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("org.hibernate.orm:hibernate-ant")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("com.h2database:h2")
+
+    // Test containers
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+
+    all {
+        exclude(group = "junit", module = "junit")
+    }
 }
 
 hibernate {
@@ -60,11 +86,27 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+tasks.named<BootRun>("bootRun") {
+    systemProperty("spring.profiles.active", "dev")
+    classpath(configurations["developmentOnly"])
+}
+
+tasks.named<JavaCompile>("compileJava") {
+    options.compilerArgs.addAll(
+        listOf(
+            "-Amapstruct.defaultComponentModel=spring",
+        ),
+    )
+}
+
 spotless {
     val ref = project.properties["ratchetFrom"] as String?
     if (ref != null && ref.trim().isNotEmpty()) {
         ratchetFrom(ref.trim())
     }
+
+    lineEndings = LineEnding.UNIX
+    encoding = StandardCharsets.UTF_8
 
     format("misc") {
         target("**/*.{md,gitignore,properties}")
@@ -77,6 +119,8 @@ spotless {
         target("**/*.java")
         targetExclude("build/generated/**/*")
 
+        toggleOffOn()
+
         // Import sorting and cleaning
         importOrder()
         removeUnusedImports()
@@ -85,11 +129,19 @@ spotless {
         cleanthat()
 
         // Google prettier-like formatting
-        googleJavaFormat("1.22.0").reorderImports(false)
-
-        // Reformat using 4 spaces
-        indentWithTabs(2)
-        indentWithSpaces(4)
+        prettier(
+            mapOf(
+                "prettier" to "3.3.3",
+                "prettier-plugin-java" to "2.6.4",
+            ),
+        ).config(
+            mapOf(
+                "parser" to "java",
+                "tabWidth" to 4,
+                "printWidth" to 120,
+                "plugins" to listOf("prettier-plugin-java"),
+            ),
+        )
 
         // Reorganize type annotations
         formatAnnotations()

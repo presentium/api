@@ -1,7 +1,7 @@
 # Presentium - Backend API
 
-This is the backend API for Presentium, handling connections with the databse, the reader devices and frontend instances.
-It is built with [Spring Boot](https://spring.io/projects/spring-boot) in Java 21.
+This is the backend API for Presentium, handling connections with the databse, the reader devices and frontend
+instances. It is built with [Spring Boot](https://spring.io/projects/spring-boot) in Java 21.
 
 ## Stack
 
@@ -29,6 +29,23 @@ Start the development server on `http://localhost:13000`:
 
 ### Development Tips
 
+#### Local environment
+
+We leverage
+[Spring Boot's Docker Compose module](https://docs.spring.io/spring-boot/reference/features/dev-services.html#features.dev-services.docker-compose)
+to provision the local development environment. This includes a PostgreSQL database, a `dex` server acting as a OIDC
+provider, and a Redis instance for session data and caching.
+
+Running the API server in a development environment will automatically call `docker compose up` and add the necessary
+connection details to the application context.
+
+> [!TIP]
+> When testing, either manually or in integration / end-to-end tests, you can use the `TestcontainersConfiguration` which
+> provides the same environment as the local development setup, but it is volatile and is reset between each runs.
+> 
+> A Spring runner is also configured to use the Testcontainers configuration in `TestPresentiumApiApplication`. Which
+> can be started using the `./gradlew bootTestRun` command.
+
 #### Database migrations
 
 When changing the database model, one should ensure that the changes are correctly defined in the Liquibase migrations.
@@ -36,10 +53,11 @@ When changing the database model, one should ensure that the changes are correct
 Liquibase migrations shall always be placed under the app version they are being introduced. They can be found in the
 `src/main/resources/db/changelog` directory.
 
-Migration files are named with a prefix that corresponds to the GitHub Issue number that the task is related to, followed
-by a short description of the task. For example, `GH-1_add-users-table.xml`.
+Migration files are named with a prefix that corresponds to the GitHub Issue number that the task is related to,
+followed by a short description of the task. For example, `GH-1_add-users-table.xml`.
 
-Each version directory contains a local `_changelog.yaml` file that should be referenced in the main `changelog.yaml` file.
+Each version directory contains a local `_changelog.yaml` file that should be referenced in the main `changelog.yaml`
+file.
 
 > [!NOTE]
 > We use `YAML` files for indexes as it is easier to follow when there is only simple references.
@@ -47,6 +65,38 @@ Each version directory contains a local `_changelog.yaml` file that should be re
 
 To help with creating changelog files, a unit test `DDLGeneratorTest` should be run once. It will generate the DDL in
 `sql/ddl/create.sql`, which can be used as a reference for the new changelog file (for example by using diffs).
+
+#### API / Business separation
+
+This application is split into standard layers. The business layer shall be responsible of handling
+the business model and its logic (using entities, repositories, services, etc.), while the API layer
+shall be responsible for handling API calls and responses. 
+
+Therefore, the application should mainly work using business entities at all times, and the API layer
+will use mappers to convert said business entities to view models that represent exposed information.
+The API also defines request bodies for request requiring it, using mappers to convert them to business
+entities straight away.
+
+Controllers are responsible for opening transactions, calling services, and returning the response. 
+They are responsible for ensuring that the user making the call is authorized to do so, validating
+that the sent data is correct, then calling the business service to perform the operation. If the
+business service sends a response, the controller should convert it to a view model and return it,
+handling any exceptions should one arise.
+
+##### File structure
+
+- `api` package contains the API layer, with controllers, mappers, and view models.
+- `business` package contains the business layer, with entities, repositories, services, and mappers.
+
+Inside packages, we try to separate concerns by their business domain. For example, the `user` domain
+is held in `api.user` for the API layer, and `business.model.user` for the data domain.
+
+#### Testing secured endpoints
+
+In theory, all endpoints should require authentication, but the access level can be changed depending
+on if it is reserved for teachers or teacher and students. To test these endpoints, you can use the
+`@WithMockAuthenticatedUser` annotation and sub-annotations, like `@WithMockTeacherUser`, 
+`@WithMockStudentUser`, or `@WithMockAdminUser`.
 
 ## Continuous Delivery
 
