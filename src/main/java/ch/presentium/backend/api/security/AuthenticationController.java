@@ -5,6 +5,7 @@ import ch.presentium.backend.api.security.model.UserViewModel;
 import ch.presentium.backend.business.model.user.User;
 import ch.presentium.backend.business.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/v1/auth", produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "Authentication", description = "Authentication-related operations")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
