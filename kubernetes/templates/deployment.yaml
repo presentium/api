@@ -38,7 +38,7 @@ spec:
             - name: TZ
               value: UTC
           ports:
-            - containerPort: '{{ .Values.spring.server.port }}'
+            - containerPort: {{ .Values.spring.server.port }}
               name: 'http'
               protocol: TCP
           resources:
