@@ -10,7 +10,6 @@ import ch.presentium.backend.api.AbstractControllerIntegrationTest;
 import ch.presentium.backend.business.repository.UserRepository;
 import ch.presentium.backend.common.TestUtils;
 import ch.presentium.backend.security.WithMockAuthenticatedUser;
-import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -38,15 +37,14 @@ class AuthenticationControllerIntegrationTest extends AbstractControllerIntegrat
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.username").value("user"),
                     jsonPath("$.email").value("user@test.presentium.ch"),
-                    jsonPath("$.firstName").value("John"),
-                    jsonPath("$.lastName").value("Doe")
+                    jsonPath("$.displayName").value("John Doe")
                 );
 
-            assertThat(userRepository.findById(UUID.fromString("ee11cbb1-9052-340b-87aa-c0ca060c23ee")))
+            assertThat(userRepository.findById("ee11cbb1-9052-340b-87aa-c0ca060c23ee"))
                 .isPresent()
                 .get()
                 .satisfies(user -> {
-                    TestUtils.assertUser(user, "user", "user@test.presentium.ch", "John", "Doe");
+                    TestUtils.assertUser(user, "user", "user@test.presentium.ch", "John Doe");
                 });
         }
     }

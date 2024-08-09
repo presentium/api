@@ -9,10 +9,15 @@ plugins {
     id("org.hibernate.orm") version "6.5.2.Final"
     id("io.freefair.lombok") version "8.6"
     id("com.diffplug.spotless") version "6.25.0"
+    id("com.palantir.git-version") version "3.1.0"
+    id("com.google.cloud.tools.jib") version "3.4.3"
 }
 
+val gitVersion: groovy.lang.Closure<String> by extra
+val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
+
 group = "ch.presentium"
-version = "0.0.1-SNAPSHOT"
+version = gitVersion()
 
 java {
     toolchain {
@@ -41,6 +46,7 @@ dependencies {
     // Database
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.liquibase:liquibase-core")
+    implementation("software.amazon.jdbc:aws-advanced-jdbc-wrapper:2.3.8")
     runtimeOnly("org.postgresql:postgresql")
 
     // Utils
@@ -97,6 +103,37 @@ tasks.named<JavaCompile>("compileJava") {
             "-Amapstruct.defaultComponentModel=spring",
         ),
     )
+}
+
+val details = versionDetails()
+
+tasks.withType<ProcessResources> {
+    filesMatching("build.properties") {
+        expand(
+            mapOf(
+                "version" to project.version,
+                "details" to
+                    mapOf(
+                        "lastTag" to details.lastTag,
+                        "commitDistance" to details.commitDistance,
+                        "dirty" to !details.isCleanTag,
+                        "clean" to details.isCleanTag,
+                        "branchName" to details.branchName,
+                        "gitHash" to details.gitHash,
+                        "gitHashFull" to details.gitHashFull,
+                    ),
+            ),
+        )
+    }
+}
+
+jib {
+    from {
+        image = "eclipse-temurin:21.0.4_7-jre-alpine@sha256:3f716d52e4045433e94a28d029c93d3c23179822a5d40b1c82b63aedd67c5081"
+    }
+    to {
+        image = "ghcr.io/presentium/api:${project.version}"
+    }
 }
 
 spotless {

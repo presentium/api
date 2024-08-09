@@ -5,7 +5,7 @@
 
   <changeSet id="GH-2.001" author="lherman">
     <createTable tableName="api_user">
-      <column name="id" type="UUID">
+      <column name="id" type="VARCHAR(255)">
         <constraints nullable="false" primaryKey="true" primaryKeyName="pk_api_user"/>
       </column>
       <column name="subject" type="VARCHAR(255)">
@@ -14,10 +14,7 @@
       <column name="email" type="VARCHAR(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="first_name" type="VARCHAR(255)">
-        <constraints nullable="false"/>
-      </column>
-      <column name="last_name" type="VARCHAR(255)">
+      <column name="display_name" type="VARCHAR(255)">
         <constraints nullable="false"/>
       </column>
     </createTable>

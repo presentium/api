@@ -37,8 +37,7 @@ public class WithMockAuthenticatedUserSecurityContextFactory
             .claim("roles", Set.of(annotation.roles()))
             .claim("username", annotation.username())
             .claim("email", "%s@test.presentium.ch".formatted(annotation.username()))
-            .claim("given_name", "John")
-            .claim("family_name", "Doe")
+            .claim("name", "John Doe")
             .build();
 
         context.setAuthentication(jwtAuthenticationConverter.convert(jwt));

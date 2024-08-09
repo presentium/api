@@ -15,7 +15,6 @@ public interface UserMapper {
     @Mapping(target = "id", source = "subject")
     @Mapping(target = "subject", expression = "java(jwt.getClaimAsString(\"username\"))")
     @Mapping(target = "email", expression = "java(jwt.getClaimAsString(\"email\"))")
-    @Mapping(target = "firstName", expression = "java(jwt.getClaimAsString(\"given_name\"))")
-    @Mapping(target = "lastName", expression = "java(jwt.getClaimAsString(\"family_name\"))")
+    @Mapping(target = "displayName", expression = "java(jwt.getClaimAsString(\"name\"))")
     void updateUser(Jwt jwt, @MappingTarget User user);
 }

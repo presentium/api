@@ -1,0 +1,16 @@
+image:
+  tag: TBD
+  imagePullPolicy: Always
+
+global:
+  instance: 'staging'
+
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123247571664:role/PRES-DB-API-STAGING-PRESENTIUM
+
+ingress:
+  host: 'staging-api.presentium.com'
+
+spring:
+  profiles: ['staging']

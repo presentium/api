@@ -1,0 +1,13 @@
+image:
+  repository: ghcr.io/presentium/api
+
+global:
+  instance: ''
+
+spring:
+  server:
+    port: 8080
+
+serviceAccount:
+  name: 'presentium-api'
+  annotations: {}

@@ -1,0 +1,116 @@
+name: Continuous Delivery > Staging build and deployment
+
+on:
+  push:
+    branches: [ 'main' ]
+    tags: [ 'v*' ]
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-docker:
+    name: Check linting + formatting with Spotless
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java env 🏗
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          check-latest: true
+
+      - name: Setup Gradle 🪓
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image 🐳
+        id: push
+        run: |
+          ./gradlew jib
+          echo "version=$(./gradlew -q printVersion)" >> "$GITHUB_OUTPUT"
+          echo "digest=$(cat build/jib-image.digest)" >> "$GITHUB_OUTPUT"
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.REGISTRY }}/presentium/api
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+    outputs:
+      version: ${{ steps.push.outputs.version }}
+
+  rollout-staging-deployment:
+    name: Trigger rollout on ArgoCD
+    runs-on: ubuntu-latest
+    needs: [ build-docker ]
+    if: "!startsWith(github.ref, 'refs/tags/v')"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
+          ref: main
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_tag_gpgsign: true
+          git_commit_gpgsign: true
+
+      - name: Push tag to values
+        run: |
+          yq e -i '.image.tag = "${{ needs.build-docker.outputs.version }}"' kubernetes/values-staging.yaml
+          git add kubernetes/values-staging.yaml
+          git commit -m "chore(release): update staging tag to ${{ needs.build-docker.outputs.version }} [skip ci]"
+          git push origin main
+
+  update-production-deployment:
+    name: Update production image
+    runs-on: ubuntu-latest
+    needs: [ build-docker ]
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
+          ref: main
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_tag_gpgsign: true
+          git_commit_gpgsign: true
+
+      - name: Push tag to values
+        run: |
+          yq e -i '.image.tag = "${{ needs.build-docker.outputs.version }}"' kubernetes/values-prod.yaml
+          git add kubernetes/values-prod.yaml
+          git commit -m "chore(release): update production tag to ${{ needs.build-docker.outputs.version }} [skip ci]"
+          git push origin main

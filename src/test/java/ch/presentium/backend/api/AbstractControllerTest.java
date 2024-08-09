@@ -28,7 +28,8 @@ public abstract class AbstractControllerTest extends AbstractCommonTest {
 
     @ComponentScan(
         basePackages = "ch.presentium.backend.api",
-        includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*MapperImpl")
+        includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*MapperImpl"),
+        useDefaultFilters = false
     )
     @Import(SecurityConfiguration.class)
     static class ControllerContextConfiguration {}

@@ -6,7 +6,6 @@ import ch.presentium.backend.business.model.user.User;
 import ch.presentium.backend.business.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,7 +28,7 @@ public class AuthenticationController {
     @Transactional(rollbackFor = Throwable.class)
     @Operation(summary = "Get the authenticated user metadata")
     public UserViewModel getAuthenticatedUser(@AuthenticationPrincipal Jwt jwt) {
-        var user = userRepository.findById(UUID.fromString(jwt.getSubject())).orElseGet(User::new);
+        var user = userRepository.findById(jwt.getSubject()).orElseGet(User::new);
         userMapper.updateUser(jwt, user);
         return userMapper.toViewModel(userRepository.save(user));
     }

@@ -4,7 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -20,7 +19,7 @@ public class User {
     // JWT claim: sub
     @Id
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private String id;
 
     /**
      * In the JWT configuration we use, the subject claim will use a UUID as the value, the username is given in a
@@ -35,11 +34,7 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    // JWT claim: given_name
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    // JWT claim: family_name
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+    // JWT claim: name
+    @Column(name = "display_name", nullable = false)
+    private String displayName;
 }

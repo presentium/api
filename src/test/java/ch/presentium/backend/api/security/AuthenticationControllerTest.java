@@ -51,12 +51,11 @@ class AuthenticationControllerTest extends AbstractControllerTest {
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.username").value("user"),
                     jsonPath("$.email").value("user@test.presentium.ch"),
-                    jsonPath("$.firstName").value("John"),
-                    jsonPath("$.lastName").value("Doe")
+                    jsonPath("$.displayName").value("John Doe")
                 );
 
             verify(userRepository).save(
-                assertArg(user -> TestUtils.assertUser(user, "user", "user@test.presentium.ch", "John", "Doe"))
+                assertArg(user -> TestUtils.assertUser(user, "user", "user@test.presentium.ch", "John Doe"))
             );
         }
 
@@ -74,8 +73,7 @@ class AuthenticationControllerTest extends AbstractControllerTest {
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.username").value("user"),
                     jsonPath("$.email").value("user@test.presentium.ch"),
-                    jsonPath("$.firstName").value("John"),
-                    jsonPath("$.lastName").value("Doe")
+                    jsonPath("$.displayName").value("John Doe")
                 );
 
             verify(userRepository).save(assertArg(user -> assertSame(dbUser, user)));
