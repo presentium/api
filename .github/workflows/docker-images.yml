@@ -86,8 +86,8 @@ jobs:
     outputs:
       version: ${{ steps.push.outputs.version }}
 
-  update-staging-deployment:
-    name: Update staging image tag
+  update-deployments:
+    name: Publish commits
     runs-on: ubuntu-latest
     needs: [ build-docker ]
 
@@ -107,38 +107,16 @@ jobs:
           git_tag_gpgsign: true
           git_commit_gpgsign: true
 
-      - name: Push tag to values
+      - name: Update staging tag
+        run: yq e -i '.image.tag = "${{ needs.build-docker.outputs.version }}"' kubernetes/values-staging.yaml
+
+      - name: Update production tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: yq e -i '.image.tag = "${{ needs.build-docker.outputs.version }}"' kubernetes/values-prod.yaml
+
+      - name: Publish edits
         run: |
-          yq e -i '.image.tag = "${{ needs.build-docker.outputs.version }}"' kubernetes/values-staging.yaml
           git add kubernetes/values-staging.yaml
-          git commit -m "chore(release): update staging tag to ${{ needs.build-docker.outputs.version }} [skip ci]"
-          git push origin main
-
-  update-production-deployment:
-    name: Update production image tag
-    runs-on: ubuntu-latest
-    needs: [ build-docker ]
-    if: startsWith(github.ref, 'refs/tags/v')
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
-          ref: main
-
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v6
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          git_user_signingkey: true
-          git_tag_gpgsign: true
-          git_commit_gpgsign: true
-
-      - name: Push tag to values
-        run: |
-          yq e -i '.image.tag = "${{ needs.build-docker.outputs.version }}"' kubernetes/values-prod.yaml
           git add kubernetes/values-prod.yaml
-          git commit -m "chore(release): update production tag to ${{ needs.build-docker.outputs.version }} [skip ci]"
+          git diff-index --quiet HEAD || git commit -m "chore(release): update image tags [skip ci]"
           git push origin main
