@@ -43,6 +43,12 @@ jobs:
       - name: Build Docker image 🐳
         id: push
         run: |
+          if [ "${{startsWith(github.ref, 'refs/tags/v')}}" = "true" ]; then
+            ./gradlew jib -Djib.to.tags=latest
+          else
+            ./gradlew jib
+          fi
+
           ./gradlew jib
           echo "version=$(./gradlew -q printVersion)" >> "$GITHUB_OUTPUT"
           echo "digest=$(cat build/jib-image.digest)" >> "$GITHUB_OUTPUT"
