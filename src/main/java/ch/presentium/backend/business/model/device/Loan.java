@@ -14,9 +14,14 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
+    @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
+
     @ManyToMany
     private List<PresenceBox> presenceBoxes;
+
+    @Column(name = "start", nullable = false)
     private LocalDateTime start;
 }
