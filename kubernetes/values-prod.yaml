@@ -1,16 +1,12 @@
 image:
-  tag: TBD
+  tag: v0.0.1
   imagePullPolicy: IfNotPresent
-
 global:
   instance: 'production'
-
 serviceAccount:
   annotations:
     eks.amazonaws.com/role-arn: arn:aws:iam::123247571664:role/PRES-DB-API-PROD-PRESENTIUM
-
 ingress:
   host: 'api.presentium.com'
-
 spring:
   profiles: ['prod', 'production']
