@@ -7,6 +7,6 @@ serviceAccount:
   annotations:
     eks.amazonaws.com/role-arn: arn:aws:iam::123247571664:role/PRES-DB-API-STAGING-PRESENTIUM
 ingress:
-  host: 'staging-api.presentium.com'
+  host: 'staging-api.presentium.ch'
 spring:
   profiles: ['staging']
