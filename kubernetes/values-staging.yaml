@@ -1,5 +1,5 @@
 image:
-  tag: 7292c5a
+  tag: v0.0.2
   imagePullPolicy: Always
 global:
   instance: 'staging'
