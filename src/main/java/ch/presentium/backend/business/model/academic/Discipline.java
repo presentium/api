@@ -1,9 +1,6 @@
 package ch.presentium.backend.business.model.academic;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.util.List;
@@ -14,8 +11,14 @@ import java.util.List;
 public class Discipline {
     @Id
     private String id;
+
+    @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "duration", nullable = false)
     private Integer duration;
+
     @OneToMany
+    @JoinColumn(name = "discipline_id")
     private List<Course> courses;
 }

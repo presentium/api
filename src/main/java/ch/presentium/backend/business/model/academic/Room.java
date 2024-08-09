@@ -1,9 +1,6 @@
 package ch.presentium.backend.business.model.academic;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -15,11 +12,16 @@ import java.util.Objects;
 public class Room {
     @EmbeddedId
     private RoomId id;
+
+    @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
     @Embeddable
     public static class RoomId implements Serializable {
+        @Column(name = "room_id")
         private String roomId;
+
+        @Column(name = "site_id")
         private String siteId;
 
         public RoomId() {}

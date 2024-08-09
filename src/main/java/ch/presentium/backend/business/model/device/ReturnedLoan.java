@@ -1,10 +1,7 @@
 package ch.presentium.backend.business.model.device;
 
 import ch.presentium.backend.business.model.person.Teacher;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -15,10 +12,18 @@ import java.time.LocalDateTime;
 public class ReturnedLoan {
     @Id
     private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
+
     @ManyToOne
+    @JoinColumn(name = "attendance_box_id", nullable = false)
     private PresenceBox attendanceBox;
+
+    @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
+
+    @Column(name = "end_date", nullable = false)
     private LocalDateTime endDate;
 }

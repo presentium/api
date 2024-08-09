@@ -12,7 +12,11 @@ public class ClassSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "week", nullable = false)
     private Long week;
+
     @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 }

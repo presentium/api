@@ -12,6 +12,6 @@ import java.util.List;
 @Table(name = "teacher")
 @Getter
 public class Teacher extends Person {
-    @OneToMany
+    @OneToMany(mappedBy = "teacher")
     private List<Class> classes;
 }
