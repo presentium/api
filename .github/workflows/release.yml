@@ -38,7 +38,6 @@ jobs:
         with:
           node-version: 'lts/*'
           check-latest: true
-          cache: npm
 
       - name: Bump version 🚀
         working-directory: gradle/changelogen
