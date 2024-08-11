@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v0.0.3
+
+[compare changes](https://github.com/presentium/api/compare/v0.0.2...v0.0.3)
+
+### 🏡 Chore
+
+- **release:** Update image tags [skip ci] ([a40b4ac](https://github.com/presentium/api/commit/a40b4ac))
+- **release:** Update image tags [skip ci] ([97feb2f](https://github.com/presentium/api/commit/97feb2f))
+- **release:** Update image tags [skip ci] ([f296c99](https://github.com/presentium/api/commit/f296c99))
+- **release:** Update image tags [skip ci] ([fb7d971](https://github.com/presentium/api/commit/fb7d971))
+- **release:** Update image tags [skip ci] ([89b1720](https://github.com/presentium/api/commit/89b1720))
+
+### 🤖 CI
+
+- Fix build metadata having null values ([0843331](https://github.com/presentium/api/commit/0843331))
+- Fix tagging to detached head ([1f7f12e](https://github.com/presentium/api/commit/1f7f12e))
+- Include build properties in classpath ([1a36193](https://github.com/presentium/api/commit/1a36193))
+
+### ❤️ Contributors
+
+- Presentium ([@presentium](http://github.com/presentium))
+- Loïc Herman <loic@loicherman.ch>
+
 ## v0.0.2
 
 [compare changes](https://github.com/presentium/api/compare/v0.0.1...v0.0.2)
