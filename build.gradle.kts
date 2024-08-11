@@ -116,8 +116,7 @@ tasks.withType<ProcessResources> {
                     mapOf(
                         "lastTag" to details.lastTag,
                         "commitDistance" to details.commitDistance,
-                        "dirty" to !details.isCleanTag,
-                        "clean" to details.isCleanTag,
+                        "dirty" to details.isCleanTag,
                         "branchName" to details.branchName,
                         "gitHash" to details.gitHash,
                         "gitHashFull" to details.gitHashFull,
