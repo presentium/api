@@ -5,4 +5,4 @@ import org.springframework.context.annotation.PropertySource;
 
 @PropertySource("classpath:build.properties")
 @ConfigurationProperties("info.build")
-public record BuildInfoProperties(String version, String gitHash, String branchName, boolean clean) {}
+public record BuildInfoProperties(String version, String gitHash, String branchName, boolean dirty) {}

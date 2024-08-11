@@ -111,7 +111,7 @@ tasks.withType<ProcessResources> {
     filesMatching("build.properties") {
         expand(
             mapOf(
-                "version" to project.version,
+                "version" to gitVersion(),
                 "details" to
                     mapOf(
                         "lastTag" to details.lastTag,
