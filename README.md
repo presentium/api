@@ -1,5 +1,13 @@
 # Presentium - Backend API
 
+![GitHub Release](https://img.shields.io/github/v/release/presentium/api)
+![GitHub License](https://img.shields.io/github/license/presentium/api)
+
+[![Continuous Integration > Unit Testing + Linting + Formatting](https://github.com/presentium/api/actions/workflows/check.yml/badge.svg)](https://github.com/presentium/api/actions/workflows/check.yml)
+[![Continuous Delivery > Docker build and deployment triggers](https://github.com/presentium/api/actions/workflows/docker-images.yml/badge.svg)](https://github.com/presentium/api/actions/workflows/docker-images.yml)
+
+[![App Status](https://cd.presentium.ch/api/badge?name=presentium-api-staging&revision=true&showAppName=true&namespace=argocd)](https://cd.presentium.ch/applications/presentium-api-staging)  [![App Status](https://cd.presentium.ch/api/badge?name=presentium-api-prod&revision=true&showAppName=true&namespace=argocd)](https://cd.presentium.ch/applications/presentium-api-prod)
+
 This is the backend API for Presentium, handling connections with the databse, the reader devices and frontend
 instances. It is built with [Spring Boot](https://spring.io/projects/spring-boot) in Java 21.
 
