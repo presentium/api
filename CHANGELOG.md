@@ -1,6 +1,36 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/presentium/api/compare/v0.0.3...v0.0.4)
+
+### 🩹 Fixes
+
+- Remove jwks suffix from issuer uri ([63beb8f](https://github.com/presentium/api/commit/63beb8f))
+- Add health checks for load balancer and probes ([1b388a8](https://github.com/presentium/api/commit/1b388a8))
+
+### 📖 Documentation
+
+- Badges [skip ci] ([5fdd1ec](https://github.com/presentium/api/commit/5fdd1ec))
+
+### 🏡 Chore
+
+- **release:** Update image tags [skip ci] ([1efe4e6](https://github.com/presentium/api/commit/1efe4e6))
+- **release:** Update image tags [skip ci] ([d72a846](https://github.com/presentium/api/commit/d72a846))
+- **release:** Update image tags [skip ci] ([cbbe227](https://github.com/presentium/api/commit/cbbe227))
+- **release:** Update image tags [skip ci] ([b6bd7df](https://github.com/presentium/api/commit/b6bd7df))
+
+### 🤖 CI
+
+- Avoid adding release commits to changelog [skip ci] ([8de47ea](https://github.com/presentium/api/commit/8de47ea))
+- Bump ([8507365](https://github.com/presentium/api/commit/8507365))
+
+### ❤️ Contributors
+
+- Loïc Herman <loic@loicherman.ch>
+- Loïc H. <loic@loicherman.ch>
+
 ## v0.0.3
 
 [compare changes](https://github.com/presentium/api/compare/v0.0.2...v0.0.3)
