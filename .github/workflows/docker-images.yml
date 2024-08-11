@@ -45,6 +45,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup Java env 🏗
         uses: actions/setup-java@v4
@@ -67,9 +70,9 @@ jobs:
         id: push
         run: |
           if [ "${{startsWith(github.ref, 'refs/tags/v')}}" = "true" ]; then
-            ./gradlew :processResources :jib -Djib.to.tags=latest
+            ./gradlew :processResources :jib -Djib.to.tags=latest -Djib.console=plain
           else
-            ./gradlew :processResources :jib
+            ./gradlew :processResources :jib -Djib.console=plain
           fi
 
           echo "version=$(./gradlew -q printVersion)" >> "$GITHUB_OUTPUT"
