@@ -8,6 +8,7 @@
         primary key (id),
         unique (subject)
     );
+
     ------------ Person Schemas ------------
 
     create table person (
