@@ -1,3 +1,4 @@
+------------ API Schemas ------------
 
     create table api_user (
         id varchar(255) not null,
@@ -8,8 +9,20 @@
         unique (subject)
     );
 
+    ------------ Academic Schemas ------------
+
     create table class (
         id uuid not null,
+        day_of_week int not null,
+        start datetime not null,
+        room_id int not null,
+        course_id int not null,
+        teacher_id int not null,
+        primary key (id)
+    );
+
+    create table class_session (
+        id varchar(255) not null,
         day_of_week int not null,
         start datetime not null,
         room_id int not null,
@@ -22,6 +35,12 @@
         id varchar(255) not null,
         semester varchar(255) not null,
         year int not null,
+        primary key (id)
+    );
+
+    create table discipline (
+        id varchar(255) not null,
+        description varchar(255) not null,
         primary key (id)
     );
 
@@ -39,6 +58,8 @@
         zip_code varchar(255) not null,
         primary key (id)
     );
+
+    ------------ Person Schemas ------------
 
     create table person (
         id int not null,
@@ -60,7 +81,7 @@
         primary key (id, person_id)
     );
 
-
+    ------------ Class Relation ------------
 
     alter table class
         add constraint fk_class_room
@@ -74,9 +95,25 @@
         add constraint fk_class_teacher
             foreign key (teacher_id) references teacher(id);
 
+    ------------ Class Session Relation ------------
+
+    alter table class_session
+        add constraint fk_class_course
+            foreign key (course_id) references course(id);
+
+    ------------ Room Relation ------------
+
     alter table room
         add constraint fk_room_site
             foreign key (site_id) references site(id);
+
+    ------------ Loan Relation ------------
+
+    alter table loan
+        add constraint fk_loan_teacher
+            foreign key (teacher_id) references teacher(id);
+
+    ------------ Teacher Relation ------------
 
     alter table teacher
         add constraint fk_teacher_person
