@@ -18,7 +18,7 @@ public class ReturnedLoan {
     private Teacher teacher;
 
     @ManyToOne
-    @JoinColumn(name = "attendance_box_id", nullable = false)
+    @JoinColumn(name = "id", nullable = false)
     private PresenceBox attendanceBox;
 
     @Column(name = "start_date", nullable = false)

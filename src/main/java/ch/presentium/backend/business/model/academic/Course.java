@@ -30,6 +30,4 @@ public class Course {
     @JoinColumn(name = "course_id")
     private List<Class> classes;
 
-    @ManyToMany
-    private List<Student> students;
 }

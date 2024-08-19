@@ -19,8 +19,8 @@ public class Loan {
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
 
-    @ManyToMany
-    private List<PresenceBox> presenceBoxes;
+    @ManyToOne
+    private PresenceBox presenceBox;
 
     @Column(name = "start", nullable = false)
     private LocalDateTime start;
