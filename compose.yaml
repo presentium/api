@@ -1,0 +1,37 @@
+# This Docker compose file creates the local environment needed to run the API
+# without having to install the dependencies on your machine.
+#
+# No need to start it manually! When running in a Gradle-developer environment,
+# Spring will automatically start the services defined in this file.
+services:
+  postgres:
+    image: 'postgres:latest'
+    ports:
+      - '15432:5432'
+    environment:
+      - 'POSTGRES_DB=presentium'
+      - 'POSTGRES_USER=presentium'
+      - 'POSTGRES_PASSWORD=presentium'
+  oidc:
+    image: ghcr.io/navikt/mock-oauth2-server:2.1.8
+    ports:
+      - '17580:17580'
+    labels:
+      org.springframework.boot.ignore: true
+    volumes:
+      - './src/test/resources/mock-oidc:/config'
+    environment:
+      SERVER_PORT: 17580
+      # language=JSON
+      JSON_CONFIG: |-
+        {
+          "interactiveLogin": "true",
+          "loginPagePath": "/config/mock-oidc-login.html",
+          "rotateRefreshToken": "true",
+          "tokenCallbacks": [
+            {
+              "issuerId": "presentium",
+              "requestMappings": []
+            }
+          ]
+        }
