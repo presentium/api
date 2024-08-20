@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 @Entity
 @Table(name = "class_session")
 @Getter
@@ -14,10 +11,10 @@ import java.util.UUID;
 public class ClassSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
-    @Column(name = "date", nullable = false)
-    private LocalDateTime date;
+    @Column(name = "week", nullable = false)
+    private Long week;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
