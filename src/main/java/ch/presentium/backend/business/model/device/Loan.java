@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "loan")
@@ -13,13 +14,14 @@ import java.util.List;
 public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @OneToOne
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
 
     @ManyToOne
+    @JoinColumn(name = "presence_box_id", nullable = false)
     private PresenceBox presenceBox;
 
     @Column(name = "start", nullable = false)

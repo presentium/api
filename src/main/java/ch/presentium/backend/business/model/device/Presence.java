@@ -5,13 +5,15 @@ import ch.presentium.backend.business.model.person.Student;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "presence")
 @Getter
 public class Presence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)

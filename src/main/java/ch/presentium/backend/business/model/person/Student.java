@@ -12,6 +12,4 @@ import java.util.List;
 @Table(name = "student")
 @Getter
 public class Student extends Person {
-    @ManyToMany
-    private List<Course> courses;
 }

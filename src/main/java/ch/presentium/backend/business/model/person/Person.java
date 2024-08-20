@@ -3,13 +3,15 @@ package ch.presentium.backend.business.model.person;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 public abstract class Person {
     @Id
-    private Long id;
+    private UUID id;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;

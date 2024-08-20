@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -21,10 +22,13 @@ public class Class {
     private DayOfWeek dayOfWeek;
 
     @Column(name = "start", nullable = false)
-    private LocalDateTime start;
+    private LocalTime start;
 
     @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumns({
+        @JoinColumn(name = "room_id", referencedColumnName = "room_id"),
+        @JoinColumn(name = "site_id", referencedColumnName = "site_id")
+    })
     private Room room;
 
     @ManyToOne
