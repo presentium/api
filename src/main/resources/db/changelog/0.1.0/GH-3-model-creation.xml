@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="GH-3.002" author="mstefani">
+        <createTable tableName="person">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="teacher">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="student">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.003" author="mstefani">
+        <createTable tableName="discipline">
+            <column name="id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="duration" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="course">
+            <column name="id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="semester" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discipline_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="class">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="day_of_week" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start" type="time">
+                <constraints nullable="false"/>
+            </column>
+            <column name="room_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="site_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="teacher_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="class_session">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="class_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="site">
+            <column name="id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zip_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="room">
+            <column name="room_id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="site_id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="capacity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.004" author="mstefani">
+        <createTable tableName="loan">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="teacher_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="presence_box_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="returned_loan">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="teacher_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="presence_box_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="presence_box">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="presence">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="student_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="class_session_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.005" author="mstefani">
+        <createTable tableName="class_student">
+            <column name="class_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="student_id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.006" author="mstefani">
+        <addForeignKeyConstraint baseTableName="teacher" baseColumnNames="id"
+                                 referencedTableName="person" referencedColumnNames="id"
+                                 constraintName="fk_teacher_person"/>
+
+        <addForeignKeyConstraint baseTableName="student" baseColumnNames="id"
+                                 referencedTableName="person" referencedColumnNames="id"
+                                 constraintName="fk_student_person"/>
+
+        <addForeignKeyConstraint baseTableName="course" baseColumnNames="discipline_id"
+                                 referencedTableName="discipline" referencedColumnNames="id"
+                                 constraintName="fk_course_discipline"/>
+
+        <addForeignKeyConstraint baseTableName="class" baseColumnNames="course_id"
+                                 referencedTableName="course" referencedColumnNames="id"
+                                 constraintName="fk_class_course"/>
+
+        <addForeignKeyConstraint baseTableName="class" baseColumnNames="room_id, site_id"
+                                 referencedTableName="room" referencedColumnNames="room_id, site_id"
+                                 constraintName="fk_class_room"/>
+
+        <addForeignKeyConstraint baseTableName="class" baseColumnNames="teacher_id"
+                                 referencedTableName="teacher" referencedColumnNames="id"
+                                 constraintName="fk_class_teacher"/>
+
+        <addForeignKeyConstraint baseTableName="class_session" baseColumnNames="class_id, course_id"
+                                 referencedTableName="class" referencedColumnNames="id, course_id"
+                                 constraintName="fk_class_session_class"/>
+
+        <addForeignKeyConstraint baseTableName="room" baseColumnNames="site_id"
+                                 referencedTableName="site" referencedColumnNames="id"
+                                 constraintName="fk_room_site"/>
+
+        <addForeignKeyConstraint baseTableName="loan" baseColumnNames="teacher_id"
+                                 referencedTableName="teacher" referencedColumnNames="id"
+                                 constraintName="fk_loan_teacher"/>
+
+        <addForeignKeyConstraint baseTableName="loan" baseColumnNames="presence_box_id"
+                                 referencedTableName="presence_box" referencedColumnNames="id"
+                                 constraintName="fk_loan_presence_box"/>
+
+        <addForeignKeyConstraint baseTableName="returned_loan" baseColumnNames="teacher_id"
+                                 referencedTableName="teacher" referencedColumnNames="id"
+                                 constraintName="fk_returned_loan_teacher"/>
+
+        <addForeignKeyConstraint baseTableName="returned_loan" baseColumnNames="presence_box_id"
+                                 referencedTableName="presence_box" referencedColumnNames="id"
+                                 constraintName="fk_returned_loan_presence_box"/>
+    </changeSet>
+</databaseChangeLog>
