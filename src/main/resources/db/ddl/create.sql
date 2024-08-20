@@ -170,3 +170,10 @@ alter table room
 alter table loan
     add constraint fk_loan_teacher
         foreign key (teacher_id) references teacher(id);
+
+alter table loan
+    add constraint fk_loan_presence_box
+        foreign key (presence_box_id) references presence_box(id);
+
+------------ Returned Loan Relation ------------
+
