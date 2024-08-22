@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="GH-3.001" author="mstefani">
+        <createTable tableName="course">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_course"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="semester" type="VARCHAR(255)">
+                <constraints nullable="false" checkConstraint="check (semester in ('T1','T2','T3','T4'))"/>
+            </column>
+            <column name="year" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.002" author="mstefani">
+        <createTable tableName="room">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_room"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.003" author="mstefani">
+        <createTable tableName="class">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_class"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_fk" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="day_of_week" type="SMALLINT">
+                <constraints nullable="false" checkConstraint="check (day_of_week between 0 and 6)"/>
+            </column>
+            <column name="start" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="room_fk" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="teacher_fk" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.004" author="mstefani">
+        <createTable tableName="class_student">
+            <column name="class_fk" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_class_student"/>
+            </column>
+            <column name="student_fk" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_class_student"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.005" author="mstefani">
+        <createTable tableName="class_session">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_class_session"/>
+            </column>
+            <column name="course_fk" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dt_session" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.006" author="mstefani">
+        <createTable tableName="presence">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_presence"/>
+            </column>
+            <column name="student_fk" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="class_session_fk" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.007" author="mstefani">
+        <createTable tableName="presence_box">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_presence_box"/>
+            </column>
+            <column name="teacher_fk" type="UUID"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.008" author="mstefani">
+        <createTable tableName="person">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_person"/>
+            </column>
+            <column name="api_user_fk" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.009" author="mstefani">
+        <createTable tableName="student">
+            <column name="person_fk" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_student"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.010" author="mstefani">
+        <createTable tableName="teacher">
+            <column name="person_fk" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_teacher"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GH-3.011" author="mstefani">
+        <addUniqueConstraint columnNames="api_user_fk" constraintName="uk_api_user"
+            tableName="person"/>
+    </changeSet>
+
+    <changeSet id="GH-3.012" author="mstefani">
+        <addUniqueConstraint columnNames="name, course_fk" constraintName="uk_class_name"
+            tableName="class"/>
+    </changeSet>
+
+    <changeSet id="GH-3.013" author="mstefani">
+        <addUniqueConstraint columnNames="name, year, semester" constraintName="uk_course_name"
+            tableName="course"/>
+    </changeSet>
+
+    <changeSet id="GH-3.014" author="mstefani">
+        <addUniqueConstraint columnNames="email" constraintName="uk_email" tableName="person"/>
+    </changeSet>
+
+    <changeSet id="GH-3.015" author="mstefani">
+        <addUniqueConstraint columnNames="name" constraintName="uk_room_name" tableName="room"/>
+    </changeSet>
+
+    <changeSet id="GH-3.016" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="teacher_fk" baseTableName="presence_box"
+            constraintName="fk_box_teacher" referencedColumnNames="person_fk"
+            referencedTableName="teacher"/>
+    </changeSet>
+
+    <changeSet id="GH-3.017" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="course_fk" baseTableName="class"
+            constraintName="fk_class_course" referencedColumnNames="id"
+            referencedTableName="course"/>
+    </changeSet>
+
+    <changeSet id="GH-3.018" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="room_fk" baseTableName="class"
+            constraintName="fk_class_room" referencedColumnNames="id" referencedTableName="room"/>
+    </changeSet>
+
+    <changeSet id="GH-3.019" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="teacher_fk" baseTableName="class"
+            constraintName="fk_class_teacher" referencedColumnNames="person_fk"
+            referencedTableName="teacher"/>
+    </changeSet>
+
+    <changeSet id="GH-3.020" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="class_session_fk" baseTableName="presence"
+            constraintName="fk_presence_session" referencedColumnNames="id"
+            referencedTableName="class_session"/>
+    </changeSet>
+
+    <changeSet id="GH-3.021" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="course_fk" baseTableName="class_session"
+            constraintName="fk_session_course" referencedColumnNames="id"
+            referencedTableName="course"/>
+    </changeSet>
+
+    <changeSet id="GH-3.022" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="student_fk" baseTableName="presence"
+            constraintName="fk_student" referencedColumnNames="person_fk"
+            referencedTableName="student"/>
+    </changeSet>
+
+    <changeSet id="GH-3.023" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="person_fk" baseTableName="student"
+            constraintName="fk_student_on_person_fk" referencedColumnNames="id"
+            referencedTableName="person"/>
+    </changeSet>
+
+    <changeSet id="GH-3.024" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="person_fk" baseTableName="teacher"
+            constraintName="fk_teacher_on_person_fk" referencedColumnNames="id"
+            referencedTableName="person"/>
+    </changeSet>
+
+    <changeSet id="GH-3.025" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="api_user_fk" baseTableName="person"
+            constraintName="fk_person_api_user" referencedColumnNames="id"
+            referencedTableName="api_user"/>
+    </changeSet>
+
+    <changeSet id="GH-3.026" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="class_fk" baseTableName="class_student"
+            constraintName="fk_student_class" referencedColumnNames="id"
+            referencedTableName="class"/>
+    </changeSet>
+
+    <changeSet id="GH-3.027" author="mstefani">
+        <addForeignKeyConstraint baseColumnNames="student_fk" baseTableName="class_student"
+            constraintName="fk_class_student" referencedColumnNames="person_fk"
+            referencedTableName="student"/>
+    </changeSet>
+</databaseChangeLog>
