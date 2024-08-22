@@ -1,5 +1,14 @@
 package ddl;
 
+import ch.presentium.backend.business.model.Presence;
+import ch.presentium.backend.business.model.PresenceBox;
+import ch.presentium.backend.business.model.schedule.Class;
+import ch.presentium.backend.business.model.schedule.ClassSession;
+import ch.presentium.backend.business.model.schedule.Course;
+import ch.presentium.backend.business.model.schedule.Room;
+import ch.presentium.backend.business.model.user.Person;
+import ch.presentium.backend.business.model.user.Student;
+import ch.presentium.backend.business.model.user.Teacher;
 import ch.presentium.backend.business.model.user.User;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +29,18 @@ public class DDLGenerator {
                 .applySetting("hibernate.temp.use_jdbc_metadata_defaults", false)
                 .build()
         )
-            .addAnnotatedClasses(User.class)
+            .addAnnotatedClasses(
+                User.class,
+                Person.class,
+                Student.class,
+                Teacher.class,
+                Presence.class,
+                PresenceBox.class,
+                Class.class,
+                ClassSession.class,
+                Course.class,
+                Room.class
+            )
             .buildMetadata();
 
         deleteFile("sql/ddl/create.sql");

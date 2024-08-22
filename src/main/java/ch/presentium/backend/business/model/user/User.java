@@ -25,6 +25,7 @@ public class User {
      * In the JWT configuration we use, the subject claim will use a UUID as the value, the username is given in a
      * specific profile claim value. The username is not necessarily immutable, but the subject UUID should be.
      */
+
     // JWT claim: username
     @NaturalId
     @Column(name = "subject", nullable = false)
