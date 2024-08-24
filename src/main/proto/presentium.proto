@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package ch.presentium.backend.rpc;
+
+option java_multiple_files = true;
+option java_package = "ch.presentium.backend.rpc";
+option java_outer_classname = "PresentiumProto";
+
+service DeviceService {
+    rpc EnterEventBus(EnterRequest) returns (stream BusEvent);
+}
+
+message EnterRequest {
+    string hwid = 1;
+}
+
+message BusEvent {
+    enum MessageType {
+        KEEP_ALIVE = 0;
+    }
+
+    MessageType type = 1;
+    oneof event_data {
+        KeepAliveEvent keep_alive = 2;
+        ReadEvent read = 3;
+    }
+}
+
+message KeepAliveEvent {
+}
+
+message ReadEvent {
+}
