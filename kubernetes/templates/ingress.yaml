@@ -25,7 +25,7 @@ spec:
               service:
                 name: api-server-grpc
                 port:
-                  name: http
+                  name: grpc
           - path: '/'
             pathType: Prefix
             backend:

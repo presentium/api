@@ -16,7 +16,7 @@ spec:
   ports:
     - name: http
       port: 80
-      targetPort: http
+      targetPort: {{ .Values.spring.server.port }}
       protocol: TCP
   type: ClusterIP
 ---
@@ -38,8 +38,8 @@ spec:
     app.kubernetes.io/name: presentium-api
     app.kubernetes.io/instance: presentium-{{ .Values.global.instance }}
   ports:
-    - name: http
+    - name: grpc
       port: 80
-      targetPort: grpc
+      targetPort: {{ .Values.spring.server.grpcPort }}
       protocol: TCP
   type: ClusterIP
