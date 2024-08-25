@@ -4,44 +4,44 @@ import ch.presentium.backend.api.student.mapper.StudentMapper;
 import ch.presentium.backend.api.student.model.StudentViewModel;
 import ch.presentium.backend.api.student.request.StudentRequest;
 import ch.presentium.backend.business.service.StudentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/student")
+@RequestMapping(path = "/v1/students", produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "Student management", description = "Operations for managing students")
+@RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService studentService;
     private final StudentMapper studentMapper;
 
-    @Autowired
-    public StudentController(StudentService studentService, StudentMapper studentMapper) {
-        this.studentService = studentService;
-        this.studentMapper = studentMapper;
-    }
-
-    @GetMapping("/all")
-    @Transactional(readOnly = true)
+    @GetMapping
+    @Transactional(readOnly = true, rollbackFor = Throwable.class)
     public List<StudentViewModel> getAllStudents() {
         return studentService.findAll().stream().map(studentMapper::toViewModel).toList();
     }
 
-    @GetMapping("/{id}")
-    @Transactional(readOnly = true)
-    public StudentViewModel getStudent(@PathVariable @NotNull UUID id) {
-        return studentMapper.toViewModel(studentService.findById(id));
-    }
-
-    @PostMapping("/add")
+    @PostMapping
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
-    public void addStudent(@RequestBody StudentRequest studentBody) {
-        studentService.addStudent(studentBody.getFirstName(), studentBody.getLastName(), studentBody.getEmail());
+    public void addStudent(@RequestBody @Valid StudentRequest studentBody) {
+        studentService.addStudent(studentMapper.toModel(studentBody));
+    }
+
+    @GetMapping("/{id}")
+    @Transactional(readOnly = true, rollbackFor = Throwable.class)
+    public StudentViewModel getStudent(@PathVariable @NotNull UUID id) {
+        return studentMapper.toViewModel(studentService.findById(id).orElseThrow());
     }
 
     @DeleteMapping("/{id}")

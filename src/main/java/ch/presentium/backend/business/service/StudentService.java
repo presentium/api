@@ -3,6 +3,7 @@ package ch.presentium.backend.business.service;
 import ch.presentium.backend.business.model.user.Student;
 import ch.presentium.backend.business.repository.StudentRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,11 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student findById(UUID id) {
-        return studentRepository.findById(id).orElse(null);
+    public Optional<Student> findById(UUID id) {
+        return studentRepository.findById(id);
     }
 
-    public void addStudent(String firstName, String lastName, String email) {
-        Student student = new Student();
-        student.setFirstName(firstName);
-        student.setLastName(lastName);
-        student.setEmail(email);
+    public void addStudent(Student student) {
         studentRepository.save(student);
     }
 
