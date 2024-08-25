@@ -2,7 +2,7 @@ package ch.presentium.backend.api.schedule.schoolclass.model;
 
 import ch.presentium.backend.api.schedule.course.model.CourseViewModel;
 import ch.presentium.backend.api.schedule.room.model.RoomViewModel;
-import ch.presentium.backend.api.schedule.teacher.TeacherPresenceModelView;
+import ch.presentium.backend.api.schedule.teacher.model.TeacherPresenceModelView;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
