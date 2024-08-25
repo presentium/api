@@ -1,4 +1,4 @@
-package ch.presentium.backend.api.student;
+package ch.presentium.backend.api.student.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -9,7 +9,10 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class StudentRequest {
+
     @NotNull private final String firstName;
+
     @NotNull private final String lastName;
+
     @NotNull private final String email;
 }

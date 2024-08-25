@@ -1,13 +1,15 @@
-package ch.presentium.backend.api.student;
+package ch.presentium.backend.business.service;
 
 import ch.presentium.backend.business.model.user.Student;
+import ch.presentium.backend.business.repository.StudentRepository;
+import java.util.List;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class StudentService {
+
     private final StudentRepository studentRepository;
 
     @Autowired
@@ -15,8 +17,12 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public List<StudentViewModel> findAllView() {
-        return studentRepository.findAllView();
+    public List<Student> findAll() {
+        return studentRepository.findAll();
+    }
+
+    public Student findById(UUID id) {
+        return studentRepository.findById(id).orElse(null);
     }
 
     public void addStudent(String firstName, String lastName, String email) {
@@ -25,5 +31,9 @@ public class StudentService {
         student.setLastName(lastName);
         student.setEmail(email);
         studentRepository.save(student);
+    }
+
+    public void deleteStudent(UUID id) {
+        studentRepository.deleteById(id);
     }
 }
