@@ -1,6 +1,6 @@
 package ch.presentium.backend.business.model.user;
 
-import ch.presentium.backend.business.model.schedule.Class;
+import ch.presentium.backend.business.model.schedule.SchoolClass;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.OneToMany;
@@ -20,5 +20,5 @@ import lombok.experimental.Accessors;
 public class Teacher extends Person {
 
     @OneToMany(mappedBy = "teacher")
-    private List<Class> classes;
+    private List<SchoolClass> classes;
 }
