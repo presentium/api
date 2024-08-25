@@ -9,23 +9,12 @@ metadata:
     app.kubernetes.io/instance: presentium-{{ .Values.global.instance }}
     app.kubernetes.io/version: {{ .Values.image.tag }}
     app.kubernetes.io/part-of: presentium
-  annotations:
-    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
-    alb.ingress.kubernetes.io/conditions.api-server-grpc: >-
-      [{"field":"http-header","httpHeaderConfig":{"httpHeaderName":"Content-Type", "values":["application/grpc"]}}]
 spec:
   ingressClassName: alb
   rules:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
-          - path: '/'
-            pathType: Prefix
-            backend:
-              service:
-                name: api-server-grpc
-                port:
-                  name: grpc
           - path: '/'
             pathType: Prefix
             backend:

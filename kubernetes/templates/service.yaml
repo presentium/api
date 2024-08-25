@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: api-server
   namespace: {{ .Release.Namespace }}
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
   labels:
     app.kubernetes.io/name: presentium-api
     app.kubernetes.io/component: api-server
@@ -26,7 +28,10 @@ metadata:
   name: api-server-grpc
   namespace: {{ .Release.Namespace }}
   annotations:
-    alb.ingress.kubernetes.io/backend-protocol-version: GRPC
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    external-dns.alpha.kubernetes.io/hostname: 'rpc.{{ .Values.ingress.host }}'
   labels:
     app.kubernetes.io/name: presentium-api-grpc
     app.kubernetes.io/component: api-server-grpc
@@ -39,7 +44,8 @@ spec:
     app.kubernetes.io/instance: presentium-{{ .Values.global.instance }}
   ports:
     - name: grpc
-      port: 80
+      port: 443
       targetPort: {{ .Values.spring.server.grpcPort }}
       protocol: TCP
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerClass: service.k8s.aws/nlb
