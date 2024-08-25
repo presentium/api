@@ -5,7 +5,7 @@ import ch.presentium.backend.business.model.PresenceBox;
 import ch.presentium.backend.business.model.schedule.ClassSession;
 import ch.presentium.backend.business.model.schedule.Course;
 import ch.presentium.backend.business.model.schedule.Room;
-import ch.presentium.backend.business.model.schedule.SchoolClassSession;
+import ch.presentium.backend.business.model.schedule.SchoolClass;
 import ch.presentium.backend.business.model.user.Person;
 import ch.presentium.backend.business.model.user.Student;
 import ch.presentium.backend.business.model.user.Teacher;
@@ -36,7 +36,7 @@ public class DDLGenerator {
                 Teacher.class,
                 Presence.class,
                 PresenceBox.class,
-                SchoolClassSession.class,
+                SchoolClass.class,
                 ClassSession.class,
                 Course.class,
                 Room.class
