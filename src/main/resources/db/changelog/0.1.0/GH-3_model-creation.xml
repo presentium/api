@@ -32,9 +32,9 @@
     </changeSet>
 
     <changeSet id="GH-3.003" author="mstefani">
-        <createTable tableName="class">
+        <createTable tableName="school_class">
             <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_class"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_school_class"/>
             </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -76,7 +76,7 @@
             <column name="id" type="UUID">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_class_session"/>
             </column>
-            <column name="course_fk" type="BIGINT">
+            <column name="school_class_fk" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
             <column name="dt_session" type="DATETIME">
@@ -149,7 +149,7 @@
 
     <changeSet id="GH-3.012" author="mstefani">
         <addUniqueConstraint columnNames="name, course_fk" constraintName="uk_class_name"
-            tableName="class"/>
+            tableName="school_class"/>
     </changeSet>
 
     <changeSet id="GH-3.013" author="mstefani">
@@ -172,18 +172,18 @@
     </changeSet>
 
     <changeSet id="GH-3.017" author="mstefani">
-        <addForeignKeyConstraint baseColumnNames="course_fk" baseTableName="class"
+        <addForeignKeyConstraint baseColumnNames="course_fk" baseTableName="school_class"
             constraintName="fk_class_course" referencedColumnNames="id"
             referencedTableName="course"/>
     </changeSet>
 
     <changeSet id="GH-3.018" author="mstefani">
-        <addForeignKeyConstraint baseColumnNames="room_fk" baseTableName="class"
+        <addForeignKeyConstraint baseColumnNames="room_fk" baseTableName="school_class"
             constraintName="fk_class_room" referencedColumnNames="id" referencedTableName="room"/>
     </changeSet>
 
     <changeSet id="GH-3.019" author="mstefani">
-        <addForeignKeyConstraint baseColumnNames="teacher_fk" baseTableName="class"
+        <addForeignKeyConstraint baseColumnNames="teacher_fk" baseTableName="school_class"
             constraintName="fk_class_teacher" referencedColumnNames="person_fk"
             referencedTableName="teacher"/>
     </changeSet>
@@ -195,9 +195,9 @@
     </changeSet>
 
     <changeSet id="GH-3.021" author="mstefani">
-        <addForeignKeyConstraint baseColumnNames="course_fk" baseTableName="class_session"
-            constraintName="fk_session_course" referencedColumnNames="id"
-            referencedTableName="course"/>
+        <addForeignKeyConstraint baseColumnNames="school_class_fk" baseTableName="class_session"
+            constraintName="fk_session_school_class" referencedColumnNames="id"
+            referencedTableName="school_class"/>
     </changeSet>
 
     <changeSet id="GH-3.022" author="mstefani">
@@ -227,7 +227,7 @@
     <changeSet id="GH-3.026" author="mstefani">
         <addForeignKeyConstraint baseColumnNames="class_fk" baseTableName="class_student"
             constraintName="fk_student_class" referencedColumnNames="id"
-            referencedTableName="class"/>
+            referencedTableName="school_class"/>
     </changeSet>
 
     <changeSet id="GH-3.027" author="mstefani">

@@ -32,8 +32,8 @@ public class ClassSession {
     private UUID id;
 
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, optional = false)
-    @JoinColumn(name = "course_fk", foreignKey = @ForeignKey(name = "fk_session_course"), nullable = false)
-    private Course course;
+    @JoinColumn(name = "school_class_fk", foreignKey = @ForeignKey(name = "fk_session_school_class"), nullable = false)
+    private SchoolClass schoolClass;
 
     @Column(name = "dt_session", nullable = false)
     private LocalDateTime date;
