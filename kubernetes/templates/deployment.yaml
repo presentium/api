@@ -35,11 +35,16 @@ spec:
               value: '{{ .Values.spring.profiles | join "," }}'
             - name: SERVER_PORT
               value: '{{ .Values.spring.server.port }}'
+            - name: GRPC_SERVER_PORT
+              value: '{{ .Values.spring.server.grpcPort }}'
             - name: TZ
               value: UTC
           ports:
             - containerPort: {{ .Values.spring.server.port }}
               name: 'http'
+              protocol: TCP
+            - containerPort: {{ .Values.spring.server.grpcPort }}
+              name: 'grpc'
               protocol: TCP
           resources:
             limits:

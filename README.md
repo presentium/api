@@ -106,6 +106,29 @@ on if it is reserved for teachers or teacher and students. To test these endpoin
 `@WithMockAuthenticatedUser` annotation and sub-annotations, like `@WithMockTeacherUser`, 
 `@WithMockStudentUser`, or `@WithMockAdminUser`.
 
+#### Trying out the API in development
+
+Using the local development environment provisioned with docker compose, you can generate an access
+token by using the mock oidc debugger at http://localhost:17580/presentium/debugger. You will simply
+need to configure the scope to `openid profile email` and get the token.
+
+You can then use the Swagger UI to try out the API at http://localhost:13000/swagger-ui/index.html.
+You will need to provide the token in the `Authorize` button at the top right of the page, the token
+to use is the `access_token` field from the OIDC debugger.
+
+Testing gRPC calls is trickier due to the mTLS (mutual TLS) requirement. If you have
+[grpcui installed](https://github.com/fullstorydev/grpcui), you can use the following command to
+attach to the api
+
+```bash
+grpcui \
+  -bind=0.0.0.0 -port=8080 \
+  -cacert=src/test/resources/docker/vault/presentium_servers_inter_ca.pem \
+  -cert=src/test/resources/docker/vault/device.crt \
+  -key=src/test/resources/docker/vault/device.key \
+  localhost:13050
+```
+
 ## Continuous Delivery
 
 Each commit on the `main` branch is deployed to [staging-api.presentium.ch](https://staging-api.presentium.ch)

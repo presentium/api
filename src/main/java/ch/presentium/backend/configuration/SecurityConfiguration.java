@@ -2,6 +2,7 @@ package ch.presentium.backend.configuration;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import ch.presentium.backend.business.service.security.JwtUserRegistration;
 import java.util.List;
 import java.util.stream.Stream;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true, proxyTargetClass = true)
 public class SecurityConfiguration {
 
     @Bean
@@ -37,16 +38,17 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+    public JwtAuthenticationConverter jwtAuthenticationConverter(JwtUserRegistration jwtUserRegistration) {
         var scopeDelegate = new JwtGrantedAuthoritiesConverter();
         var roleDelegate = new JwtGrantedAuthoritiesConverter();
         roleDelegate.setAuthoritiesClaimName("roles");
         roleDelegate.setAuthorityPrefix("ROLE_");
 
         var jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt ->
-            Stream.concat(scopeDelegate.convert(jwt).stream(), roleDelegate.convert(jwt).stream()).toList()
-        );
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
+            jwtUserRegistration.registerUser(jwt);
+            return Stream.concat(scopeDelegate.convert(jwt).stream(), roleDelegate.convert(jwt).stream()).toList();
+        });
         return jwtAuthenticationConverter;
     }
 
