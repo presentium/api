@@ -1,8 +1,8 @@
 package ch.presentium.backend.api.security;
 
+import ch.presentium.backend.api.exception.ObjectNotFoundException;
 import ch.presentium.backend.api.security.mapper.UserMapper;
 import ch.presentium.backend.api.security.model.UserViewModel;
-import ch.presentium.backend.business.model.user.User;
 import ch.presentium.backend.business.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,11 +25,12 @@ public class AuthenticationController {
     private final UserMapper userMapper;
 
     @GetMapping("/@me")
-    @Transactional(rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class, readOnly = true)
     @Operation(summary = "Get the authenticated user metadata")
     public UserViewModel getAuthenticatedUser(@AuthenticationPrincipal Jwt jwt) {
-        var user = userRepository.findById(jwt.getSubject()).orElseGet(User::new);
-        userMapper.updateUser(jwt, user);
-        return userMapper.toViewModel(userRepository.save(user));
+        return userRepository
+            .findById(jwt.getSubject())
+            .map(userMapper::toViewModel)
+            .orElseThrow(() -> ObjectNotFoundException.forUser(jwt.getClaimAsString("username")));
     }
 }

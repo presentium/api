@@ -11,17 +11,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.NaturalId;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "presence_box")
 @Getter
 @Setter
 @Accessors(chain = true)
-public class PresenceBox {
+public class PresenceBox implements UserDetails {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -29,9 +36,34 @@ public class PresenceBox {
     private UUID id;
 
     /**
+     * The certificate common name that the box provided upon registration.
+     */
+    @NaturalId
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    /**
      * The teacher who is responsible for the presence box, null if free to be assigned.
      */
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "teacher_fk", foreignKey = @ForeignKey(name = "fk_box_teacher"))
     private Teacher teacher;
+
+    @Override
+    @Transient
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_DEVICE"));
+    }
+
+    @Override
+    @Transient
+    public String getUsername() {
+        return name;
+    }
+
+    @Override
+    @Transient
+    public String getPassword() {
+        return null;
+    }
 }
