@@ -1,15 +1,14 @@
-package ch.presentium.backend.api.student.model;
+package ch.presentium.backend.api.schedule.student.request;
 
 import jakarta.validation.constraints.NotNull;
-import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.jackson.Jacksonized;
 
 @Data
 @Builder
-public class StudentViewModel {
-
-    @NotNull private final UUID id;
+@Jacksonized
+public class StudentRequest {
 
     @NotNull private final String firstName;
 
