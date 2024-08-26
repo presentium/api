@@ -27,13 +27,13 @@ import lombok.experimental.Accessors;
  */
 @Entity
 @Table(
-    name = "class",
-    uniqueConstraints = { @UniqueConstraint(name = "uk_class_name", columnNames = { "name", "course_fk" }) }
+    name = "school_class",
+    uniqueConstraints = { @UniqueConstraint(name = "uk_school_class_name", columnNames = { "name", "course_fk" }) }
 )
 @Getter
 @Setter
 @Accessors(chain = true)
-public class Class {
+public class SchoolClass {
 
     @Id
     @Column(name = "id", nullable = false)

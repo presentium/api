@@ -5,3 +5,6 @@ databaseChangeLog:
   - include:
       file: GH-3_model-creation.xml
       relativeToChangelogFile: true
+  - include:
+      file: GH-4_grpc-login.xml
+      relativeToChangelogFile: true

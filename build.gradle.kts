@@ -1,4 +1,5 @@
 import com.diffplug.spotless.LineEnding
+import com.google.protobuf.gradle.id
 import org.springframework.boot.gradle.tasks.run.BootRun
 import java.nio.charset.StandardCharsets
 
@@ -11,6 +12,7 @@ plugins {
     id("com.diffplug.spotless") version "6.25.0"
     id("com.palantir.git-version") version "3.1.0"
     id("com.google.cloud.tools.jib") version "3.4.3"
+    id("com.google.protobuf") version "0.9.4"
 }
 
 val gitVersion: groovy.lang.Closure<String> by extra
@@ -29,11 +31,19 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("io.grpc:grpc-bom:1.66.0")
+    }
+}
+
 dependencies {
-    // Spring starters
+    // Web
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    // OpenAPI
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 
     // Security
@@ -48,6 +58,16 @@ dependencies {
     implementation("org.liquibase:liquibase-core")
     implementation("software.amazon.jdbc:aws-advanced-jdbc-wrapper:2.3.8")
     runtimeOnly("org.postgresql:postgresql")
+
+    // Vault
+    implementation("org.springframework.vault:spring-vault-core:3.1.2")
+
+    // gRPC
+    implementation("io.grpc:grpc-netty-shaded")
+    implementation("io.grpc:grpc-protobuf")
+    implementation("io.grpc:grpc-services")
+    implementation("io.grpc:grpc-stub")
+    implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
 
     // Utils
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
@@ -70,6 +90,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
+    testImplementation("org.testcontainers:vault")
+
+    // Misc
+    compileOnly("jakarta.annotation:jakarta.annotation-api:1.3.5")
 }
 
 configurations {
@@ -103,6 +127,24 @@ tasks.named<JavaCompile>("compileJava") {
             "-Amapstruct.defaultComponentModel=spring",
         ),
     )
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.4"
+    }
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java"
+        }
+    }
+    generateProtoTasks {
+        all().forEach {
+            it.plugins {
+                id("grpc") {}
+            }
+        }
+    }
 }
 
 val details = versionDetails()

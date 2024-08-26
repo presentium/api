@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Test certs
+*.csr
+*.pem
+*.crt
+*.key

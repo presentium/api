@@ -45,5 +45,5 @@ public class Course {
     private Year year;
 
     @OneToMany(mappedBy = "course")
-    private List<Class> classes;
+    private List<SchoolClass> classes;
 }
