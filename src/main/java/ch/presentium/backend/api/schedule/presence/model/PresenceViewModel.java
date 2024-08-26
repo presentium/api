@@ -7,6 +7,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public abstract class PresenceViewModel {
+public class PresenceViewModel {
     @NotNull private final StudentViewModel student;
 }
