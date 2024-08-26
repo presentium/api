@@ -33,7 +33,7 @@ VALUES (1, 'Room 101'),
        (3, 'Room 103');
 
 -- Insert classes into the school_class table
-INSERT INTO school_class (id, name, course_fk, day_of_week, start, end, room_fk, teacher_fk)
+INSERT INTO school_class (id, name, course_fk, day_of_week, start, "end", room_fk, teacher_fk)
 VALUES (1, 'PDG(2024)-A-C1', 1, 1, '08:00:00', '10:00:00', 1, '00000000-0000-0000-0000-000000000004'),
        (2, 'PDG(2024)-A-L1', 1, 2, '10:00:00', '12:00:00', 1, '00000000-0000-0000-0000-000000000004'),
        (3, 'PRG1(2024)-A-C1', 2, 3, '08:00:00', '10:00:00', 2, '00000000-0000-0000-0000-000000000004'),
@@ -63,22 +63,26 @@ VALUES (1, '00000000-0000-0000-0000-000000000001'),
        (6, '00000000-0000-0000-0000-000000000003');
 
 -- Generate class sessions for the past 14 days
-DECLARE
-@current_date DATE = CURRENT_DATE;
-
-INSERT INTO class_session (id, school_class_fk, dt_session)
-VALUES ('11111111-1111-1111-1111-111111111111', 1, DATE_SUB(@current_date, INTERVAL 14 DAY)),
-       ('11111111-1111-1111-1111-111111111112', 1, DATE_SUB(@current_date, INTERVAL 7 DAY)),
-       ('11111111-1111-1111-1111-111111111113', 2, DATE_SUB(@current_date, INTERVAL 13 DAY)),
-       ('11111111-1111-1111-1111-111111111114', 2, DATE_SUB(@current_date, INTERVAL 6 DAY)),
-       ('11111111-1111-1111-1111-111111111115', 3, DATE_SUB(@current_date, INTERVAL 12 DAY)),
-       ('11111111-1111-1111-1111-111111111116', 3, DATE_SUB(@current_date, INTERVAL 5 DAY)),
-       ('11111111-1111-1111-1111-111111111117', 4, DATE_SUB(@current_date, INTERVAL 11 DAY)),
-       ('11111111-1111-1111-1111-111111111118', 4, DATE_SUB(@current_date, INTERVAL 4 DAY)),
-       ('11111111-1111-1111-1111-111111111119', 5, DATE_SUB(@current_date, INTERVAL 10 DAY)),
-       ('11111111-1111-1111-1111-111111111120', 5, DATE_SUB(@current_date, INTERVAL 3 DAY)),
-       ('11111111-1111-1111-1111-111111111121', 6, DATE_SUB(@current_date, INTERVAL 9 DAY)),
-       ('11111111-1111-1111-1111-111111111122', 6, DATE_SUB(@current_date, INTERVAL 2 DAY));
+-- Define the current date using a PostgreSQL-compatible method
+DO $$
+    DECLARE
+        current_date DATE := CURRENT_DATE;
+    BEGIN
+        INSERT INTO class_session (id, school_class_fk, dt_session)
+        VALUES
+            ('11111111-1111-1111-1111-111111111111', 1, current_date - INTERVAL '14 days'),
+            ('11111111-1111-1111-1111-111111111112', 1, current_date - INTERVAL '7 days'),
+            ('11111111-1111-1111-1111-111111111113', 2, current_date - INTERVAL '13 days'),
+            ('11111111-1111-1111-1111-111111111114', 2, current_date - INTERVAL '6 days'),
+            ('11111111-1111-1111-1111-111111111115', 3, current_date - INTERVAL '12 days'),
+            ('11111111-1111-1111-1111-111111111116', 3, current_date - INTERVAL '5 days'),
+            ('11111111-1111-1111-1111-111111111117', 4, current_date - INTERVAL '11 days'),
+            ('11111111-1111-1111-1111-111111111118', 4, current_date - INTERVAL '4 days'),
+            ('11111111-1111-1111-1111-111111111119', 5, current_date - INTERVAL '10 days'),
+            ('11111111-1111-1111-1111-111111111120', 5, current_date - INTERVAL '3 days'),
+            ('11111111-1111-1111-1111-111111111121', 6, current_date - INTERVAL '9 days'),
+            ('11111111-1111-1111-1111-111111111122', 6, current_date - INTERVAL '2 days');
+    END $$;
 
 -- Generate presence records for each student in each session
 INSERT INTO presence (id, student_fk, class_session_fk)
