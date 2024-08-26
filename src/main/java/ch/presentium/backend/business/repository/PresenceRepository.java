@@ -15,12 +15,15 @@ public interface PresenceRepository extends JpaRepository<Presence, UUID> {
     @Query("SELECT p FROM Presence p WHERE p.student.id = :studentId")
     Presence findAllByStudentId(@Param("studentId") UUID studentId);
 
-    @Query("SELECT new ch.presentium.backend.api.schedule.presence.model.PresenceViewPercentModel(p.student.id, " +
+    @Query("SELECT new ch.presentium.backend.api.schedule.presence.model.PresenceViewPercentModel(" +
+        "new ch.presentium.backend.api.schedule.student.model.StudentViewModel(s.id, s.firstName, s.lastName, s.email), " +
         "(CAST(COUNT(p) AS double) / " +
         "(SELECT COUNT(cs) FROM ClassSession cs WHERE cs.schoolClass.id = :classId) * 100)) " +
         "FROM Presence p " +
+        "JOIN p.student s " +
         "WHERE p.classSession.schoolClass.id = :classId " +
-        "GROUP BY p.student.id")
+        "GROUP BY s.id, s.firstName, s.lastName, s.email")
     List<PresenceViewPercentModel> calculateAttendancePercentage(@Param("classId") Long classId);
+
 
 }

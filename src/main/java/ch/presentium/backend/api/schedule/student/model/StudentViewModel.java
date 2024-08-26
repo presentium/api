@@ -1,12 +1,15 @@
 package ch.presentium.backend.api.schedule.student.model;
 
 import jakarta.validation.constraints.NotNull;
-import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+import java.util.UUID;
 
 @Data
 @Builder
+@RequiredArgsConstructor
 public class StudentViewModel {
 
     @NotNull private final UUID id;
