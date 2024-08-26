@@ -1,8 +1,8 @@
-package ch.presentium.backend.api.student;
+package ch.presentium.backend.api.schedule.student;
 
-import ch.presentium.backend.api.student.mapper.StudentMapper;
-import ch.presentium.backend.api.student.model.StudentViewModel;
-import ch.presentium.backend.api.student.request.StudentRequest;
+import ch.presentium.backend.api.schedule.student.mapper.StudentMapper;
+import ch.presentium.backend.api.schedule.student.model.StudentViewModel;
+import ch.presentium.backend.api.schedule.student.request.StudentRequest;
 import ch.presentium.backend.business.service.StudentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

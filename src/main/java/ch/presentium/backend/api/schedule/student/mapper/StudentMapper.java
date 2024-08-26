@@ -1,7 +1,7 @@
-package ch.presentium.backend.api.student.mapper;
+package ch.presentium.backend.api.schedule.student.mapper;
 
-import ch.presentium.backend.api.student.model.StudentViewModel;
-import ch.presentium.backend.api.student.request.StudentRequest;
+import ch.presentium.backend.api.schedule.student.model.StudentViewModel;
+import ch.presentium.backend.api.schedule.student.request.StudentRequest;
 import ch.presentium.backend.business.model.user.Student;
 import org.mapstruct.Mapper;
 
