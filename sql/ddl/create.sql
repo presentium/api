@@ -49,8 +49,11 @@
 
     create table presence_box (
         id uuid not null,
+        name varchar(255) not null,
+        signature varchar(255) not null,
         teacher_fk uuid,
-        primary key (id)
+        primary key (id),
+        unique (name)
     );
 
     create table room (

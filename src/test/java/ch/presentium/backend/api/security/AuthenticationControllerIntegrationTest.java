@@ -29,7 +29,7 @@ class AuthenticationControllerIntegrationTest extends AbstractControllerIntegrat
 
         @Test
         @WithMockAuthenticatedUser
-        void authenticated_noUser_createsNew() throws Exception {
+        void authenticated_noUser_isCreatedThroughAuth() throws Exception {
             api
                 .perform(get("/v1/auth/@me"))
                 .andExpectAll(
