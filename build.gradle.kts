@@ -67,6 +67,7 @@ dependencies {
     implementation("io.grpc:grpc-protobuf")
     implementation("io.grpc:grpc-services")
     implementation("io.grpc:grpc-stub")
+    implementation("com.salesforce.servicelibs:reactor-grpc-stub:1.2.4")
     implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
 
     // Utils
@@ -137,11 +138,15 @@ protobuf {
         id("grpc") {
             artifact = "io.grpc:protoc-gen-grpc-java"
         }
+        id("reactor") {
+            artifact = "com.salesforce.servicelibs:reactor-grpc:1.2.4"
+        }
     }
     generateProtoTasks {
         all().forEach {
             it.plugins {
                 id("grpc") {}
+                id("reactor") {}
             }
         }
     }
