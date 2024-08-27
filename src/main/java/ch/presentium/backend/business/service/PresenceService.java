@@ -3,6 +3,7 @@ package ch.presentium.backend.business.service;
 import ch.presentium.backend.api.schedule.presence.model.PresenceViewPercentModel;
 import ch.presentium.backend.business.model.Presence;
 import ch.presentium.backend.business.repository.PresenceRepository;
+import ch.presentium.backend.business.utils.DateRange;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class PresenceService {
         return presenceRepository.findAllByStudentId(studentId);
     }
 
-    public List<PresenceViewPercentModel> calculateAttendancePercentage(Long classId) {
-        return presenceRepository.calculateAttendancePercentage(classId);
+    public List<PresenceViewPercentModel> calculateAttendancePercentage(Long classId, DateRange dateRange, UUID studentId) {
+        return presenceRepository.calculateAttendancePercentage(classId, dateRange, studentId);
     }
 }
