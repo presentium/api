@@ -3,7 +3,7 @@ package ch.presentium.backend.business.service;
 import ch.presentium.backend.api.schedule.presence.model.PresenceViewPercentModel;
 import ch.presentium.backend.business.model.Presence;
 import ch.presentium.backend.business.repository.PresenceRepository;
-import ch.presentium.backend.business.utils.DateRange;
+import ch.presentium.backend.api.types.daterange.DateRange;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
