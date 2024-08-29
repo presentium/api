@@ -18,17 +18,20 @@ public interface PresenceRepository extends JpaRepository<Presence, UUID> {
 
     @Query("SELECT new ch.presentium.backend.api.schedule.presence.model.PresenceViewPercentModel(" +
         "new ch.presentium.backend.api.schedule.student.model.StudentViewModel(s.id, s.firstName, s.lastName, s.email), " +
-        "(CAST(COUNT(p) AS double) / " +
-        "(SELECT COUNT(cs) FROM ClassSession cs WHERE cs.schoolClass.id = :classId) * 100)) " +
-        "FROM Presence p " +
-        "JOIN p.student s " +
-        "WHERE p.classSession.schoolClass.id = :classId " +
-        "AND p.classSession.date BETWEEN :#{#dateRange.startDate} AND :#{#dateRange.endDate} " +
+        "(CAST(COUNT(p.id) AS double) / COUNT(cs.id) * 100), " +
+        "cs.date) " +
+        "FROM SchoolClass sc " +
+        "JOIN sc.students s " +
+        "JOIN ClassSession cs ON cs.schoolClass.id = sc.id AND cs.date BETWEEN :#{#dateRange.startDate} AND :#{#dateRange.endDate} " +
+        "LEFT JOIN Presence p ON p.student.id = s.id AND p.classSession.id = cs.id " +
+        "WHERE sc.id = :classId " +
         "AND (:studentId IS NULL OR s.id = :studentId) " +
-        "GROUP BY s.id, s.firstName, s.lastName, s.email")
+        "GROUP BY s.id, s.firstName, s.lastName, s.email, cs.date " +
+        "ORDER BY s.id, cs.date")
     List<PresenceViewPercentModel> calculateAttendancePercentage(
         @Param("classId") Long classId,
-        DateRange dateRange,
-        UUID studentId
+        @Param("dateRange") DateRange dateRange,
+        @Param("studentId") UUID studentId
     );
+
 }

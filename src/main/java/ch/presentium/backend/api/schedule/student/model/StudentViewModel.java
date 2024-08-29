@@ -19,4 +19,5 @@ public class StudentViewModel {
     @NotNull private final String lastName;
 
     @NotNull private final String email;
+
 }

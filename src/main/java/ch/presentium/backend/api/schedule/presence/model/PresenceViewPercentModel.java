@@ -2,16 +2,18 @@ package ch.presentium.backend.api.schedule.presence.model;
 
 import ch.presentium.backend.api.schedule.student.model.StudentViewModel;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
-@Setter
-@Getter
-public class PresenceViewPercentModel extends PresenceViewModel {
-    private double presencePercent;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-    PresenceViewPercentModel(@NotNull StudentViewModel student, double presencePercent) {
-        super(student);
-        this.presencePercent = presencePercent;
-    }
+@Builder
+@Data
+@RequiredArgsConstructor
+public class PresenceViewPercentModel {
+    @NotNull private final StudentViewModel student;
+    @NotNull private final double presencePercent;
+    @NotNull private final LocalDateTime date;
 }
