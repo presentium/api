@@ -1,6 +1,7 @@
 package ch.presentium.backend.api.schedule.student;
 
 import ch.presentium.backend.annotation.security.IsTeacherUser;
+import ch.presentium.backend.api.exception.ObjectNotFoundException;
 import ch.presentium.backend.api.schedule.student.mapper.StudentMapper;
 import ch.presentium.backend.api.schedule.student.model.StudentViewModel;
 import ch.presentium.backend.api.schedule.student.request.StudentRequest;
@@ -10,7 +11,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,7 +35,10 @@ public class StudentController {
     @GetMapping("/{id}")
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
     public StudentViewModel getStudent(@PathVariable @NotNull UUID id) {
-        return studentMapper.toViewModel(studentService.findById(id).orElseThrow());
+        return studentService
+            .findById(id)
+            .map(studentMapper::toViewModel)
+            .orElseThrow(() -> ObjectNotFoundException.forStudent(id));
     }
 
     @PostMapping

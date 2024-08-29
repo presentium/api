@@ -78,7 +78,6 @@ public class StudentControllerTest extends AbstractControllerTest {
             when(studentService.findById(UUID.fromString("00000000-0000-0000-0000-000000000000"))).thenReturn(
                 Optional.empty()
             );
-
             api.perform(get("/v1/students/00000000-0000-0000-0000-000000000000")).andExpect(status().isNotFound());
         }
     }

@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface StudentMapper {
-
     StudentViewModel toViewModel(Student student);
 
     @Mapping(target = "id", ignore = true)
