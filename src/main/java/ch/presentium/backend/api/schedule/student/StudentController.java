@@ -1,5 +1,6 @@
 package ch.presentium.backend.api.schedule.student;
 
+import ch.presentium.backend.annotation.security.IsTeacherUser;
 import ch.presentium.backend.api.schedule.student.mapper.StudentMapper;
 import ch.presentium.backend.api.schedule.student.model.StudentViewModel;
 import ch.presentium.backend.api.schedule.student.request.StudentRequest;
@@ -31,21 +32,23 @@ public class StudentController {
         return studentService.findAll().stream().map(studentMapper::toViewModel).toList();
     }
 
-    @PostMapping
-    @Transactional
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addStudent(@RequestBody @Valid StudentRequest studentBody) {
-        studentService.addStudent(studentMapper.toModel(studentBody));
-    }
-
     @GetMapping("/{id}")
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
     public StudentViewModel getStudent(@PathVariable @NotNull UUID id) {
         return studentMapper.toViewModel(studentService.findById(id).orElseThrow());
     }
 
+    @PostMapping
+    @IsTeacherUser
+    @Transactional(rollbackFor = Throwable.class)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addStudent(@RequestBody @Valid StudentRequest studentBody) {
+        studentService.addStudent(studentMapper.toModel(studentBody));
+    }
+
     @DeleteMapping("/{id}")
-    @Transactional
+    @IsTeacherUser
+    @Transactional(rollbackFor = Throwable.class)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteStudent(@PathVariable @NotNull UUID id) {
         studentService.deleteStudent(id);
