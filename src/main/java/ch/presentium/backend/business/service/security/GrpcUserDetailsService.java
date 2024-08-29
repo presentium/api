@@ -16,8 +16,8 @@ public class GrpcUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var box = presenceBoxRepository.findByName(username).orElseGet(PresenceBox::new);
-        box.setName(username);
-        return presenceBoxRepository.save(box);
+        return presenceBoxRepository.save(
+            presenceBoxRepository.findByName(username).orElseGet(PresenceBox::new).setName(username)
+        );
     }
 }
