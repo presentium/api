@@ -20,6 +20,7 @@ public class DeviceRpcService extends ReactorDeviceServiceGrpc.DeviceServiceImpl
     private final DeviceBridgeService deviceService;
     private final EnrollmentService enrollmentService;
     private final PresenceService presenceService;
+    private final DeviceBridgeService deviceBridgeService;
 
     @Override
     public Flux<BusEvent> enterEventBus(EnterRequest request) {
@@ -31,10 +32,12 @@ public class DeviceRpcService extends ReactorDeviceServiceGrpc.DeviceServiceImpl
 
     @Override
     public Mono<GenericResponse> studentEnrolled(Mono<EnrolledStudent> request) {
+        var certificate = (X509CertificateAuthentication) SecurityContextHolder.getContext().getAuthentication();
         return request
             .publishOn(Schedulers.boundedElastic())
             .map(req -> {
                 enrollmentService.enrollStudentCard(UUID.fromString(req.getStudentId()), req.getCardId());
+                deviceBridgeService.clearMode(certificate.getName());
                 return GenericResponse.newBuilder().setStatus("OK").setMessage("Student enrolled").build();
             });
     }

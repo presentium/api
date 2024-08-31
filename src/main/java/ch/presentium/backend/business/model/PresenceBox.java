@@ -49,6 +49,24 @@ public class PresenceBox implements UserDetails {
     @JoinColumn(name = "teacher_fk", foreignKey = @ForeignKey(name = "fk_box_teacher"))
     private Teacher teacher;
 
+    public PresenceBox setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+        if (teacher != null) {
+            teacher.getDevices().add(this);
+        }
+
+        return this;
+    }
+
+    public PresenceBox removeTeacher() {
+        if (teacher != null) {
+            teacher.getDevices().remove(this);
+            teacher = null;
+        }
+
+        return this;
+    }
+
     @Override
     @Transient
     public Collection<? extends GrantedAuthority> getAuthorities() {
