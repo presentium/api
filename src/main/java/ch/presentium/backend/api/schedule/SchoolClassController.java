@@ -5,6 +5,7 @@ import ch.presentium.backend.api.schedule.mapper.SchoolClassMapper;
 import ch.presentium.backend.api.schedule.model.SchoolClassViewModel;
 import ch.presentium.backend.business.model.user.Teacher;
 import ch.presentium.backend.business.model.user.User;
+import ch.presentium.backend.business.repository.SchoolClassRepository;
 import ch.presentium.backend.business.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SchoolClassController {
 
     private final UserRepository userRepository;
+    private final SchoolClassRepository schoolClassRepository;
     private final SchoolClassMapper schoolClassMapper;
 
     @GetMapping(params = "teacher=@me")
@@ -63,5 +65,11 @@ public class SchoolClassController {
             .map(schoolClassMapper::map)
             .sorted(Comparator.comparing(SchoolClassViewModel::getName))
             .toList();
+    }
+
+    @GetMapping
+    @Transactional(readOnly = true, rollbackFor = Throwable.class)
+    public List<SchoolClassViewModel> getAllClasses() {
+        return schoolClassRepository.findAll().stream().map(schoolClassMapper::map).toList();
     }
 }
