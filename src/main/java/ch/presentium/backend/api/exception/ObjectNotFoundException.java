@@ -23,7 +23,19 @@ public class ObjectNotFoundException extends RuntimeException {
         return new ObjectNotFoundException("Student with card id %s not found".formatted(cardId));
     }
 
+    public static ObjectNotFoundException forTeacher(UUID teacherId) {
+        return new ObjectNotFoundException("Teacher with id %s not found".formatted(teacherId));
+    }
+
+    public static ObjectNotFoundException forSchoolClass(Long schoolClassId) {
+        return new ObjectNotFoundException("School class with id %d not found".formatted(schoolClassId));
+    }
+
     public static ObjectNotFoundException forClassSession(UUID classSessionId) {
         return new ObjectNotFoundException("Class session with id %s not found".formatted(classSessionId));
+    }
+
+    public static ObjectNotFoundException forDevice(UUID deviceId) {
+        return new ObjectNotFoundException("Device with id %s not found".formatted(deviceId));
     }
 }

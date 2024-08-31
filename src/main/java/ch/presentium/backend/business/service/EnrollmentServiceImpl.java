@@ -24,6 +24,5 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             .orElseThrow(() -> ObjectNotFoundException.forStudent(studentId));
 
         student.setCardId(cardId);
-        // TODO [lh] ping UI if needed
     }
 }

@@ -2,6 +2,7 @@ package ch.presentium.backend.api;
 
 import ch.presentium.backend.AbstractCommonTest;
 import ch.presentium.backend.api.AbstractControllerTest.ControllerContextConfiguration;
+import ch.presentium.backend.api.mapping.MappingContext;
 import ch.presentium.backend.business.service.security.JwtUserRegistration;
 import ch.presentium.backend.configuration.SecurityConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,6 @@ public abstract class AbstractControllerTest extends AbstractCommonTest {
     @Autowired
     protected MockMvc api;
 
-    @MockBean
-    protected JwtUserRegistration jwtUserRegistration;
+    protected @MockBean MappingContext mappingContext;
+    protected @MockBean JwtUserRegistration jwtUserRegistration;
 }

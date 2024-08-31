@@ -16,8 +16,6 @@ import ch.presentium.backend.annotation.security.IsStudentUser;
 import ch.presentium.backend.annotation.security.IsTeacherUser;
 import ch.presentium.backend.business.model.user.User;
 import ch.presentium.backend.business.repository.UserRepository;
-import ch.presentium.backend.business.service.security.JwtUserRegistration;
-import ch.presentium.backend.configuration.SecurityConfigurationIntegrationTest.FixtureController;
 import ch.presentium.backend.security.WithMockAdminUser;
 import ch.presentium.backend.security.WithMockStudentUser;
 import ch.presentium.backend.security.WithMockTeacherUser;
@@ -29,13 +27,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Import({ FixtureController.class, JwtUserRegistration.class })
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 class SecurityConfigurationIntegrationTest extends AbstractCommonTest {
