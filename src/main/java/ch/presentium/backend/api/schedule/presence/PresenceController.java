@@ -1,16 +1,13 @@
 package ch.presentium.backend.api.schedule.presence;
 
-import ch.presentium.backend.api.schedule.presence.mapper.PresenceMapper;
-import ch.presentium.backend.api.schedule.presence.model.PresenceViewPercentModel;
-import ch.presentium.backend.business.service.PresenceService;
+import ch.presentium.backend.api.schedule.presence.model.PresenceViewModel;
 import ch.presentium.backend.api.types.daterange.DateRange;
-import jakarta.validation.Valid;
+import ch.presentium.backend.business.service.PresenceService;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/presences")
@@ -18,15 +15,14 @@ import java.util.UUID;
 public class PresenceController {
 
     private final PresenceService presenceService;
-    private final PresenceMapper presenceMapper;
 
     @GetMapping
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
-    public List<PresenceViewPercentModel> findAll(
+    public List<PresenceViewModel> findAll(
         @RequestParam Long classId,
         @RequestParam(required = false) UUID studentId,
         DateRange dateRange
-        ) {
-        return presenceService.calculateAttendancePercentage(classId, dateRange, studentId);
+    ) {
+        return presenceService.calculateAttendance(classId, dateRange, studentId);
     }
 }
