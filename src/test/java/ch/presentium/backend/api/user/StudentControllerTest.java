@@ -48,9 +48,9 @@ class StudentControllerTest extends AbstractControllerTest {
         void asTeacher_returnsStudentRefs() throws Exception {
             when(studentRepository.findAll()).thenReturn(
                 List.of(
-                    (Student) new Student().setId(UUID.randomUUID()).setFirstName("Test").setLastName("One"),
-                    (Student) new Student().setId(UUID.randomUUID()).setFirstName("Test").setLastName("Two"),
-                    (Student) new Student().setId(UUID.randomUUID()).setFirstName("Test").setLastName("Three")
+                    (Student) new Student().setId(UUID.randomUUID()).setFullName("Test One"),
+                    (Student) new Student().setId(UUID.randomUUID()).setFullName("Test Two"),
+                    (Student) new Student().setId(UUID.randomUUID()).setFullName("Test Three")
                 )
             );
 
@@ -78,8 +78,8 @@ class StudentControllerTest extends AbstractControllerTest {
         void get_all_students() throws Exception {
             when(studentRepository.findAll()).thenReturn(
                 List.of(
-                    (Student) new Student().setFirstName("Alice").setLastName("Test"),
-                    (Student) new Student().setFirstName("Bob").setLastName("Test")
+                    (Student) new Student().setFullName("Alice Test"),
+                    (Student) new Student().setFullName("Bob Test")
                 )
             );
 
@@ -88,8 +88,8 @@ class StudentControllerTest extends AbstractControllerTest {
                 .andExpectAll(
                     status().isOk(),
                     content().contentType(MediaType.APPLICATION_JSON),
-                    jsonPath("$.[0].firstName").value("Alice"),
-                    jsonPath("$.[1].firstName").value("Bob")
+                    jsonPath("$.[0].name").value("Alice Test"),
+                    jsonPath("$.[1].name").value("Bob Test")
                 );
         }
     }
@@ -105,8 +105,7 @@ class StudentControllerTest extends AbstractControllerTest {
                 Optional.ofNullable(
                     (Student) new Student()
                         .setId(UUID.fromString("00000000-0000-0000-0000-000000000000"))
-                        .setFirstName("Alice")
-                        .setLastName("Test")
+                        .setFullName("Alice Test")
                 )
             );
 
@@ -115,7 +114,7 @@ class StudentControllerTest extends AbstractControllerTest {
                 .andExpectAll(
                     status().isOk(),
                     content().contentType(MediaType.APPLICATION_JSON),
-                    jsonPath("$.firstName").value("Alice")
+                    jsonPath("$.fullName").value("Alice Test")
                 );
         }
 
@@ -140,16 +139,13 @@ class StudentControllerTest extends AbstractControllerTest {
                 .perform(
                     post("/v1/students")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(
-                            "{\"firstName\":\"Alice\",\"lastName\":\"Test\", \"email\":\"alice.test@test.presentium.ch\"}"
-                        )
+                        .content("{\"fullName\":\"Alice Test\",\"email\":\"alice.test@test.presentium.ch\"}")
                 )
                 .andExpect(status().isCreated());
 
             verify(studentRepository, times(1)).save(
                 assertArg(student -> {
-                    assertEquals("Alice", student.getFirstName());
-                    assertEquals("Test", student.getLastName());
+                    assertEquals("Alice Test", student.getFullName());
                 })
             );
         }
@@ -161,7 +157,7 @@ class StudentControllerTest extends AbstractControllerTest {
                 .perform(
                     post("/v1/students")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"firstName\":\"Alice\",\"lastName\":\"Test\"}")
+                        .content("{\"fullName\":\"Alice Test\"}")
                 )
                 .andExpect(status().isBadRequest());
         }
@@ -173,7 +169,7 @@ class StudentControllerTest extends AbstractControllerTest {
                 .perform(
                     post("/v1/students")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"firstName\":\"Alice\",\"lastName\":\"Test\", \"email\":\"alice.test\"}")
+                        .content("{\"fullName\":\"Alice Test\",\"email\":\"alice.test\"}")
                 )
                 .andExpect(status().isBadRequest());
         }
@@ -185,19 +181,19 @@ class StudentControllerTest extends AbstractControllerTest {
                 .perform(
                     post("/v1/students")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"firstName\":\"Alice\", \"email\":\"alice.test@test.presentium.ch\"}")
+                        .content("{\"fullName\":\"\", \"email\":\"alice.test@test.presentium.ch\"}")
                 )
                 .andExpect(status().isBadRequest());
         }
 
         @Test
         @WithMockTeacherUser
-        void create_student_invalid_firstName() throws Exception {
+        void create_student_invalid_fullName() throws Exception {
             api
                 .perform(
                     post("/v1/students")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"lastName\":\"Test\", \"email\":\"alice.test@test.presentium.ch\"}")
+                        .content("{\"email\":\"alice.test@test.presentium.ch\"}")
                 )
                 .andExpect(status().isBadRequest());
         }

@@ -14,6 +14,7 @@ import ch.presentium.backend.business.model.schedule.SchoolClass;
 import ch.presentium.backend.business.model.user.Teacher;
 import ch.presentium.backend.business.model.user.User;
 import ch.presentium.backend.business.repository.SchoolClassRepository;
+import ch.presentium.backend.business.repository.StudentRepository;
 import ch.presentium.backend.business.repository.UserRepository;
 import ch.presentium.backend.security.WithMockStudentUser;
 import ch.presentium.backend.security.WithMockTeacherUser;
@@ -37,6 +38,9 @@ class SchoolClassControllerTest extends AbstractControllerTest {
 
     @MockBean
     private SchoolClassRepository schoolClassRepository;
+
+    @MockBean
+    private StudentRepository studentRepository;
 
     @Nested
     @DisplayName("GET /v1/school-classes?teacher=@me")

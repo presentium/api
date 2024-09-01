@@ -1,12 +1,11 @@
 package ch.presentium.backend.business.repository;
 
-import ch.presentium.backend.business.model.user.Person;
+import ch.presentium.backend.business.model.schedule.Room;
 import java.util.Optional;
-import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person, UUID> {
-    Optional<Person> findByFullName(String fullName);
+public interface RoomRepository extends JpaRepository<Room, Long> {
+    Optional<Room> findByName(String name);
 }

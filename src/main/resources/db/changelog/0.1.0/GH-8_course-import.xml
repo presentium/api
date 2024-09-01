@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="GH-8.001" author="lherman">
+        <mergeColumns
+            tableName="person"
+            column1Name="first_name" column2Name="last_name"
+            finalColumnName="name" finalColumnType="varchar(255)"
+            joinString=" "
+        />
+    </changeSet>
+
+
+    <changeSet id="GH-8.003" author="lherman">
+        <!-- change check on course.semester -->
+        <sql>
+            UPDATE course SET semester = 'S1' WHERE semester = 'T1';
+            UPDATE course SET semester = 'S1' WHERE semester = 'T2';
+            UPDATE course SET semester = 'S2' WHERE semester = 'T3';
+            UPDATE course SET semester = 'E' WHERE semester = 'T4';
+        </sql>
+    </changeSet>
+    <changeSet id="GH-8.004" author="lherman">
+        <!-- change check on course.semester -->
+        <sql>
+            ALTER TABLE course
+                ADD CONSTRAINT check_semester
+                    CHECK (semester IN ('S1', 'S2', 'E'));
+        </sql>
+    </changeSet>
+
+    <changeSet id="GH-8.005" author="lherman">
+        <dropUniqueConstraint tableName="school_class" constraintName="uk_class_name"/>
+    </changeSet>
+    <changeSet id="GH-8.006" author="lherman">
+        <addUniqueConstraint
+            tableName="school_class" columnNames="group, name, course_fk"
+            constraintName="uk_school_class_name"
+        />
+    </changeSet>
+
+    <changeSet id="GH-8.007" author="lherman">
+        <dropUniqueConstraint tableName="person" constraintName="uk_email"/>
+    </changeSet>
+    <changeSet id="GH-8.008" author="lherman">
+        <dropColumn tableName="person" columnName="email"/>
+    </changeSet>
+
+    <changeSet id="GH-8.009" author="lherman">
+        <renameColumn tableName="school_class" oldColumnName="start" newColumnName="dt_start"/>
+    </changeSet>
+    <changeSet id="GH-8.010" author="lherman">
+        <renameColumn tableName="school_class" oldColumnName="end" newColumnName="dt_end"/>
+    </changeSet>
+    <changeSet id="GH-8.011" author="lherman">
+        <renameColumn tableName="school_class" oldColumnName="group" newColumnName="class_group"/>
+    </changeSet>
+
+
+</databaseChangeLog>

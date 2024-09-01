@@ -70,6 +70,9 @@ dependencies {
     implementation("com.salesforce.servicelibs:reactor-grpc-stub:1.2.4")
     implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
 
+    // Course import
+    implementation("org.mnode.ical4j:ical4j:4.0.3")
+
     // Utils
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
