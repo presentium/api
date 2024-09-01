@@ -41,9 +41,9 @@ class TeacherControllerTest extends AbstractControllerTest {
         void asTeacher_returnsStudentRefs() throws Exception {
             when(teacherRepository.findAll()).thenReturn(
                 List.of(
-                    (Teacher) new Teacher().setId(UUID.randomUUID()).setFirstName("Test").setLastName("One"),
-                    (Teacher) new Teacher().setId(UUID.randomUUID()).setFirstName("Test").setLastName("Two"),
-                    (Teacher) new Teacher().setId(UUID.randomUUID()).setFirstName("Test").setLastName("Three")
+                    (Teacher) new Teacher().setId(UUID.randomUUID()).setFullName("Test One"),
+                    (Teacher) new Teacher().setId(UUID.randomUUID()).setFullName("Test Two"),
+                    (Teacher) new Teacher().setId(UUID.randomUUID()).setFullName("Test Three")
                 )
             );
 

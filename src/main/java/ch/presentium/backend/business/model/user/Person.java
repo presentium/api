@@ -19,13 +19,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Entity
-@Table(
-    name = "person",
-    uniqueConstraints = {
-        @UniqueConstraint(name = "uk_email", columnNames = "email"),
-        @UniqueConstraint(name = "uk_api_user", columnNames = "api_user_fk"),
-    }
-)
+@Table(name = "person", uniqueConstraints = { @UniqueConstraint(name = "uk_api_user", columnNames = "api_user_fk") })
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
@@ -41,12 +35,6 @@ public abstract class Person {
     @JoinColumn(name = "api_user_fk", foreignKey = @ForeignKey(name = "fk_person_api_user"))
     private User apiUser;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "name", nullable = false)
+    private String fullName;
 }

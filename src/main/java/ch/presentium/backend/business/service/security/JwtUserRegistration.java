@@ -28,13 +28,9 @@ public class JwtUserRegistration {
         userMapper.updateUser(jwt, user);
 
         if (Objects.isNull(user.getPerson())) {
-            var person = personRepository.findByEmail(user.getEmail()).orElseGet(() -> createPerson(jwt));
-
-            var splitName = user.getDisplayName().split("\s+", 2);
-            person
-                .setFirstName(splitName[0])
-                .setLastName(splitName.length > 1 ? splitName[1] : "")
-                .setEmail(user.getEmail());
+            var person = personRepository
+                .findByFullName(user.getDisplayName())
+                .orElseGet(() -> createPerson(jwt).setFullName(user.getDisplayName()));
 
             user.setPerson(person);
         }

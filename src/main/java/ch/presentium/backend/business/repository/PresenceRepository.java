@@ -14,10 +14,7 @@ public interface PresenceRepository extends JpaRepository<Presence, UUID> {
     @Query(
         """
         SELECT new ch.presentium.backend.api.schedule.model.PresenceViewModel(
-            new ch.presentium.backend.api.reference.StudentRef(
-                s.id,
-                s.firstName || ' ' || s.lastName
-            ),
+            new ch.presentium.backend.api.reference.StudentRef(s.id, s.fullName),
             cs.date,
             CASE WHEN p.id IS NOT NULL THEN true ELSE false END
         )

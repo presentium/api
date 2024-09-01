@@ -45,7 +45,7 @@ class JwtUserRegistrationTest extends AbstractCommonTest {
             .build();
 
         var teacher = new Teacher();
-        when(personRepository.findByEmail("email")).thenReturn(Optional.of(teacher));
+        when(personRepository.findByFullName("name")).thenReturn(Optional.of(teacher));
 
         jwtUserRegistration.registerUser(jwt);
 
@@ -75,7 +75,7 @@ class JwtUserRegistrationTest extends AbstractCommonTest {
             .build();
 
         when(userRepository.findById("subject")).thenReturn(Optional.of(user));
-        when(personRepository.findByEmail("email")).thenReturn(Optional.of(new Teacher()));
+        when(personRepository.findByFullName("name")).thenReturn(Optional.of(new Teacher()));
 
         jwtUserRegistration.registerUser(jwt);
 
@@ -96,7 +96,7 @@ class JwtUserRegistrationTest extends AbstractCommonTest {
 
         jwtUserRegistration.registerUser(jwt);
 
-        verify(personRepository).findByEmail("email");
+        verify(personRepository).findByFullName("name");
         verify(userRepository).save(
             assertArg(user -> {
                 assertNotNull(user.getPerson());
@@ -118,7 +118,7 @@ class JwtUserRegistrationTest extends AbstractCommonTest {
 
         jwtUserRegistration.registerUser(jwt);
 
-        verify(personRepository).findByEmail("email");
+        verify(personRepository).findByFullName("name");
         verify(userRepository).save(
             assertArg(user -> {
                 assertNotNull(user.getPerson());

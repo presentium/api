@@ -30,7 +30,9 @@ import lombok.experimental.Accessors;
 @Entity
 @Table(
     name = "school_class",
-    uniqueConstraints = { @UniqueConstraint(name = "uk_school_class_name", columnNames = { "name", "course_fk" }) }
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uk_school_class_name", columnNames = { "group", "name", "course_fk" }),
+    }
 )
 @Getter
 @Setter
@@ -42,7 +44,7 @@ public class SchoolClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "group", nullable = false)
+    @Column(name = "class_group", nullable = false)
     private String group;
 
     @Column(name = "name", nullable = false)
@@ -55,10 +57,10 @@ public class SchoolClass {
     @Column(name = "day_of_week", nullable = false)
     private DayOfWeek dayOfWeek;
 
-    @Column(name = "start", nullable = false)
+    @Column(name = "dt_start", nullable = false)
     private LocalTime start;
 
-    @Column(name = "end", nullable = false)
+    @Column(name = "dt_end", nullable = false)
     private LocalTime end;
 
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, optional = false)
@@ -88,12 +90,27 @@ public class SchoolClass {
     )
     private Set<Student> students;
 
-    public void addSession(ClassSession session) {
+    public SchoolClass addSession(ClassSession session) {
         if (sessions == null) {
             sessions = new HashSet<>();
         }
 
         sessions.add(session);
         session.setSchoolClass(this);
+        return this;
+    }
+
+    public SchoolClass addStudent(Student student) {
+        if (students == null) {
+            students = new HashSet<>();
+        }
+        students.add(student);
+
+        if (student.getSchoolClasses() == null) {
+            student.setSchoolClasses(new HashSet<>());
+        }
+        student.getSchoolClasses().add(this);
+
+        return this;
     }
 }

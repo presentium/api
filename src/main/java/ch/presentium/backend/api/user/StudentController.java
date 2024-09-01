@@ -57,8 +57,8 @@ public class StudentController {
     @GetMapping
     @IsTeacherUser
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
-    public List<StudentViewModel> getAllStudents() {
-        return studentRepository.findAll().stream().map(studentMapper::toViewModel).toList();
+    public List<StudentRef> getStudents() {
+        return studentRepository.findAll().stream().map(referenceMapper::map).toList();
     }
 
     @GetMapping("/{id}")
