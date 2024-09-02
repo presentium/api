@@ -23,7 +23,7 @@ public class ClassSessionController {
 
     @GetMapping("/dates/{schoolClassId}")
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
-    public List<LocalDateTime> getSessions(@PathVariable Long schoolClassId) {
+    public List<LocalDateTime> getSessionsDates(@PathVariable Long schoolClassId) {
         return classSessionService.getSessions(schoolClassId).stream().map(ClassSession::getDate).toList();
     }
 }
