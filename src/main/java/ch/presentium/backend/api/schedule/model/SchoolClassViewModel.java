@@ -1,5 +1,6 @@
 package ch.presentium.backend.api.schedule.model;
 
+import ch.presentium.backend.api.reference.CourseRef;
 import ch.presentium.backend.api.reference.StudentRef;
 import ch.presentium.backend.api.reference.TeacherRef;
 import java.time.DayOfWeek;
@@ -14,6 +15,8 @@ public class SchoolClassViewModel {
 
     private final Long id;
     private final String name;
+
+    private final CourseRef course;
 
     private final DayOfWeek dayOfWeek;
     private final LocalTime start;

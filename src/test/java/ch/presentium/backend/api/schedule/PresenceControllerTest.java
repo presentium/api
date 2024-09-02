@@ -11,6 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import ch.presentium.backend.api.AbstractControllerTest;
+import ch.presentium.backend.api.reference.CourseRef;
+import ch.presentium.backend.api.reference.SchoolClassRef;
 import ch.presentium.backend.api.reference.StudentRef;
 import ch.presentium.backend.api.schedule.model.PresenceViewModel;
 import ch.presentium.backend.business.repository.PresenceRepository;
@@ -33,22 +35,36 @@ class PresenceControllerTest extends AbstractControllerTest {
     private PresenceRepository presenceRepository;
 
     @Nested
-    @DisplayName("GET /v1/students/{studentId}/school-classes/{schoolClassId}/presences")
+    @DisplayName("GET /v1/presences")
     class GetPresences {
 
         @Test
         @WithMockStudentUser
         void getPresences() throws Exception {
-            when(presenceRepository.calculateAttendance(any(), anyLong(), any())).thenReturn(
+            when(presenceRepository.calculateAttendance(anyLong(), any(), any())).thenReturn(
                 List.of(
-                    new PresenceViewModel(new StudentRef(UUID.randomUUID(), "name"), LocalDateTime.now(), true),
-                    new PresenceViewModel(new StudentRef(UUID.randomUUID(), "name"), LocalDateTime.now(), false)
+                    new PresenceViewModel(
+                        new CourseRef(1L, "class"),
+                        new SchoolClassRef(1L, "classA"),
+                        new StudentRef(UUID.randomUUID(), "name"),
+                        LocalDateTime.now(),
+                        true
+                    ),
+                    new PresenceViewModel(
+                        new CourseRef(1L, "class"),
+                        new SchoolClassRef(1L, "classA"),
+                        new StudentRef(UUID.randomUUID(), "name"),
+                        LocalDateTime.now(),
+                        false
+                    )
                 )
             );
 
             api
                 .perform(
-                    get("/v1/students/{studentId}/school-classes/{schoolClassId}/presences", UUID.randomUUID(), 1L)
+                    get("/v1/presences")
+                        .param("studentId", UUID.randomUUID().toString())
+                        .param("schoolClassId", "1")
                         .param("start", "2021-01-01T00:00:00")
                         .param("end", "2021-01-02T00:00:00")
                 )
@@ -67,12 +83,12 @@ class PresenceControllerTest extends AbstractControllerTest {
                 );
 
             verify(presenceRepository).calculateAttendance(
-                any(),
                 anyLong(),
                 assertArg(dateRange -> {
                     dateRange.start().isEqual(LocalDateTime.parse("2021-01-01T00:00:00"));
                     dateRange.end().isEqual(LocalDateTime.parse("2021-01-02T00:00:00"));
-                })
+                }),
+                any()
             );
         }
     }

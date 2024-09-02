@@ -8,13 +8,10 @@ import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/students/{studentId}/school-classes/{schoolClassId}/presences")
+@RequestMapping("/v1/presences")
 @Tag(name = "School class presence management", description = "Manage school classes and their sessions")
 @RequiredArgsConstructor
 public class PresenceController {
@@ -24,10 +21,10 @@ public class PresenceController {
     @GetMapping
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
     public List<PresenceViewModel> getPresences(
-        @PathVariable UUID studentId,
-        @PathVariable Long schoolClassId,
+        @RequestParam(required = false) UUID studentId,
+        @RequestParam(required = false) Long schoolClassId,
         DateRange dateRange
     ) {
-        return presenceRepository.calculateAttendance(studentId, schoolClassId, dateRange);
+        return presenceRepository.calculateAttendance(schoolClassId, dateRange, studentId);
     }
 }

@@ -58,5 +58,14 @@
         <renameColumn tableName="school_class" oldColumnName="group" newColumnName="class_group"/>
     </changeSet>
 
+    <changeSet id="GH-8.012" author="lherman">
+        <addNotNullConstraint tableName="school_class" columnName="dt_start" schemaName=""/>
+    </changeSet>
+    <changeSet id="GH-8.013" author="lherman">
+        <addNotNullConstraint tableName="school_class" columnName="dt_end" schemaName=""/>
+    </changeSet>
+    <changeSet id="GH-8.014" author="lherman">
+        <addNotNullConstraint tableName="school_class" columnName="class_group" schemaName=""/>
+    </changeSet>
 
 </databaseChangeLog>
