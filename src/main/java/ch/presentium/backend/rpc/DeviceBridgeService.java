@@ -3,7 +3,6 @@ package ch.presentium.backend.rpc;
 import ch.presentium.backend.api.exception.DeviceDisconnectedException;
 import ch.presentium.backend.rpc.BusEvent.MessageType;
 import io.grpc.Context;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 import reactor.core.publisher.Sinks.EmitFailureHandler;
+import reactor.util.concurrent.Queues;
 
 @Slf4j
 @Service
@@ -21,7 +21,9 @@ public class DeviceBridgeService {
 
     private final Set<String> devices = new HashSet<>();
     private final Map<String, DeviceMode> deviceModes = new HashMap<>();
-    private final Sinks.Many<DeviceEvent> eventSink = Sinks.many().replay().limit(Duration.ofMinutes(5));
+    private final Sinks.Many<DeviceEvent> eventSink = Sinks.many()
+        .multicast()
+        .onBackpressureBuffer(Queues.SMALL_BUFFER_SIZE, false);
 
     Flux<BusEvent> subscribe(String deviceId) {
         devices.add(deviceId);
