@@ -19,7 +19,7 @@ public class PresenceController {
     @GetMapping
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
     public List<PresenceViewModel> findAll(
-        @RequestParam Long classId,
+        @RequestParam(required = false) Long classId,
         @RequestParam(required = false) UUID studentId,
         DateRange dateRange
     ) {

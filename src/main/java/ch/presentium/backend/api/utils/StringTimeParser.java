@@ -1,14 +1,13 @@
 package ch.presentium.backend.api.utils;
 
 import ch.presentium.backend.api.types.pair.Pair;
-import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Objects;
-
+import org.springframework.http.ResponseEntity;
 
 /**
  * Utility class to parse string time to LocalDateTime
@@ -22,8 +21,12 @@ public class StringTimeParser {
      * @return Pair of start and end dates
      */
     public static Pair<LocalDateTime, LocalDateTime> getStartEndDates(String startDateStr, String endDateStr) {
-        LocalDateTime startDate = Objects.requireNonNull(StringTimeParser.parseStringToLocalDate(startDateStr)).atStartOfDay();
-        LocalDateTime endDate = Objects.requireNonNull(StringTimeParser.parseStringToLocalDate(endDateStr)).atTime(LocalTime.MAX);
+        LocalDateTime startDate = Objects.requireNonNull(
+            StringTimeParser.parseStringToLocalDate(startDateStr)
+        ).atStartOfDay();
+        LocalDateTime endDate = Objects.requireNonNull(StringTimeParser.parseStringToLocalDate(endDateStr)).atTime(
+            LocalTime.MAX
+        );
         check(startDate, "Invalid start date");
         check(endDate, "Invalid end date");
         return new Pair<>(startDate, endDate);

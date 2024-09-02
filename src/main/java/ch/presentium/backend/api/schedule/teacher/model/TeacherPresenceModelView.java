@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 @Builder
 public class TeacherPresenceModelView {
+
     @NotNull private final String firstName;
-    @NotNull private final  String lastName;
+
+    @NotNull private final String lastName;
 }

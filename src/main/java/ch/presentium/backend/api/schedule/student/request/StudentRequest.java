@@ -9,7 +9,13 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class StudentRequest {
-    @NotBlank private final String firstName;
-    @NotBlank private final String lastName;
-    @NotBlank private final String email;
+
+    @NotBlank
+    private final String firstName;
+
+    @NotBlank
+    private final String lastName;
+
+    @NotBlank
+    private final String email;
 }

@@ -1,5 +1,6 @@
 package ch.presentium.backend.api.schedule.presence.model;
 
+import ch.presentium.backend.api.schedule.schoolclass.model.SchoolClassViewModel;
 import ch.presentium.backend.api.schedule.student.model.StudentViewModel;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 public class PresenceViewModel {
+
+    @NotNull private final SchoolClassViewModel schoolClass;
 
     @NotNull private final StudentViewModel student;
 

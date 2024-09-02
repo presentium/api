@@ -2,12 +2,11 @@ package ch.presentium.backend.business.service;
 
 import ch.presentium.backend.business.model.user.Student;
 import ch.presentium.backend.business.repository.StudentRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

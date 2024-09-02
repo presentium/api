@@ -7,5 +7,6 @@ import lombok.Data;
 @Builder
 @Data
 public class RoomViewModel {
+
     @NotNull private final String name;
 }
