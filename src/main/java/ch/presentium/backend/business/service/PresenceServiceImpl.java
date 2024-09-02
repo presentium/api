@@ -2,7 +2,7 @@ package ch.presentium.backend.business.service;
 
 import ch.presentium.backend.api.common.DateRange;
 import ch.presentium.backend.api.exception.ObjectNotFoundException;
-import ch.presentium.backend.api.schedule.presence.model.PresenceViewModel;
+import ch.presentium.backend.api.schedule.model.PresenceViewModel;
 import ch.presentium.backend.business.model.Presence;
 import ch.presentium.backend.business.repository.ClassSessionRepository;
 import ch.presentium.backend.business.repository.PresenceRepository;

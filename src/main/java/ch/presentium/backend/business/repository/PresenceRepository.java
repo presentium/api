@@ -16,12 +16,10 @@ public interface PresenceRepository extends JpaRepository<Presence, UUID> {
 
     @Query(
         "SELECT new ch.presentium.backend.api.schedule.presence.model.PresenceViewModel(" +
-        "new ch.presentium.backend.api.schedule.schoolclass.model.SchoolClassViewModel(sc.id, sc.name, " +
-        "new ch.presentium.backend.api.schedule.course.model.CourseViewModel(sc.course.name, sc.course.semester, sc.course.year), " +
-        "sc.dayOfWeek, sc.start, sc.end, " +
-        "new ch.presentium.backend.api.schedule.room.model.RoomViewModel(sc.room.name), " +
-        "new ch.presentium.backend.api.schedule.teacher.model.TeacherPresenceModelView(sc.teacher.firstName, sc.teacher.lastName)), " +
-        "new ch.presentium.backend.api.schedule.student.model.StudentViewModel(s.id, s.firstName, s.lastName, s.email), " +
+        "new ch.presentium.backend.api.reference.SchoolClassRef(sc.id, sc.name, " +
+        "new ch.presentium.backend.api.reference.CourseRef(sc.course.name), " +
+        "sc.dayOfWeek, sc.start, sc.end)," +
+        "new ch.presentium.backend.api.reference.StudentRef(s.id, s.name, s.email), " +
         "cs.date, " +
         "CASE WHEN p.id IS NOT NULL THEN true ELSE false END) " +
         "FROM SchoolClass sc " +
