@@ -26,31 +26,31 @@ VALUES ('user1', 'subject1', 'alice.smith@example.com', 'Alice Smith'),
        ('user24', 'subject24', 'angela.wright@example.com', 'Angela Wright');
 
 -- Insert users into the person table
-INSERT INTO person (id, api_user_fk, first_name, last_name, email)
-VALUES ('00000000-0000-0000-0000-000000000001', 'user1', 'Alice', 'Smith', 'alice.smith@example.com'),
-       ('00000000-0000-0000-0000-000000000002', 'user2', 'Bob', 'Johnson', 'bob.johnson@example.com'),
-       ('00000000-0000-0000-0000-000000000003', 'user3', 'Charlie', 'Brown', 'charlie.brown@example.com'),
-       ('00000000-0000-0000-0000-000000000004', 'user4', 'David', 'Williams', 'david.williams@example.com'),
-       ('00000000-0000-0000-0000-000000000005', 'user5', 'Emily', 'White', 'emily.white@example.com'),
-       ('00000000-0000-0000-0000-000000000006', 'user6', 'John', 'Doe', 'john.doe@example.com'),
-       ('00000000-0000-0000-0000-000000000007', 'user7', 'Jane', 'Doe', 'jane.doe@example.com'),
-       ('00000000-0000-0000-0000-000000000008', 'user8', 'Michael', 'Brown', 'michael.brown@example.com'),
-       ('00000000-0000-0000-0000-000000000009', 'user9', 'Sarah', 'Davis', 'sarah.davis@example.com'),
-       ('00000000-0000-0000-0000-000000000010', 'user10', 'David', 'Miller', 'david.miller@example.com'),
-       ('00000000-0000-0000-0000-000000000011', 'user11', 'Linda', 'Wilson', 'linda.wilson@example.com'),
-       ('00000000-0000-0000-0000-000000000012', 'user12', 'Chris', 'Moore', 'chris.moore@example.com'),
-       ('00000000-0000-0000-0000-000000000013', 'user13', 'Lisa', 'Taylor', 'lisa.taylor@example.com'),
-       ('00000000-0000-0000-0000-000000000014', 'user14', 'Kevin', 'Anderson', 'kevin.anderson@example.com'),
-       ('00000000-0000-0000-0000-000000000015', 'user15', 'Laura', 'Thomas', 'laura.thomas@example.com'),
-       ('00000000-0000-0000-0000-000000000016', 'user16', 'James', 'Jackson', 'james.jackson@example.com'),
-       ('00000000-0000-0000-0000-000000000017', 'user17', 'Megan', 'Lee', 'megan.lee@example.com'),
-       ('00000000-0000-0000-0000-000000000018', 'user18', 'Robert', 'Walker', 'robert.walker@example.com'),
-       ('00000000-0000-0000-0000-000000000019', 'user19', 'Michelle', 'Hall', 'michelle.hall@example.com'),
-       ('00000000-0000-0000-0000-000000000020', 'user20', 'Brian', 'Allen', 'brian.allen@example.com'),
-       ('00000000-0000-0000-0000-000000000021', 'user21', 'Samantha', 'Young', 'samantha.young@example.com'),
-       ('00000000-0000-0000-0000-000000000022', 'user22', 'Jessica', 'Hernandez', 'jessica.hernandez@example.com'),
-       ('00000000-0000-0000-0000-000000000023', 'user23', 'Jason', 'King', 'jason.king@example.com'),
-       ('00000000-0000-0000-0000-000000000024', 'user24', 'Angela', 'Wright', 'angela.wright@example.com');
+INSERT INTO person (id, api_user_fk, name)
+VALUES ('00000000-0000-0000-0000-000000000001', 'user1', 'Alice Smith'),
+       ('00000000-0000-0000-0000-000000000002', 'user2', 'Bob Johnson'),
+       ('00000000-0000-0000-0000-000000000003', 'user3', 'Charlie Brown'),
+       ('00000000-0000-0000-0000-000000000004', 'user4', 'David Williams'),
+       ('00000000-0000-0000-0000-000000000005', 'user5', 'Emily White'),
+       ('00000000-0000-0000-0000-000000000006', 'user6', 'John Doe'),
+       ('00000000-0000-0000-0000-000000000007', 'user7', 'Jane Doe'),
+       ('00000000-0000-0000-0000-000000000008', 'user8', 'Michael Brown'),
+       ('00000000-0000-0000-0000-000000000009', 'user9', 'Sarah Davis'),
+       ('00000000-0000-0000-0000-000000000010', 'user10', 'David Miller'),
+       ('00000000-0000-0000-0000-000000000011', 'user11', 'Linda Wilson'),
+       ('00000000-0000-0000-0000-000000000012', 'user12', 'Chris Moore'  ),
+       ('00000000-0000-0000-0000-000000000013', 'user13', 'Lisa Taylor'),
+       ('00000000-0000-0000-0000-000000000014', 'user14', 'Kevin Anderson'),
+       ('00000000-0000-0000-0000-000000000015', 'user15', 'Laura Thomas'),
+       ('00000000-0000-0000-0000-000000000016', 'user16', 'James Jackson'),
+       ('00000000-0000-0000-0000-000000000017', 'user17', 'Megan Lee'),
+       ('00000000-0000-0000-0000-000000000018', 'user18', 'Robert Walker'),
+       ('00000000-0000-0000-0000-000000000019', 'user19', 'Michelle Hall'),
+       ('00000000-0000-0000-0000-000000000020', 'user20', 'Brian Allen'),
+       ('00000000-0000-0000-0000-000000000021', 'user21', 'Samantha Young'),
+       ('00000000-0000-0000-0000-000000000022', 'user22', 'Jessica Hernandez'),
+       ('00000000-0000-0000-0000-000000000023', 'user23', 'Jason King'),
+       ('00000000-0000-0000-0000-000000000024', 'user24', 'Angela Wright');
 
 -- Insert students and teacher into their respective tables
 INSERT INTO student (person_fk)
@@ -83,11 +83,11 @@ VALUES ('00000000-0000-0000-0000-000000000004');
 
 -- Insert courses into the course table
 INSERT INTO course (id, name, semester, year)
-VALUES (1, 'PDG', 'T1', 2024),
-       (2, 'PRG1', 'T2', 2024),
-       (3, 'ASD', 'T2', 2024),
-       (4, 'PRG2', 'T2', 2024),
-       (5, 'ARO', 'T1', 2024);
+VALUES (1, 'PDG', 'E', 2024),
+       (2, 'PRG1', 'S2', 2024),
+       (3, 'ASD', 'S2', 2024),
+       (4, 'PRG2', 'S2', 2024),
+       (5, 'ARO', 'S1', 2024);
 
 -- Insert rooms into the room table
 INSERT INTO room (id, name)
@@ -96,7 +96,7 @@ VALUES (1, 'Room 101'),
        (3, 'Room 103');
 
 -- Insert classes into the school_class table
-INSERT INTO school_class (id, name, course_fk, day_of_week, start, "end", room_fk, teacher_fk)
+INSERT INTO school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk)
 VALUES (1, 'PDG(2024)-A-C1', 1, 1, '08:00:00', '10:00:00', 1, '00000000-0000-0000-0000-000000000004'),
        (2, 'PDG(2024)-A-L1', 1, 2, '10:00:00', '12:00:00', 1, '00000000-0000-0000-0000-000000000004'),
        (3, 'PRG1(2024)-A-C1', 2, 3, '08:00:00', '10:00:00', 2, '00000000-0000-0000-0000-000000000004'),
