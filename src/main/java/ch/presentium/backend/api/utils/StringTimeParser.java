@@ -1,12 +1,12 @@
 package ch.presentium.backend.api.utils;
 
-import ch.presentium.backend.api.types.pair.Pair;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Objects;
+import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -29,7 +29,7 @@ public class StringTimeParser {
         );
         check(startDate, "Invalid start date");
         check(endDate, "Invalid end date");
-        return new Pair<>(startDate, endDate);
+        return Pair.of(startDate, endDate);
     }
 
     /**

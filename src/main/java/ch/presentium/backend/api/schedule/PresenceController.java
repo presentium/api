@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/students/{studentId}/school-classes/{schoolClassId}/presences")
+@RequestMapping("/v1/presences")
 @Tag(name = "School class presence management", description = "Manage school classes and their sessions")
 @RequiredArgsConstructor
 public class PresenceController {
@@ -28,6 +28,6 @@ public class PresenceController {
         @PathVariable Long schoolClassId,
         DateRange dateRange
     ) {
-        return presenceRepository.calculateAttendance(studentId, schoolClassId, dateRange);
+        return presenceRepository.calculateAttendance(schoolClassId, dateRange, studentId);
     }
 }

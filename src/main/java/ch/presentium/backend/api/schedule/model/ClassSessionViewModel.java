@@ -1,6 +1,5 @@
-package ch.presentium.backend.api.schedule.classsession.model;
+package ch.presentium.backend.api.schedule.model;
 
-import ch.presentium.backend.api.schedule.schoolclass.model.SchoolClassViewModel;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.Builder;

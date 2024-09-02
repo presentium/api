@@ -19,4 +19,6 @@ public interface SchoolClassMapper {
     static String mapName(SchoolClass schoolClass) {
         return "%s-%s-%s".formatted(schoolClass.getCourse().getName(), schoolClass.getGroup(), schoolClass.getName());
     }
+
+    SchoolClass toModel(SchoolClassViewModel schoolClassViewModel);
 }

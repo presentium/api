@@ -1,4 +1,4 @@
-package ch.presentium.backend.api.schedule.course.model;
+package ch.presentium.backend.api.schedule.model;
 
 import ch.presentium.backend.business.model.schedule.Semester;
 import jakarta.validation.constraints.NotNull;

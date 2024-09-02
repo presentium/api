@@ -2,6 +2,8 @@ package ch.presentium.backend.api.schedule.model;
 
 import ch.presentium.backend.api.reference.StudentRef;
 import ch.presentium.backend.api.reference.TeacherRef;
+import ch.presentium.backend.api.schedule.room.model.RoomViewModel;
+import jakarta.validation.constraints.NotNull;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
@@ -12,14 +14,21 @@ import lombok.Data;
 @Builder
 public class SchoolClassViewModel {
 
-    private final Long id;
-    private final String name;
+    @NotNull private final Long id;
 
-    private final DayOfWeek dayOfWeek;
-    private final LocalTime start;
-    private final LocalTime end;
+    @NotNull private final String name;
 
-    private final String room;
-    private final TeacherRef teacher;
-    private final List<StudentRef> students;
+    @NotNull private final CourseViewModel course;
+
+    @NotNull private final DayOfWeek dayOfWeek;
+
+    @NotNull private final LocalTime startTime;
+
+    @NotNull private final LocalTime endTime;
+
+    @NotNull private final RoomViewModel room;
+
+    @NotNull private final TeacherRef teacher;
+
+    @NotNull private final List<StudentRef> students;
 }
