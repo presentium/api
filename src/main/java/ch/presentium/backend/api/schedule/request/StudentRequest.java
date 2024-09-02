@@ -1,4 +1,4 @@
-package ch.presentium.backend.api.schedule.student.request;
+package ch.presentium.backend.api.schedule.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package ch.presentium.backend.api.utils;
+package ch.presentium.backend.api.common;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

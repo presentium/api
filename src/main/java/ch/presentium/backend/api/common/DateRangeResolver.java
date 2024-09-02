@@ -1,6 +1,5 @@
 package ch.presentium.backend.api.common;
 
-import ch.presentium.backend.api.utils.StringTimeParser;
 import java.time.LocalDateTime;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.util.Pair;

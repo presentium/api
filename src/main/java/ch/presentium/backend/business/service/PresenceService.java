@@ -1,7 +1,7 @@
 package ch.presentium.backend.business.service;
 
 import ch.presentium.backend.api.common.DateRange;
-import ch.presentium.backend.api.schedule.presence.model.PresenceViewModel;
+import ch.presentium.backend.api.schedule.model.PresenceViewModel;
 import java.util.List;
 import java.util.UUID;
 

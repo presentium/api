@@ -1,4 +1,4 @@
-package ch.presentium.backend.api.schedule.student.model;
+package ch.presentium.backend.api.schedule.model;
 
 import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
