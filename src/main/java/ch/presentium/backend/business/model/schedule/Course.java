@@ -1,5 +1,6 @@
 package ch.presentium.backend.business.model.schedule;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,7 +12,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.Year;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -44,6 +46,16 @@ public class Course {
     @Column(name = "year", nullable = false)
     private Year year;
 
-    @OneToMany(mappedBy = "course")
-    private List<SchoolClass> classes;
+    @OneToMany(mappedBy = "course", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    private Set<SchoolClass> classes;
+
+    public Course addClass(SchoolClass schoolClass) {
+        if (classes == null) {
+            classes = new HashSet<>();
+        }
+
+        classes.add(schoolClass);
+        schoolClass.setCourse(this);
+        return this;
+    }
 }

@@ -13,10 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +30,9 @@ import lombok.experimental.Accessors;
 @Entity
 @Table(
     name = "school_class",
-    uniqueConstraints = { @UniqueConstraint(name = "uk_school_class_name", columnNames = { "name", "course_fk" }) }
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uk_school_class_name", columnNames = { "group", "name", "course_fk" }),
+    }
 )
 @Getter
 @Setter
@@ -40,6 +44,9 @@ public class SchoolClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "class_group", nullable = false)
+    private String group;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -50,10 +57,10 @@ public class SchoolClass {
     @Column(name = "day_of_week", nullable = false)
     private DayOfWeek dayOfWeek;
 
-    @Column(name = "start", nullable = false)
+    @Column(name = "dt_start", nullable = false)
     private LocalTime start;
 
-    @Column(name = "end", nullable = false)
+    @Column(name = "dt_end", nullable = false)
     private LocalTime end;
 
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, optional = false)
@@ -63,6 +70,9 @@ public class SchoolClass {
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, optional = false)
     @JoinColumn(name = "teacher_fk", foreignKey = @ForeignKey(name = "fk_class_teacher"), nullable = false)
     private Teacher teacher;
+
+    @OneToMany(mappedBy = "schoolClass", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    private Set<ClassSession> sessions;
 
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(
@@ -79,4 +89,28 @@ public class SchoolClass {
         )
     )
     private Set<Student> students;
+
+    public SchoolClass addSession(ClassSession session) {
+        if (sessions == null) {
+            sessions = new HashSet<>();
+        }
+
+        sessions.add(session);
+        session.setSchoolClass(this);
+        return this;
+    }
+
+    public SchoolClass addStudent(Student student) {
+        if (students == null) {
+            students = new HashSet<>();
+        }
+        students.add(student);
+
+        if (student.getSchoolClasses() == null) {
+            student.setSchoolClasses(new HashSet<>());
+        }
+        student.getSchoolClasses().add(this);
+
+        return this;
+    }
 }

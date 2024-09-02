@@ -1,13 +1,16 @@
 package ch.presentium.backend.business.model.user;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "api_user")
@@ -38,4 +41,16 @@ public class User {
     // JWT claim: name
     @Column(name = "display_name", nullable = false)
     private String displayName;
+
+    @OneToOne(mappedBy = "apiUser", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    private @Nullable Person person;
+
+    public User setPerson(@Nullable Person person) {
+        this.person = person;
+        if (person != null) {
+            person.setApiUser(this);
+        }
+
+        return this;
+    }
 }

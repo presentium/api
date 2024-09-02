@@ -10,4 +10,20 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="GH-4.002" author="lherman">
+        <addColumn tableName="student">
+            <column name="card_id" type="VARCHAR(255)">
+                <constraints unique="true" uniqueConstraintName="uk_student_card_id"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="GH-4.003" author="lherman">
+        <addColumn tableName="school_class">
+            <column name="group" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

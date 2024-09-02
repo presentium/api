@@ -1,10 +1,9 @@
-package ch.presentium.backend.api.types.daterange.resolver;
+package ch.presentium.backend.api.common;
 
-import ch.presentium.backend.api.types.daterange.DateRange;
-import ch.presentium.backend.api.types.pair.Pair;
 import ch.presentium.backend.api.utils.StringTimeParser;
 import java.time.LocalDateTime;
 import org.springframework.core.MethodParameter;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -29,6 +28,6 @@ public class DateRangeResolver implements HandlerMethodArgumentResolver {
         String startStr = webRequest.getParameter("start");
         String endStr = webRequest.getParameter("end");
         Pair<LocalDateTime, LocalDateTime> dates = StringTimeParser.getStartEndDates(startStr, endStr);
-        return new DateRange(dates.first(), dates.second());
+        return new DateRange(dates.getFirst(), dates.getSecond());
     }
 }
