@@ -6,6 +6,7 @@ import ch.presentium.backend.business.model.schedule.SchoolClass;
 import ch.presentium.backend.business.repository.ClassSessionRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,10 @@ public class ClassSessionServiceImpl implements ClassSessionService {
         schoolClass.addSession(session);
 
         return classSessionRepository.save(session);
+    }
+
+    @Override
+    public List<ClassSession> getSessions(Long schoolClassId) {
+        return classSessionRepository.findBySchoolClassId(schoolClassId);
     }
 }
