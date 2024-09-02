@@ -14,20 +14,15 @@ import lombok.Data;
 public class SchoolClassViewModel {
 
     private final Long id;
-
     private final String name;
 
     private final CourseRef course;
 
     private final DayOfWeek dayOfWeek;
-
     private final LocalTime start;
-
     private final LocalTime end;
 
     private final String room;
-
     private final TeacherRef teacher;
-
     private final List<StudentRef> students;
 }

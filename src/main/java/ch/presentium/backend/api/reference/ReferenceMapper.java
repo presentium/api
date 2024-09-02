@@ -1,6 +1,7 @@
 package ch.presentium.backend.api.reference;
 
 import ch.presentium.backend.api.schedule.mapper.SchoolClassMapper;
+import ch.presentium.backend.business.model.schedule.Course;
 import ch.presentium.backend.business.model.schedule.SchoolClass;
 import ch.presentium.backend.business.model.user.Student;
 import ch.presentium.backend.business.model.user.Teacher;
@@ -14,6 +15,8 @@ public interface ReferenceMapper {
 
     @Mapping(target = "name", source = "fullName")
     StudentRef map(Student student);
+
+    CourseRef map(Course course);
 
     @Mapping(target = "name", source = ".", qualifiedByName = SchoolClassMapper.HELPER_NAME)
     SchoolClassRef map(SchoolClass schoolClass);

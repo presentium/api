@@ -44,25 +44,15 @@ class PresenceControllerTest extends AbstractControllerTest {
             when(presenceRepository.calculateAttendance(anyLong(), any(), any())).thenReturn(
                 List.of(
                     new PresenceViewModel(
-                        new SchoolClassRef(
-                            1L,
-                            "classA",
-                            new CourseRef("class"),
-                            LocalDateTime.now().toLocalTime(),
-                            LocalDateTime.now().toLocalTime()
-                        ),
+                        new CourseRef(1L, "class"),
+                        new SchoolClassRef(1L, "classA"),
                         new StudentRef(UUID.randomUUID(), "name"),
                         LocalDateTime.now(),
                         true
                     ),
                     new PresenceViewModel(
-                        new SchoolClassRef(
-                            1L,
-                            "classA",
-                            new CourseRef("class"),
-                            LocalDateTime.now().toLocalTime(),
-                            LocalDateTime.now().toLocalTime()
-                        ),
+                        new CourseRef(1L, "class"),
+                        new SchoolClassRef(1L, "classA"),
                         new StudentRef(UUID.randomUUID(), "name"),
                         LocalDateTime.now(),
                         false
