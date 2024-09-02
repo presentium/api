@@ -15,11 +15,11 @@ public interface PresenceRepository extends JpaRepository<Presence, UUID> {
     Presence findAllByStudentId(@Param("studentId") UUID studentId);
 
     @Query(
-        "SELECT new ch.presentium.backend.api.schedule.presence.model.PresenceViewModel(" +
+        "SELECT new ch.presentium.backend.api.schedule.model.PresenceViewModel(" +
         "new ch.presentium.backend.api.reference.SchoolClassRef(sc.id, sc.name, " +
         "new ch.presentium.backend.api.reference.CourseRef(sc.course.name), " +
-        "sc.dayOfWeek, sc.start, sc.end)," +
-        "new ch.presentium.backend.api.reference.StudentRef(s.id, s.name, s.email), " +
+        "sc.start, sc.end)," +
+        "new ch.presentium.backend.api.reference.StudentRef(s.id, s.fullName), " +
         "cs.date, " +
         "CASE WHEN p.id IS NOT NULL THEN true ELSE false END) " +
         "FROM SchoolClass sc " +

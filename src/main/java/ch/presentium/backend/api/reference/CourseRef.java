@@ -1,3 +1,11 @@
 package ch.presentium.backend.api.reference;
 
-public record CourseRef(String name) {}
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class CourseRef {
+
+    String name;
+}
