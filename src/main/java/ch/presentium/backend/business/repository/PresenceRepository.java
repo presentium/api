@@ -22,7 +22,7 @@ public interface PresenceRepository extends JpaRepository<Presence, UUID> {
         )
         FROM SchoolClass sc
           JOIN sc.students s
-          JOIN ClassSession cs ON cs.schoolClass.id = sc.id AND cs.date BETWEEN :#{#dateRange.start()} AND :#{#dateRange.end()}
+          JOIN ClassSession cs ON cs.schoolClass.id = sc.id AND DATE(cs.date) BETWEEN DATE(:#{#dateRange.start()}) AND DATE(:#{#dateRange.end()})
           LEFT JOIN Presence p ON p.student.id = s.id AND p.classSession.id = cs.id
         WHERE (:classId IS NULL OR sc.id = :classId)
           AND (:studentId IS NULL OR s.id = :studentId)
