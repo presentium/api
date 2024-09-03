@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClassSessionRepository extends JpaRepository<ClassSession, UUID> {
     Optional<ClassSession> findByDateAndSchoolClassId(LocalDateTime date, Long schoolClassId);
+
     List<ClassSession> findBySchoolClassId(Long schoolClassId);
 }
