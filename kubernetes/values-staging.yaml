@@ -1,5 +1,5 @@
 image:
-  tag: "v0.0.4-23-g62c720d"
+  tag: "v0.0.4-25-g5f99d3a"
   imagePullPolicy: Always
 global:
   instance: 'staging'
