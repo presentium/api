@@ -1,5 +1,6 @@
 package ch.presentium.backend.rpc;
 
+import ch.presentium.backend.api.exception.ObjectNotFoundException;
 import ch.presentium.backend.business.service.EnrollmentService;
 import ch.presentium.backend.business.service.PresenceService;
 import java.util.UUID;
@@ -47,7 +48,12 @@ public class DeviceRpcService extends ReactorDeviceServiceGrpc.DeviceServiceImpl
         return request
             .publishOn(Schedulers.boundedElastic())
             .map(req -> {
-                presenceService.addPresence(req.getCardId(), UUID.fromString(req.getSessionId()));
+                try {
+                    presenceService.addPresence(req.getCardId(), UUID.fromString(req.getSessionId()));
+                } catch (ObjectNotFoundException e) {
+                    return GenericResponse.newBuilder().setStatus("KO").setMessage("Unregistered student").build();
+                }
+
                 return GenericResponse.newBuilder().setStatus("OK").setMessage("Student presence verified").build();
             });
     }
