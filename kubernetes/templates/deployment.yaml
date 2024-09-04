@@ -30,6 +30,9 @@ spec:
         - name: api-server
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ default "IfNotPresent" .Values.image.imagePullPolicy }}
+          command:
+            - /__cacert_entrypoint.sh
+          args: ['java', '-cp', '@/app/jib-classpath-file', 'ch.presentium.backend.PresentiumApiApplication']
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: '{{ .Values.spring.profiles | join "," }}'
@@ -39,6 +42,8 @@ spec:
               value: '{{ .Values.spring.server.grpcPort }}'
             - name: TZ
               value: UTC
+            - name: USE_SYSTEM_CA_CERTS
+              value: 'true'
           ports:
             - containerPort: {{ .Values.spring.server.port }}
               name: 'http'
@@ -46,6 +51,9 @@ spec:
             - containerPort: {{ .Values.spring.server.grpcPort }}
               name: 'grpc'
               protocol: TCP
+          volumeMounts:
+            - mountPath: /certificates
+              name: tls
           resources:
             limits:
               memory: 2Gi
@@ -72,3 +80,8 @@ spec:
               scheme: HTTP
               path: /actuator/health/liveness
               port: http
+      volumes:
+        - name: tls
+          configMap:
+            name: kube-root-ca.crt
+            defaultMode: 0400
