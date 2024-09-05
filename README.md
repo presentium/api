@@ -35,6 +35,8 @@ Start the development server on `http://localhost:13000`:
 ./gradlew bootRun
 ```
 
+Or by using the `dev profile [start]` profile in IntelliJ IDEA, stored in the `.run` folder.
+
 ### Development Tips
 
 #### Local environment
