@@ -1,283 +1,422 @@
--- Insert data into the api_user table
-INSERT INTO api_user (id, subject, email, display_name)
-VALUES ('user1', 'subject1', 'alice.smith@example.com', 'Alice Smith'),
-       ('user2', 'subject2', 'bob.johnson@example.com', 'Bob Johnson'),
-       ('user3', 'subject3', 'charlie.brown@example.com', 'Charlie Brown'),
-       ('user4', 'subject4', 'david.williams@example.com', 'David Williams'),
-       ('user5', 'subject5', 'emily.white@example.com', 'Emily White'),
-       ('user6', 'subject6', 'john.doe@example.com', 'John Doe'),
-       ('user7', 'subject7', 'jane.doe@example.com', 'Jane Doe'),
-       ('user8', 'subject8', 'michael.brown@example.com', 'Michael Brown'),
-       ('user9', 'subject9', 'sarah.davis@example.com', 'Sarah Davis'),
-       ('user10', 'subject10', 'david.miller@example.com', 'David Miller'),
-       ('user11', 'subject11', 'linda.wilson@example.com', 'Linda Wilson'),
-       ('user12', 'subject12', 'chris.moore@example.com', 'Chris Moore'),
-       ('user13', 'subject13', 'lisa.taylor@example.com', 'Lisa Taylor'),
-       ('user14', 'subject14', 'kevin.anderson@example.com', 'Kevin Anderson'),
-       ('user15', 'subject15', 'laura.thomas@example.com', 'Laura Thomas'),
-       ('user16', 'subject16', 'james.jackson@example.com', 'James Jackson'),
-       ('user17', 'subject17', 'megan.lee@example.com', 'Megan Lee'),
-       ('user18', 'subject18', 'robert.walker@example.com', 'Robert Walker'),
-       ('user19', 'subject19', 'michelle.hall@example.com', 'Michelle Hall'),
-       ('user20', 'subject20', 'brian.allen@example.com', 'Brian Allen'),
-       ('user21', 'subject21', 'samantha.young@example.com', 'Samantha Young'),
-       ('user22', 'subject22', 'jessica.hernandez@example.com', 'Jessica Hernandez'),
-       ('user23', 'subject23', 'jason.king@example.com', 'Jason King'),
-       ('user24', 'subject24', 'angela.wright@example.com', 'Angela Wright');
+INSERT INTO public.api_user (id, subject, email, display_name) VALUES ('a8432620-7d67-4572-a7b5-66b8be682b09', 'admin', 'admin@test.presentium.ch', 'Charlie Administrator');
 
--- Insert users into the person table
-INSERT INTO person (id, api_user_fk, name)
-VALUES ('00000000-0000-0000-0000-000000000001', 'user1', 'Alice Smith'),
-       ('00000000-0000-0000-0000-000000000002', 'user2', 'Bob Johnson'),
-       ('00000000-0000-0000-0000-000000000003', 'user3', 'Charlie Brown'),
-       ('00000000-0000-0000-0000-000000000004', 'user4', 'David Williams'),
-       ('00000000-0000-0000-0000-000000000005', 'user5', 'Emily White'),
-       ('00000000-0000-0000-0000-000000000006', 'user6', 'John Doe'),
-       ('00000000-0000-0000-0000-000000000007', 'user7', 'Jane Doe'),
-       ('00000000-0000-0000-0000-000000000008', 'user8', 'Michael Brown'),
-       ('00000000-0000-0000-0000-000000000009', 'user9', 'Sarah Davis'),
-       ('00000000-0000-0000-0000-000000000010', 'user10', 'David Miller'),
-       ('00000000-0000-0000-0000-000000000011', 'user11', 'Linda Wilson'),
-       ('00000000-0000-0000-0000-000000000012', 'user12', 'Chris Moore'  ),
-       ('00000000-0000-0000-0000-000000000013', 'user13', 'Lisa Taylor'),
-       ('00000000-0000-0000-0000-000000000014', 'user14', 'Kevin Anderson'),
-       ('00000000-0000-0000-0000-000000000015', 'user15', 'Laura Thomas'),
-       ('00000000-0000-0000-0000-000000000016', 'user16', 'James Jackson'),
-       ('00000000-0000-0000-0000-000000000017', 'user17', 'Megan Lee'),
-       ('00000000-0000-0000-0000-000000000018', 'user18', 'Robert Walker'),
-       ('00000000-0000-0000-0000-000000000019', 'user19', 'Michelle Hall'),
-       ('00000000-0000-0000-0000-000000000020', 'user20', 'Brian Allen'),
-       ('00000000-0000-0000-0000-000000000021', 'user21', 'Samantha Young'),
-       ('00000000-0000-0000-0000-000000000022', 'user22', 'Jessica Hernandez'),
-       ('00000000-0000-0000-0000-000000000023', 'user23', 'Jason King'),
-       ('00000000-0000-0000-0000-000000000024', 'user24', 'Angela Wright');
+INSERT INTO public.person (id, api_user_fk, name) VALUES ('8e4112a3-e7d0-4a37-9ffe-f7e2ad265076', null, 'Loic Herman');
+INSERT INTO public.person (id, api_user_fk, name) VALUES ('888e4b08-b4d5-4cd7-bfb0-921918170710', null, 'Massimo Stefani');
+INSERT INTO public.person (id, api_user_fk, name) VALUES ('0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7', null, 'Léa Cherpillod');
+INSERT INTO public.person (id, api_user_fk, name) VALUES ('5a7e665c-c994-464d-a16a-6e1e150f7f30', null, 'Christophe Roulin');
+INSERT INTO public.person (id, api_user_fk, name) VALUES ('5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0', null, 'Sacha Butty');
+INSERT INTO public.person (id, api_user_fk, name) VALUES ('66daeef4-7487-4601-87ce-f744f8d66b2b', 'a8432620-7d67-4572-a7b5-66b8be682b09', 'Charlie Administrator');
 
--- Insert students and teacher into their respective tables
-INSERT INTO student (person_fk)
-VALUES ('00000000-0000-0000-0000-000000000001'),
-       ('00000000-0000-0000-0000-000000000002'),
-       ('00000000-0000-0000-0000-000000000003'),
-       ('00000000-0000-0000-0000-000000000005'),
-       ('00000000-0000-0000-0000-000000000006'),
-       ('00000000-0000-0000-0000-000000000007'),
-       ('00000000-0000-0000-0000-000000000008'),
-       ('00000000-0000-0000-0000-000000000009'),
-       ('00000000-0000-0000-0000-000000000010'),
-       ('00000000-0000-0000-0000-000000000011'),
-       ('00000000-0000-0000-0000-000000000012'),
-       ('00000000-0000-0000-0000-000000000013'),
-       ('00000000-0000-0000-0000-000000000014'),
-       ('00000000-0000-0000-0000-000000000015'),
-       ('00000000-0000-0000-0000-000000000016'),
-       ('00000000-0000-0000-0000-000000000017'),
-       ('00000000-0000-0000-0000-000000000018'),
-       ('00000000-0000-0000-0000-000000000019'),
-       ('00000000-0000-0000-0000-000000000020'),
-       ('00000000-0000-0000-0000-000000000021'),
-       ('00000000-0000-0000-0000-000000000022'),
-       ('00000000-0000-0000-0000-000000000023'),
-       ('00000000-0000-0000-0000-000000000024');
+INSERT INTO public.student (person_fk, card_id) VALUES ('8e4112a3-e7d0-4a37-9ffe-f7e2ad265076', null);
+INSERT INTO public.student (person_fk, card_id) VALUES ('888e4b08-b4d5-4cd7-bfb0-921918170710', null);
+INSERT INTO public.student (person_fk, card_id) VALUES ('0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7', null);
+INSERT INTO public.student (person_fk, card_id) VALUES ('5a7e665c-c994-464d-a16a-6e1e150f7f30', null);
+INSERT INTO public.student (person_fk, card_id) VALUES ('5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0', null);
+INSERT INTO public.teacher (person_fk) VALUES ('66daeef4-7487-4601-87ce-f744f8d66b2b');
 
-INSERT INTO teacher (person_fk)
-VALUES ('00000000-0000-0000-0000-000000000004');
+INSERT INTO public.course (id, name, semester, year) VALUES (18, 'AST', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (19, 'WEB', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (20, 'SOS', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (21, 'SLB', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (22, 'DAA-TIC', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (23, 'SLH', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (27, 'SDR', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (28, 'SIO', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (29, 'AMT', 'S1', 2024);
+INSERT INTO public.course (id, name, semester, year) VALUES (30, 'MAC', 'S1', 2024);
 
--- Insert courses into the course table
-INSERT INTO course (id, name, semester, year)
-VALUES (1, 'PDG', 'E', 2024),
-       (2, 'PRG1', 'S2', 2024),
-       (3, 'ASD', 'S2', 2024),
-       (4, 'PRG2', 'S2', 2024),
-       (5, 'ARO', 'S1', 2024);
-
--- Insert rooms into the room table
-INSERT INTO room (id, name)
-VALUES (1, 'Room 101'),
-       (2, 'Room 102'),
-       (3, 'Room 103');
-
--- Insert classes into the school_class table
-INSERT INTO school_class (id, class_group, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk)
-VALUES (1, 'A', 'C1', 1, 1, '08:00:00', '10:00:00', 1, '00000000-0000-0000-0000-000000000004'),
-       (2, 'A', 'L1', 1, 2, '10:00:00', '12:00:00', 1, '00000000-0000-0000-0000-000000000004'),
-       (3, 'A', 'C1', 2, 3, '08:00:00', '10:00:00', 2, '00000000-0000-0000-0000-000000000004'),
-       (4, 'A', 'L1', 2, 4, '10:00:00', '12:00:00', 2, '00000000-0000-0000-0000-000000000004'),
-       (5, 'A', 'C1', 3, 5, '08:00:00', '10:00:00', 3, '00000000-0000-0000-0000-000000000004'),
-       (6, 'A', 'L1', 3, 6, '10:00:00', '12:00:00', 3, '00000000-0000-0000-0000-000000000004'),
-       (7, 'A', 'C1', 4, 1, '08:00:00', '10:00:00', 1, '00000000-0000-0000-0000-000000000004'),
-       (8, 'A', 'L1', 4, 2, '10:00:00', '12:00:00', 1, '00000000-0000-0000-0000-000000000004'),
-       (9, 'A', 'C1', 5, 3, '08:00:00', '10:00:00', 2, '00000000-0000-0000-0000-000000000004'),
-       (10, 'A', 'L1', 5, 4, '10:00:00', '12:00:00', 2, '00000000-0000-0000-0000-000000000004');
-
--- Enroll students into classes
-INSERT INTO class_student (class_fk, student_fk)
-VALUES (1, '00000000-0000-0000-0000-000000000001'),
-       (1, '00000000-0000-0000-0000-000000000002'),
-       (1, '00000000-0000-0000-0000-000000000003'),
-       (1, '00000000-0000-0000-0000-000000000005'),
-       (1, '00000000-0000-0000-0000-000000000006'),
-       (1, '00000000-0000-0000-0000-000000000017'),
-       (1, '00000000-0000-0000-0000-000000000023'),
-       (2, '00000000-0000-0000-0000-000000000024'),
-       (2, '00000000-0000-0000-0000-000000000007'),
-       (2, '00000000-0000-0000-0000-000000000008'),
-       (2, '00000000-0000-0000-0000-000000000001'),
-       (2, '00000000-0000-0000-0000-000000000002'),
-       (2, '00000000-0000-0000-0000-000000000003'),
-       (2, '00000000-0000-0000-0000-000000000018'),
-       (3, '00000000-0000-0000-0000-000000000019'),
-       (3, '00000000-0000-0000-0000-000000000009'),
-       (3, '00000000-0000-0000-0000-000000000010'),
-       (3, '00000000-0000-0000-0000-000000000001'),
-       (3, '00000000-0000-0000-0000-000000000002'),
-       (3, '00000000-0000-0000-0000-000000000003'),
-       (4, '00000000-0000-0000-0000-000000000001'),
-       (4, '00000000-0000-0000-0000-000000000002'),
-       (4, '00000000-0000-0000-0000-000000000003'),
-       (4, '00000000-0000-0000-0000-000000000011'),
-       (4, '00000000-0000-0000-0000-000000000012'),
-       (4, '00000000-0000-0000-0000-000000000020'),
-       (5, '00000000-0000-0000-0000-000000000021'),
-       (5, '00000000-0000-0000-0000-000000000001'),
-       (5, '00000000-0000-0000-0000-000000000002'),
-       (5, '00000000-0000-0000-0000-000000000003'),
-       (5, '00000000-0000-0000-0000-000000000013'),
-       (5, '00000000-0000-0000-0000-000000000014'),
-       (6, '00000000-0000-0000-0000-000000000001'),
-       (6, '00000000-0000-0000-0000-000000000002'),
-       (6, '00000000-0000-0000-0000-000000000003'),
-       (6, '00000000-0000-0000-0000-000000000015'),
-       (6, '00000000-0000-0000-0000-000000000016'),
-       (6, '00000000-0000-0000-0000-000000000022'),
-       (7, '00000000-0000-0000-0000-000000000019'),
-       (7, '00000000-0000-0000-0000-000000000009'),
-       (7, '00000000-0000-0000-0000-000000000010'),
-       (7, '00000000-0000-0000-0000-000000000001'),
-       (7, '00000000-0000-0000-0000-000000000002'),
-       (7, '00000000-0000-0000-0000-000000000003'),
-       (8, '00000000-0000-0000-0000-000000000001'),
-       (8, '00000000-0000-0000-0000-000000000002'),
-       (8, '00000000-0000-0000-0000-000000000003'),
-       (8, '00000000-0000-0000-0000-000000000015'),
-       (8, '00000000-0000-0000-0000-000000000016'),
-       (8, '00000000-0000-0000-0000-000000000022'),
-       (9, '00000000-0000-0000-0000-000000000001'),
-       (9, '00000000-0000-0000-0000-000000000002'),
-       (9, '00000000-0000-0000-0000-000000000003'),
-       (9, '00000000-0000-0000-0000-000000000005'),
-       (9, '00000000-0000-0000-0000-000000000006'),
-       (9, '00000000-0000-0000-0000-000000000017'),
-       (9, '00000000-0000-0000-0000-000000000023'),
-       (10, '00000000-0000-0000-0000-000000000001'),
-       (10, '00000000-0000-0000-0000-000000000002'),
-       (10, '00000000-0000-0000-0000-000000000003'),
-       (10, '00000000-0000-0000-0000-000000000011'),
-       (10, '00000000-0000-0000-0000-000000000012'),
-       (10, '00000000-0000-0000-0000-000000000020');
+INSERT INTO public.room (id, name) VALUES (14, 'C41');
+INSERT INTO public.room (id, name) VALUES (15, 'G02');
+INSERT INTO public.room (id, name) VALUES (16, 'J03');
+INSERT INTO public.room (id, name) VALUES (17, 'C23');
+INSERT INTO public.room (id, name) VALUES (18, 'F01');
+INSERT INTO public.room (id, name) VALUES (23, 'G04');
+INSERT INTO public.room (id, name) VALUES (24, 'G03');
+INSERT INTO public.room (id, name) VALUES (25, 'H03');
+INSERT INTO public.room (id, name) VALUES (26, 'C37');
 
 
-DO
-$$
-    DECLARE
-        current_date DATE := CURRENT_DATE;
-    BEGIN
-        INSERT INTO class_session (id, school_class_fk, dt_session)
-        VALUES ('11111111-1111-1111-1111-111111111111', 1, current_date - INTERVAL '14 days'),
-               ('11111111-1111-1111-1111-111111111112', 1, current_date - INTERVAL '7 days'),
-               ('11111111-1111-1111-1111-211111111123', 1, current_date - INTERVAL '8 days'),
-               ('11111111-1111-1111-1111-311111111123', 1, current_date - INTERVAL '4 days'),
-               ('11111111-1111-1111-1111-411111111123', 1, current_date - INTERVAL '9 days'),
-               ('11111111-1111-1111-1111-511111111123', 1, current_date - INTERVAL '10 days'),
-               ('11111111-1111-1111-1111-111111111113', 2, current_date - INTERVAL '13 days'),
-               ('11111111-1111-1111-1111-111111111114', 2, current_date - INTERVAL '6 days'),
-               ('11111111-1111-1111-1111-111111111124', 2, current_date - INTERVAL '4 days'),
-               ('11111111-1111-1111-1111-111111111125', 3, current_date - INTERVAL '1 days'),
-               ('11111111-1111-1111-1111-111111111115', 3, current_date - INTERVAL '12 days'),
-               ('11111111-1111-1111-1111-111111111116', 3, current_date - INTERVAL '5 days'),
-               ('11111111-1111-1111-1111-111111111117', 4, current_date - INTERVAL '11 days'),
-               ('11111111-1111-1111-1111-111111111118', 4, current_date - INTERVAL '4 days'),
-               ('11111111-1111-1111-1111-111111111126', 4, current_date - INTERVAL '3 days'),
-               ('11111111-1111-1111-1111-111111111127', 5, current_date - INTERVAL '5 days'),
-               ('11111111-1111-1111-1111-111111111119', 5, current_date - INTERVAL '10 days'),
-               ('11111111-1111-1111-1111-111111111120', 5, current_date - INTERVAL '3 days'),
-               ('11111111-1111-1111-1111-111111111121', 6, current_date - INTERVAL '9 days'),
-               ('11111111-1111-1111-1111-111111111122', 6, current_date - INTERVAL '2 days'),
-               ('11111111-1111-1111-1111-111111111128', 6, current_date - INTERVAL '6 days'),
-                ('11111111-1111-1111-1111-111111111129', 7, current_date - INTERVAL '8 days'),
-                ('11111111-1111-1111-1111-111111111130', 7, current_date - INTERVAL '1 days'),
-                ('11111111-1111-1111-1111-111111111131', 7, current_date - INTERVAL '7 days'),
-                ('11111111-1111-1111-1111-111111111132', 8, current_date - INTERVAL '10 days'),
-                ('11111111-1111-1111-1111-111111111133', 8, current_date - INTERVAL '3 days'),
-                ('11111111-1111-1111-1111-111111111134', 8, current_date - INTERVAL '5 days'),
-                ('11111111-1111-1111-1111-111111111135', 9, current_date - INTERVAL '7 days'),
-                ('11111111-1111-1111-1111-111111111136', 9, current_date - INTERVAL '2 days'),
-                ('11111111-1111-1111-1111-111111111137', 9, current_date - INTERVAL '4 days'),
-                ('11111111-1111-1111-1111-111111111138', 10, current_date - INTERVAL '6 days'),
-                ('11111111-1111-1111-1111-111111111139', 10, current_date - INTERVAL '1 days'),
-                ('11111111-1111-1111-1111-111111111140', 10, current_date - INTERVAL '3 days');
-    END
-$$;
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (16, 'P1', 18, 1, '09:15:00', '12:45:00', 14, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (17, 'C1', 19, 3, '18:30:00', '20:50:00', 15, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (18, 'L1', 19, 4, '18:30:00', '20:50:00', 16, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (19, 'L1', 20, 4, '14:55:00', '16:30:00', 15, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (20, 'C1', 20, 4, '13:15:00', '14:45:00', 15, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (21, 'L1', 21, 1, '14:00:00', '16:30:00', 14, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (22, 'C1', 21, 1, '14:00:00', '16:30:00', 14, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (23, 'L1', 22, 3, '16:35:00', '18:05:00', 17, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'B');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (24, 'C1', 22, 1, '16:35:00', '18:05:00', 18, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'AB');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (25, 'C1', 23, 3, '13:15:00', '14:45:00', 17, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'AB');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (26, 'L1', 23, 3, '14:55:00', '16:30:00', 17, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'B');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (35, 'C1', 27, 1, '13:15:00', '14:45:00', 23, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (36, 'L1', 27, 1, '14:55:00', '16:30:00', 23, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (37, 'C1', 28, 0, '14:55:00', '16:30:00', 24, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (38, 'L1', 28, 4, '10:25:00', '12:00:00', 25, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (39, 'L1', 29, 4, '15:45:00', '18:05:00', 16, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (40, 'C1', 29, 4, '13:15:00', '15:40:00', 16, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (41, 'L1', 22, 3, '14:55:00', '16:30:00', 26, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (42, 'L1', 30, 3, '16:35:00', '18:05:00', 26, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (43, 'C1', 30, 0, '13:15:00', '14:45:00', 17, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+INSERT INTO public.school_class (id, name, course_fk, day_of_week, dt_start, dt_end, room_fk, teacher_fk, class_group) VALUES (44, 'L1', 23, 4, '08:30:00', '10:00:00', 25, '66daeef4-7487-4601-87ce-f744f8d66b2b', 'A');
+
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (16, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (16, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (16, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (17, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (17, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (17, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (17, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (18, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (18, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (18, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (18, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (19, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (19, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (19, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (20, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (20, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (20, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (21, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (21, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (21, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (22, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (22, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (22, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (23, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (23, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (23, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (23, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (41, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (24, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (24, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (24, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (24, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (24, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (25, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (25, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (25, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (25, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (25, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (26, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (26, '5a7e665c-c994-464d-a16a-6e1e150f7f30');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (26, '5d01dcc6-6aa3-4d61-9c79-b4a26359f1e0');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (26, '0e0996bb-123b-4b9b-8ad4-142bc2c5d9e7');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (44, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (35, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (35, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (36, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (36, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (37, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (38, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (39, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (39, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (40, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (40, '8e4112a3-e7d0-4a37-9ffe-f7e2ad265076');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (42, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+INSERT INTO public.class_student (class_fk, student_fk) VALUES (43, '888e4b08-b4d5-4cd7-bfb0-921918170710');
+
+
+
+
+
+INSERT INTO class_session (id, school_class_fk, dt_session)
+VALUES  ('11111111-1111-1111-1111-111111111111', 16, '2024-08-20 09:15:00'::timestamp),
+        ('11111111-1111-1111-1111-111111111112', 17, '2024-08-22 18:30:00'::timestamp),
+        ('11111111-1111-1111-1111-211111111123', 18, '2024-08-23 18:30:00'::timestamp),
+        ('11111111-1111-1111-1111-311111111124', 19, '2024-08-23 14:55:00'::timestamp),
+        ('11111111-1111-1111-1111-411111111125', 20, '2024-08-23 13:15:00'::timestamp),
+        ('11111111-1111-1111-1111-511111111126', 21, '2024-08-20 14:00:00'::timestamp),
+        ('11111111-1111-1111-1111-611111111127', 22, '2024-08-20 14:00:00'::timestamp),
+        ('11111111-1111-1111-1111-711111111128', 23, '2024-08-22 16:35:00'::timestamp),
+        ('11111111-1111-1111-1111-811111111129', 24, '2024-08-20 16:35:00'::timestamp),
+        ('11111111-1111-1111-1111-911111111130', 25, '2024-08-22 13:15:00'::timestamp),
+        ('11111111-1111-1111-1111-101111111131', 26, '2024-08-22 14:55:00'::timestamp),
+        ('11111111-1111-1111-1111-111111111132', 35, '2024-08-20 13:15:00'::timestamp),
+        ('11111111-1111-1111-1111-121111111133', 36, '2024-08-20 14:55:00'::timestamp),
+        ('11111111-1111-1111-1111-131111111134', 37, '2024-08-19 14:55:00'::timestamp),
+        ('11111111-1111-1111-1111-141111111135', 38, '2024-08-23 10:25:00'::timestamp),
+        ('11111111-1111-1111-1111-151111111136', 39, '2024-08-23 15:45:00'::timestamp),
+        ('11111111-1111-1111-1111-161111111137', 40, '2024-08-23 13:15:00'::timestamp),
+        ('11111111-1111-1111-1111-171111111138', 41, '2024-08-22 14:55:00'::timestamp),
+        ('11111111-1111-1111-1111-181111111139', 42, '2024-08-22 16:35:00'::timestamp),
+        ('11111111-1111-1111-1111-191111111140', 43, '2024-08-19 13:15:00'::timestamp),
+        ('11111111-1111-1111-1111-201111111141', 44, '2024-08-23 08:30:00'::timestamp),
+        ('11111111-1111-1111-1111-211111111142', 16, ('2024-08-20 09:15:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-221111111143', 17, ('2024-08-22 18:30:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-231111111144', 18, ('2024-08-23 18:30:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-241111111145', 19, ('2024-08-23 14:55:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-251111111146', 20, ('2024-08-23 13:15:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-261111111147', 21, ('2024-08-20 14:00:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-271111111148', 22, ('2024-08-20 14:00:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-281111111149', 23, ('2024-08-22 16:35:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-291111111150', 24, ('2024-08-20 16:35:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-301111111151', 25, ('2024-08-22 13:15:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-311111111152', 26, ('2024-08-22 14:55:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-321111111153', 35, ('2024-08-20 13:15:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-331111111154', 36, ('2024-08-20 14:55:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-341111111155', 37, ('2024-08-19 14:55:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-351111111156', 38, ('2024-08-23 10:25:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-361111111157', 39, ('2024-08-23 15:45:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-371111111158', 40, ('2024-08-23 13:15:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-381111111159', 41, ('2024-08-22 14:55:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-391111111160', 42, ('2024-08-22 16:35:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-401111111161', 43, ('2024-08-19 13:15:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-411111111162', 44, ('2024-08-23 08:30:00'::timestamp + interval '1 week')),
+        ('11111111-1111-1111-1111-421111111163', 16, ('2024-08-20 09:15:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-431111111164', 17, ('2024-08-22 18:30:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-441111111165', 18, ('2024-08-23 18:30:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-451111111166', 19, ('2024-08-23 14:55:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-461111111167', 20, ('2024-08-23 13:15:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-471111111168', 21, ('2024-08-20 14:00:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-481111111169', 22, ('2024-08-20 14:00:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-491111111170', 23, ('2024-08-22 16:35:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-501111111171', 24, ('2024-08-20 16:35:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-511111111172', 25, ('2024-08-22 13:15:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-521111111173', 26, ('2024-08-22 14:55:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-531111111174', 35, ('2024-08-20 13:15:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-541111111175', 36, ('2024-08-20 14:55:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-551111111176', 37, ('2024-08-19 14:55:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-561111111177', 38, ('2024-08-23 10:25:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-571111111178', 39, ('2024-08-23 15:45:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-581111111179', 40, ('2024-08-23 13:15:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-591111111180', 41, ('2024-08-22 14:55:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-601111111181', 42, ('2024-08-22 16:35:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-611111111182', 43, ('2024-08-19 13:15:00'::timestamp + interval '2 week')),
+        ('11111111-1111-1111-1111-621111111183', 44, ('2024-08-23 08:30:00'::timestamp + interval '2 week'));
+
+
 
 INSERT INTO presence (id, student_fk, class_session_fk)
-VALUES ('22222222-2222-2222-2222-222222222221', '00000000-0000-0000-0000-000000000001', '11111111-1111-1111-1111-111111111111'),
-       ('22222222-2222-2222-2222-226622222223', '00000000-0000-0000-0000-000000000002', '11111111-1111-1111-1111-111111111111'),
-       ('22222222-2222-2222-2222-226222222223', '00000000-0000-0000-0000-000000000003', '11111111-1111-1111-1111-111111111111'),
-       ('33333333-3333-3333-3333-333333333308', '00000000-0000-0000-0000-000000000005', '11111111-1111-1111-1111-111111111111'),
-       ('22222222-2222-2222-2222-222442222239', '00000000-0000-0000-0000-000000000006', '11111111-1111-1111-1111-111111111111'),
-       ('22222222-2222-2222-2222-211222222239', '00000000-0000-0000-0000-000000000017', '11111111-1111-1111-1111-111111111111'),
-       ('22222222-2222-2222-2222-222222002239', '00000000-0000-0000-0000-000000000023', '11111111-1111-1111-1111-111111111111'),
+--- AST Mardi ---
+VALUES  ('11111111-1111-1111-1111-111111111111', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-111111111111'),
+        ('11111111-1111-1111-1111-121111111112', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-111111111111'),
 
-       ('22222222-2222-2222-2222-222222222224', '00000000-0000-0000-0000-000000000001', '11111111-1111-1111-1111-111111111112'),
-       ('22222222-2222-2222-2222-222222222225', '00000000-0000-0000-0000-000000000002', '11111111-1111-1111-1111-111111111112'),
-       ('33333333-3333-3333-3333-333333333309', '00000000-0000-0000-0000-000000000006', '11111111-1111-1111-1111-111111111112'),
+        --- WEB Jeudi ---
+        ('11111111-1111-1111-1111-111111111113', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-111111111112'),
+        ('11111111-1111-1111-1111-111111111114', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-111111111112'),
+        ('11111111-1111-1111-1111-111111111115', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-111111111112'),
 
-        ('22222222-2222-2222-2222-222222222226', '00000000-0000-0000-0000-000000000001', '11111111-1111-1111-1111-211111111123'),
-        ('22222222-2222-2222-2222-222222222223', '00000000-0000-0000-0000-000000000002', '11111111-1111-1111-1111-211111111123'),
+        --- WEB Vendredi ---
+        ('11111111-1111-1111-1111-111111111116', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-211111111123'),
+        ('11111111-1111-1111-1111-111111111118', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-211111111123'),
+
+        -- SOS Labo vendredi --
+        ('11111111-1111-1111-1111-111111111119', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-311111111124'),
+        ('11111111-1111-1111-1111-111111111120', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-311111111124'),
+
+        -- SOS Cours vendredi --
+        ('11111111-1111-1111-1111-111111111123', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-411111111125'),
+        ('11111111-1111-1111-1111-111111111124', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-411111111125'),
+
+        -- SLB Labo mardi --
+        ('11111111-1111-1111-1111-111111111125', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-511111111126'),
+        ('11111111-1111-1111-1111-111111111127', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-511111111126'),
+
+        -- SLB Cours mardi --
+        ('11111111-1111-1111-1111-111111111128', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-611111111127'),
+        ('11111111-1111-1111-1111-111111111129', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-611111111127'),
+
+        -- DAA-TIC Labo jeudi --
+        ('11111111-1111-1111-1111-111111111130', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-711111111128'),
+        ('11111111-1111-1111-1111-111111111131', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-711111111128'),
+        ('11111111-1111-1111-1111-111111111133', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-711111111128'),
+
+        -- DAA-TIC Cours mardi --
+        ('11111111-1111-1111-1111-111111111134', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-811111111129'),
+        ('11111111-1111-1111-1111-111111111137', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-811111111129'),
+
+        -- SLH Cours jeudi --
+        ('11111111-1111-1111-1111-111111111139', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-911111111130'),
+        ('11111111-1111-1111-1111-111111111141', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-911111111130'),
+        ('11111111-1111-1111-1111-111111111142', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-911111111130'),
+        ('11111111-1111-1111-1111-111111111143', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-911111111130'),
+
+        -- SLH Labo jeudi --
+        ('11111111-1111-1111-1111-111111111144', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-101111111131'),
+        ('11111111-1111-1111-1111-111111111145', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-101111111131'),
+        ('11111111-1111-1111-1111-111111111147', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-101111111131'),
+
+        -- SDR Cours mardi --
+        ('11111111-1111-1111-1111-111111111152', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-111111111132'),
+
+        -- SDR Labo mardi --
+
+        -- SIO Cours lundi --
+
+        -- SIO Labo vendredi --
+
+        -- AMT Labo vendredi --
+        ('11111111-1111-1111-1111-111111111159', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-151111111136'),
+        ('11111111-1111-1111-1111-111111111160', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-151111111136'),
+
+        -- AMT Cours vendredi --
+        ('11111111-1111-1111-1111-111111111161', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-161111111137'),
+
+        -- DAA-TIC Labo jeudi --
+        ('11111111-1111-1111-1111-111111111164', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-171111111138'),
+
+        -- MAC Labo jeudi --
+        ('11111111-1111-1111-1111-111111111167', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-181111111139'),
+
+        -- MAC Cours lundi --
+        ('11111111-1111-1111-1111-111111111169', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-191111111140'),
+
+        -- SLH Labo vendredi --
+        ('11111111-1111-1111-1111-111112111172', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-201111111141'),
+
+        -- AST Mardi --
+        ('11111111-1111-1111-1111-111112111173', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-211111111142'),
+        ('11111111-1111-1111-1111-111112111174', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-211111111142'),
+        ('11111111-1111-1111-1111-111112111175', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-211111111142'),
+
+        -- WEB Jeudi --
+        ('11111111-1111-1111-1111-111112111176', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-221111111143'),
+        ('11111111-1111-1111-1111-111112111177', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-221111111143'),
+
+        -- WEB Vendredi --
+        ('11111111-1111-1111-1111-111112111178', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-231111111144'),
+        ('11111111-1111-1111-1111-111112111179', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-231111111144'),
+        ('11111111-1111-1111-1111-111112111180', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-231111111144'),
+
+        -- SOS Labo vendredi --
+        ('11111111-1111-1111-1111-111112111183', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-241111111145'),
+
+        -- SOS Cours vendredi --
+        ('11111111-1111-1111-1111-111112111184', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-251111111146'),
+        ('11111111-1111-1111-1111-111112111185', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-251111111146'),
+        ('11111111-1111-1111-1111-111112111186', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-251111111146'),
+
+        -- SLB Labo mardi --
+        ('11111111-1111-1111-1111-111112111187', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-261111111147'),
+        ('11111111-1111-1111-1111-111112111189', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-261111111147'),
+
+        -- SLB Cours mardi --
+        ('11111111-1111-1111-1111-111112111190', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-271111111148'),
+        ('11111111-1111-1111-1111-111112111191', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-271111111148'),
+        ('11111111-1111-1111-1111-111112111192', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-271111111148'),
+
+        -- DAA-TIC Labo jeudi --
+        ('11111111-1111-1111-1111-111112111193', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-281111111149'),
+        ('11111111-1111-1111-1111-111112111194', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-281111111149'),
+        ('11111111-1111-1111-1111-111112111196', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-281111111149'),
+
+        -- DAA-TIC Cours mardi --
+        ('11111111-1111-1111-1111-111112111197', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-291111111150'),
+        ('11111111-1111-1111-1111-111112111199', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-291111111150'),
+        ('11111111-1111-1111-1111-111112111200', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-291111111150'),
+
+        -- SLH Cours jeudi --
+        ('11111111-1111-1111-1111-111112111201', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-301111111151'),
+        ('11111111-1111-1111-1111-111112111203', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-301111111151'),
+        ('11111111-1111-1111-1111-111112111204', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-301111111151'),
+
+        -- SLH Labo jeudi --
+        ('11111111-1111-1111-1111-111112111206', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-311111111152'),
+        ('11111111-1111-1111-1111-111112111209', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-311111111152'),
+
+        -- SDR Cours mardi --
+        ('11111111-1111-1111-1111-111112111210', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-321111111153'),
+        ('11111111-1111-1111-1111-111112111211', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-321111111153'),
+
+        -- SDR Labo mardi --
+        ('11111111-1111-1111-1111-111112111213', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-331111111154'),
+
+        -- SIO Cours lundi --
+
+        -- SIO Labo vendredi --
+
+        -- AMT Labo vendredi --
+        ('11111111-1111-1111-1111-111112111217', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-361111111157'),
+
+        -- AMT Cours vendredi --
+        ('11111111-1111-1111-1111-111112111218', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-371111111158'),
+        ('11111111-1111-1111-1111-111112111219', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-371111111158'),
+
+        -- DAA-TIC Labo jeudi --
+        ('11111111-1111-1111-1111-111112111220', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-381111111159'),
+
+        -- MAC Labo jeudi --
+
+        -- MAC Cours lundi --
+
+        -- SLH Labo vendredi --
+
+        -- AST Mardi --
+        ('11111111-1111-1111-1111-111112111225', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-421111111163'),
+        ('11111111-1111-1111-1111-111112111227', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-421111111163'),
+
+        -- WEB Jeudi --
+        ('11111111-1111-1111-1111-111112111228', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-431111111164'),
+        ('11111111-1111-1111-1111-111112111229', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-431111111164'),
+
+        -- WEB Vendredi --
+        ('11111111-1111-1111-1111-111112111230', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-441111111165'),
+        ('11111111-1111-1111-1111-111112111232', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-441111111165'),
+
+        -- SOS Labo vendredi --
+        ('11111111-1111-1111-1111-111112111233', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-451111111166'),
+        ('11111111-1111-1111-1111-111112111235', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-451111111166'),
+
+        -- SOS Cours vendredi --
+        ('11111111-1111-1111-1111-111112111236', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-461111111167'),
+        ('11111111-1111-1111-1111-111112111237', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-461111111167'),
+        ('11111111-1111-1111-1111-111112111238', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-461111111167'),
+
+        -- SLB Labo mardi --
+        ('11111111-1111-1111-1111-111112111239', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-471111111168'),
+        ('11111111-1111-1111-1111-111112111240', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-471111111168'),
+        ('11111111-1111-1111-1111-111112111241', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-471111111168'),
+
+        -- SLB Cours mardi --
+        ('11111111-1111-1111-1111-111112111242', (SELECT id FROM person WHERE name IN ('Christophe Roulin')), '11111111-1111-1111-1111-481111111169'),
+        ('11111111-1111-1111-1111-111112111243', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-481111111169'),
+        ('11111111-1111-1111-1111-111112111244', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-481111111169'),
+
+        -- DAA-TIC Labo jeudi --
+        ('11111111-1111-1111-1111-111112111246', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-491111111170'),
+        ('11111111-1111-1111-1111-111112111247', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-491111111170'),
+        ('11111111-1111-1111-1111-111112111248', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-491111111170'),
+
+        -- DAA-TIC Cours mardi --
+        ('11111111-1111-1111-1111-111112111250', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-501111111171'),
+        ('11111111-1111-1111-1111-111112111251', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-501111111171'),
+        ('11111111-1111-1111-1111-111112111252', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-501111111171'),
+
+        -- SLH Cours jeudi --
+        ('11111111-1111-1111-1111-111112111254', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-511111111172'),
+        ('11111111-1111-1111-1111-111112111255', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-511111111172'),
+        ('11111111-1111-1111-1111-111112111257', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-511111111172'),
+
+        -- SLH Labo jeudi --
+        ('11111111-1111-1111-1111-111112111259', (SELECT id FROM person WHERE name IN ('Léa Cherpillod')), '11111111-1111-1111-1111-521111111173'),
+        ('11111111-1111-1111-1111-111112111260', (SELECT id FROM person WHERE name IN ('Sacha Butty')), '11111111-1111-1111-1111-521111111173'),
+        ('11111111-1111-1111-1111-111112111261', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-521111111173'),
 
 
-        ('22222222-2222-2222-2222-222222222231', '00000000-0000-0000-0000-000000000001', '11111111-1111-1111-1111-411111111123'),
-        ('22222222-2222-2222-2222-224222222232', '00000000-0000-0000-0000-000000000002', '11111111-1111-1111-1111-411111111123'),
-        ('22222222-2222-2222-2222-222222222233', '00000000-0000-0000-0000-000000000003', '11111111-1111-1111-1111-411111111123'),
+        -- SDR Cours mardi --
+        ('11111111-1111-1111-1111-111112111262', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-531111111174'),
+        ('11111111-1111-1111-1111-111112111263', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-531111111174'),
 
-        ('22222222-2222-2222-2222-224422222234', '00000000-0000-0000-0000-000000000005', '11111111-1111-1111-1111-511111111123'),
+        -- SDR Labo mardi --
+        ('11111111-1111-1111-1111-111112111264', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-541111111175'),
 
+        -- SIO Cours lundi --
+        ('11111111-1111-1111-1111-111112111266', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-551111111176'),
 
-       ('22222222-2222-2222-2222-222222222227', '00000000-0000-0000-0000-000000000001', '11111111-1111-1111-1111-111111111113'),
-       ('22222222-2222-2222-2222-222222222228', '00000000-0000-0000-0000-000000000002', '11111111-1111-1111-1111-111111111113'),
-       ('22222222-2222-2222-2222-222222222299', '00000000-0000-0000-0000-000000000003', '11111111-1111-1111-1111-111111111113'),
-       ('22222222-2222-2222-2222-222222222232', '00000000-0000-0000-0000-000000000007', '11111111-1111-1111-1111-111111111113'),
-       ('22222222-2222-2222-2222-222222272233', '00000000-0000-0000-0000-000000000008', '11111111-1111-1111-1111-111111111113'),
-       ('22222222-2222-2222-2222-222222222234', '00000000-0000-0000-0000-000000000009', '11111111-1111-1111-1111-111111111114'),
-       ('22222222-2222-2222-2222-222222222235', '00000000-0000-0000-0000-000000000010', '11111111-1111-1111-1111-111111111115'),
-       ('22222222-2222-2222-2222-222222222236', '00000000-0000-0000-0000-000000000011', '11111111-1111-1111-1111-111111111116'),
-       ('22222222-2222-2222-2222-222222222237', '00000000-0000-0000-0000-000000000012', '11111111-1111-1111-1111-111111111117'),
-       ('22222222-2222-2222-2222-222222222238', '00000000-0000-0000-0000-000000000013', '11111111-1111-1111-1111-111111111118'),
-       ('22222222-2222-2222-2222-222299222239', '00000000-0000-0000-0000-000000000014', '11111111-1111-1111-1111-111111111119'),
-       ('22222222-2222-2222-2222-222222222240', '00000000-0000-0000-0000-000000000015', '11111111-1111-1111-1111-111111111120'),
-       ('22222222-2222-2222-2222-222222222241', '00000000-0000-0000-0000-000000000016', '11111111-1111-1111-1111-111111111121'),
-       ('22222222-2222-2222-2222-222222222242', '00000000-0000-0000-0000-000000000017', '11111111-1111-1111-1111-111111111122'),
-       ('22222222-2222-2222-2222-222222222244', '00000000-0000-0000-0000-000000000019', '11111111-1111-1111-1111-111111111124'),
-       ('22222222-2222-2222-2222-222222222245', '00000000-0000-0000-0000-000000000020', '11111111-1111-1111-1111-111111111125'),
-       ('22222222-2222-2222-2222-222222222246', '00000000-0000-0000-0000-000000000021', '11111111-1111-1111-1111-111111111126'),
-       ('22222222-2222-2222-2222-222222222247', '00000000-0000-0000-0000-000000000022', '11111111-1111-1111-1111-111111111127'),
-       ('22222222-2222-2222-2222-222222222248', '00000000-0000-0000-0000-000000000023', '11111111-1111-1111-1111-111111111128'),
-       ('22222222-2222-2222-2222-222222222249', '00000000-0000-0000-0000-000000000024', '11111111-1111-1111-1111-111111111128'),
-       ('33333333-3333-3333-3333-333333333305', '00000000-0000-0000-0000-000000000002', '11111111-1111-1111-1111-111111111113'),
-       ('33333333-3333-3333-3333-333333333306', '00000000-0000-0000-0000-000000000002', '11111111-1111-1111-1111-111111111117'),
-       ('33333333-3333-3333-3333-333333333307', '00000000-0000-0000-0000-000000000003', '11111111-1111-1111-1111-111111111119'),
-       ('33333333-3333-3333-3333-333333333310', '00000000-0000-0000-0000-000000000007', '11111111-1111-1111-1111-111111111113'),
-       ('33333333-3333-3333-3333-333333333311', '00000000-0000-0000-0000-000000000008', '11111111-1111-1111-1111-111111111114'),
-       ('33333333-3333-3333-3333-333333333312', '00000000-0000-0000-0000-000000000009', '11111111-1111-1111-1111-111111111115'),
-       ('33333333-3333-3333-3333-333333333313', '00000000-0000-0000-0000-000000000010', '11111111-1111-1111-1111-111111111116'),
-       ('33333333-3333-3333-3333-333333333314', '00000000-0000-0000-0000-000000000011', '11111111-1111-1111-1111-111111111117'),
-       ('33333333-3333-3333-3333-333333333315', '00000000-0000-0000-0000-000000000012', '11111111-1111-1111-1111-111111111118'),
-       ('33333333-3333-3333-3333-333333333316', '00000000-0000-0000-0000-000000000013', '11111111-1111-1111-1111-111111111119'),
-       ('33333333-3333-3333-3333-333333333317', '00000000-0000-0000-0000-000000000014', '11111111-1111-1111-1111-111111111120'),
-       ('33333333-3333-3333-3333-333333333318', '00000000-0000-0000-0000-000000000015', '11111111-1111-1111-1111-111111111121'),
-       ('33333333-3333-3333-3333-333333333319', '00000000-0000-0000-0000-000000000016', '11111111-1111-1111-1111-111111111122'),
-       ('33333333-3333-3333-3333-333333333321', '00000000-0000-0000-0000-000000000018', '11111111-1111-1111-1111-111111111124'),
-       ('33333333-3333-3333-3333-333333333322', '00000000-0000-0000-0000-000000000019', '11111111-1111-1111-1111-111111111125'),
-       ('33333333-3333-3333-3333-333333333323', '00000000-0000-0000-0000-000000000020', '11111111-1111-1111-1111-111111111126'),
-       ('33333333-3333-3333-3333-333333333324', '00000000-0000-0000-0000-000000000021', '11111111-1111-1111-1111-111111111127'),
-       ('33333333-3333-3333-3333-333333333325', '00000000-0000-0000-0000-000000000022', '11111111-1111-1111-1111-111111111128'),
-       ('33333333-3333-3333-3333-333333333326', '00000000-0000-0000-0000-000000000023', '11111111-1111-1111-1111-111111111128'),
-       ('33333333-3333-3333-3333-333333333327', '00000000-0000-0000-0000-000000000024', '11111111-1111-1111-1111-111111111128');
+        -- SIO Labo vendredi --
+        ('11111111-1111-1111-1111-111112111267', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-561111111177'),
+
+        -- AMT Labo vendredi --
+        ('11111111-1111-1111-1111-111112111270', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-571111111178'),
+
+        -- AMT Cours vendredi --
+        ('11111111-1111-1111-1111-111112111271', (SELECT id FROM person WHERE name IN ('Loic Herman')), '11111111-1111-1111-1111-581111111179'),
+
+        -- DAA-TIC Labo jeudi --
+
+        -- MAC Labo jeudi --
+
+        -- MAC Cours lundi --
+        ('11111111-1111-1111-1111-111112111279', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-611111111182'),
+
+        -- SLH Labo vendredi --
+        ('11111111-1111-1111-1111-111112111281', (SELECT id FROM person WHERE name IN ('Massimo Stefani')), '11111111-1111-1111-1111-621111111183');
