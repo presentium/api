@@ -16,7 +16,8 @@ import ch.presentium.backend.api.reference.SchoolClassRef;
 import ch.presentium.backend.api.reference.StudentRef;
 import ch.presentium.backend.api.schedule.model.PresenceViewModel;
 import ch.presentium.backend.business.repository.PresenceRepository;
-import ch.presentium.backend.security.WithMockStudentUser;
+import ch.presentium.backend.business.repository.UserRepository;
+import ch.presentium.backend.security.WithMockTeacherUser;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -34,12 +35,15 @@ class PresenceControllerTest extends AbstractControllerTest {
     @MockBean
     private PresenceRepository presenceRepository;
 
+    @MockBean
+    private UserRepository userRepository;
+
     @Nested
     @DisplayName("GET /v1/presences")
     class GetPresences {
 
         @Test
-        @WithMockStudentUser
+        @WithMockTeacherUser
         void getPresences() throws Exception {
             when(presenceRepository.calculateAttendance(anyLong(), any(), any())).thenReturn(
                 List.of(
